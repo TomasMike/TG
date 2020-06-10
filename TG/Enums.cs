@@ -46,4 +46,21 @@ namespace TG.Enums
 		G15,
 		G25,
 	}
+
+    public enum CharacterName
+    {
+        Beor,
+        Ailei,
+        Maggot,
+        Arev,
+        Niamh
+    }
+
+    public enum CharacterArchetype
+    {
+        Blue,
+        Gray,
+        Green,
+        Brown
+    }
 }

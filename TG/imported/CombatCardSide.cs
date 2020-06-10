@@ -5,7 +5,7 @@ using TG.Enums;
 
 namespace TG
 {
-	public class CardSide
+	public class CombatCardSide
 	{
 		public KeyValue BearKey;
 		public KeyValue PigKey;

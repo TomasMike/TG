@@ -17,7 +17,7 @@ namespace TG
 					Name = "Careful Attack",
 					CardSet = CardSet.G25,
 					CardNumberInSet = 1,
-					LeftSide = new CardSide
+					LeftSide = new CombatCardSide
 					{
 						BearKey = KeyValue.OneDamage,
 						PigKey = KeyValue.NoKey,
@@ -25,7 +25,7 @@ namespace TG
 						MagicKey = KeyValue.NoKey,
 						FreeKey = KeyValue.OneDamage
 					},
-					RightSide = new CardSide
+					RightSide = new CombatCardSide
 					{
 						BearKey = KeyValue.OneAtr,
 						PigKey = KeyValue.OneAtr,
@@ -55,7 +55,7 @@ namespace TG
 					CardSet = CardSet.G25,
 					CardNumberInSet = 2,
 					isPassive = true,
-					LeftSide = new CardSide
+					LeftSide = new CombatCardSide
 					{
 						BearKey = KeyValue.NoKey,
 						PigKey = KeyValue.NoKey,
@@ -63,7 +63,7 @@ namespace TG
 						MagicKey = KeyValue.NoKey,
 						FreeKey = KeyValue.OneDamage
 					},
-					RightSide = new CardSide
+					RightSide = new CombatCardSide
 					{
 						BearKey = KeyValue.OneAtr,
 						PigKey = KeyValue.OneAtr,
@@ -107,7 +107,7 @@ namespace TG
 					Name = "Defend",
 					CardSet = CardSet.G25,
 					CardNumberInSet = 3,
-					LeftSide = new CardSide
+					LeftSide = new CombatCardSide
 					{
 						BearKey = KeyValue.NoKey,
 						PigKey = KeyValue.NoKey,
@@ -115,7 +115,7 @@ namespace TG
 						MagicKey = KeyValue.BonusKey,
 						FreeKey = KeyValue.EmptyKey
 					},
-					RightSide = new CardSide
+					RightSide = new CombatCardSide
 					{
 						BearKey = KeyValue.OneAtr,
 						PigKey = KeyValue.NoKey,

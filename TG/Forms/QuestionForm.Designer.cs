@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.myControl1 = new TG.MyControl();
             this.SuspendLayout();
             // 
             // textBox1
@@ -68,11 +69,20 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 3;
             // 
+            // myControl1
+            // 
+            this.myControl1.Location = new System.Drawing.Point(228, 97);
+            this.myControl1.Name = "myControl1";
+            this.myControl1.Size = new System.Drawing.Size(151, 244);
+            this.myControl1.TabIndex = 4;
+            this.myControl1.Text = "myControl1";
+            // 
             // QuestionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 231);
+            this.ClientSize = new System.Drawing.Size(592, 513);
+            this.Controls.Add(this.myControl1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -90,5 +100,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private MyControl myControl1;
     }
 }

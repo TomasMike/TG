@@ -20,7 +20,7 @@ namespace TG
 					{ 3, new List<EnconterAttack> { new EnconterAttack(AttackType.LooseRedCube, 1) } },
 				},
 				TotalHealth = 4,
-				StartingSide = new CardSide
+				StartingSide = new CombatCardSide
 				{
 					BearKey = KeyValue.OneAtr,
 					PigKey = KeyValue.OneAtr,

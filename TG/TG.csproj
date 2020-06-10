@@ -46,33 +46,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asker.cs" />
-    <Compile Include="EnconterAttack.cs" />
-    <Compile Include="Card.cs" />
-    <Compile Include="CardEffect.cs" />
-    <Compile Include="CardLib.cs" />
-    <Compile Include="CardSide.cs" />
+    <Compile Include="Asker\Asker.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="imported\EnconterAttack.cs" />
+    <Compile Include="Libs\NewGameDataLib.cs" />
+    <Compile Include="imported\Card.cs" />
+    <Compile Include="imported\CardLib.cs" />
+    <Compile Include="imported\CombatCardSide.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Core.cs" />
-    <Compile Include="Encounter.cs" />
-    <Compile Include="EncounterLib.cs" />
+    <Compile Include="imported\Encounter.cs" />
+    <Compile Include="imported\EncounterLib.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestionForm.cs">
+    <Compile Include="Forms\NewGameSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuestionForm.Designer.cs">
+    <Compile Include="Forms\NewGameSetup.Designer.cs">
+      <DependentUpon>NewGameSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StartMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartMenu.Designer.cs">
+      <DependentUpon>StartMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Player.cs" />
+    <Compile Include="_Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\QuestionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuestionForm.Designer.cs">
       <DependentUpon>QuestionForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainForm.resx">
+    <Compile Include="SavingLoading\SaveManager.cs" />
+    <Compile Include="SavingLoading\SaveSheet.cs" />
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewGameSetup.resx">
+      <DependentUpon>NewGameSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartMenu.resx">
+      <DependentUpon>StartMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -83,7 +105,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="QuestionForm.resx">
+    <EmbeddedResource Include="Forms\QuestionForm.resx">
       <DependentUpon>QuestionForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -98,6 +120,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="New folder - Copy %283%29\" />
+    <Folder Include="New folder - Copy %284%29\" />
+    <Folder Include="New folder - Copy %285%29\" />
+    <Folder Include="New folder - Copy %286%29\" />
+    <Folder Include="New folder - Copy %287%29\" />
+    <Folder Include="New folder - Copy %288%29\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

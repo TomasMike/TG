@@ -5,7 +5,7 @@ namespace TG
 	public class EncounterCard
 	{
 		public string Name;
-		public CardSide StartingSide;
+		public CombatCardSide StartingSide;
 		public Dictionary<int, List<EnconterAttack>> Attacks;
 		public int TotalHealth;
 		public int CurrentDamage;

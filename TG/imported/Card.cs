@@ -10,8 +10,8 @@ namespace TG
 		public CardSet CardSet;
 		public int CardNumberInSet;
 
-		public CardSide LeftSide;
-		public CardSide RightSide;
+		public CombatCardSide LeftSide;
+		public CombatCardSide RightSide;
 
 		public int Charges;
 		public bool isPassive = false;
