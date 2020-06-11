@@ -1,6 +1,6 @@
 ﻿namespace TG.Forms
 {
-    partial class StartMenu
+    partial class StartMenuForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,13 +38,13 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(389, 205);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // StartMenu
+            // StartMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 324);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "StartMenu";
+            this.Name = "StartMenuForm";
             this.Text = "StartMenu";
             this.Load += new System.EventHandler(this.StartMenu_Load);
             this.ResumeLayout(false);

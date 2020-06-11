@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TG.Enums;
 using TG.Forms;
 
 namespace TG
@@ -25,10 +26,12 @@ namespace TG
                 }
             }
 
+            var q = CharacterArchetype.Blue;
+            var x = ((int)q).ToString();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartMenu());
+            Application.Run(new _MainForm());
             //Application.Run(new MainForm());
         }
     }

@@ -47,20 +47,27 @@ namespace TG.Enums
 		G25,
 	}
 
-    public enum CharacterName
-    {
-        Beor,
-        Ailei,
-        Maggot,
-        Arev,
-        Niamh
-    }
+	public enum CharacterName
+	{
+		Beor,
+		Ailei,
+		Maggot,
+		Arev,
+		Niamh
+	}
 
-    public enum CharacterArchetype
-    {
-        Blue,
-        Gray,
-        Green,
-        Brown
-    }
+	public enum CharacterArchetype
+	{
+		Blue,
+		Gray,
+		Green,
+		Brown
+	}
+
+	public enum LocationSetlementTypeEnum
+	{
+		None,
+		FriendlySettlement,
+		HostileSettlement,
+	}
 }

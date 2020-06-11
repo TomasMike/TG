@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asker\Asker.cs" />
+    <Compile Include="CustomControls\MapPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\LocationsLib.cs" />
+    <Compile Include="CustomControls\LocationCardControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="imported\EnconterAttack.cs" />
     <Compile Include="Libs\NewGameDataLib.cs" />
@@ -58,23 +66,23 @@
     <Compile Include="imported\Encounter.cs" />
     <Compile Include="imported\EncounterLib.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Forms\_MainForm.Designer.cs">
+      <DependentUpon>_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NewGameSetup.cs">
+    <Compile Include="Forms\NewGameSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NewGameSetup.Designer.cs">
-      <DependentUpon>NewGameSetup.cs</DependentUpon>
+    <Compile Include="Forms\NewGameSetupForm.Designer.cs">
+      <DependentUpon>NewGameSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\StartMenu.cs">
+    <Compile Include="Forms\StartMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\StartMenu.Designer.cs">
-      <DependentUpon>StartMenu.cs</DependentUpon>
+    <Compile Include="Forms\StartMenuForm.Designer.cs">
+      <DependentUpon>StartMenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="_Program.cs" />
@@ -87,14 +95,14 @@
     </Compile>
     <Compile Include="SavingLoading\SaveManager.cs" />
     <Compile Include="SavingLoading\SaveSheet.cs" />
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\_MainForm.resx">
+      <DependentUpon>_MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewGameSetup.resx">
-      <DependentUpon>NewGameSetup.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\NewGameSetupForm.resx">
+      <DependentUpon>NewGameSetupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\StartMenu.resx">
-      <DependentUpon>StartMenu.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\StartMenuForm.resx">
+      <DependentUpon>StartMenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,8 +130,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="New folder - Copy %283%29\" />
-    <Folder Include="New folder - Copy %284%29\" />
+    <Folder Include="MapLocations\" />
     <Folder Include="New folder - Copy %285%29\" />
     <Folder Include="New folder - Copy %286%29\" />
     <Folder Include="New folder - Copy %287%29\" />

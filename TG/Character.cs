@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using TG.Enums;
 
 namespace TG
@@ -22,6 +23,8 @@ namespace TG
 		public int CurrentEnergy;
 		public int MaxTerror;
 		public int CurrentTerror;
+
+		public object Skills;
 
 
 

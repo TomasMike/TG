@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <fileName>2020_06_11_12_59_38</fileName>
+  <Players>
+    <Player>
+      <PlayerNumber>0</PlayerNumber>
+      <Character>
+        <CharacterName>Beor</CharacterName>
+        <Archetype>Blue</Archetype>
+        <Bear>222</Bear>
+        <Pig>0</Pig>
+        <Snake>0</Snake>
+        <Dove>0</Dove>
+        <Mouse>0</Mouse>
+        <Owl>0</Owl>
+        <MaxHealth>0</MaxHealth>
+        <CurrentHealth>0</CurrentHealth>
+        <MaxEnergy>0</MaxEnergy>
+        <CurrentEnergy>0</CurrentEnergy>
+        <MaxTerror>0</MaxTerror>
+        <CurrentTerror>0</CurrentTerror>
+      </Character>
+    </Player>
+  </Players>
+</SaveSheet>
