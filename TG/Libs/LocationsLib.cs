@@ -46,7 +46,7 @@ namespace TG.Forms
                     },
                     new LocationCardControl()
                     {
-                        LocationName = "Cuanacht",
+                        LocationName = "Warriors Refuge",
                         LocationNumber = "104",
                         EastDirectionKey = "101",
                         CanHaveMenhir = true,

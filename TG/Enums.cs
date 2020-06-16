@@ -70,4 +70,5 @@ namespace TG.Enums
 		FriendlySettlement,
 		HostileSettlement,
 	}
+
 }

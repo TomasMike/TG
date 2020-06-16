@@ -51,6 +51,12 @@
     <Compile Include="CustomControls\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomControls\CharacterBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\CharacterBoard.Designer.cs">
+      <DependentUpon>CharacterBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Libs\LocationsLib.cs" />
     <Compile Include="CustomControls\LocationCardControl.cs">
       <SubType>Component</SubType>
@@ -95,6 +101,9 @@
     </Compile>
     <Compile Include="SavingLoading\SaveManager.cs" />
     <Compile Include="SavingLoading\SaveSheet.cs" />
+    <EmbeddedResource Include="CustomControls\CharacterBoard.resx">
+      <DependentUpon>CharacterBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\_MainForm.resx">
       <DependentUpon>_MainForm.cs</DependentUpon>
     </EmbeddedResource>

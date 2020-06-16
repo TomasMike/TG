@@ -1,22 +1,24 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using TG.Enums;
 
 namespace TG
 {
-    [DebuggerDisplay("{LocationNumber}", Name = "{LocationName}")]
     public class LocationCardControl : Button
     {
         public LocationCardControl()
         {
-        
+            Size = new Size(60, 120);
+            this.UseVisualStyleBackColor = true;
+            this.Text = this.LocationName;
 
         }
 
         public LocationCardControl(string locationNumber, string locationName, string northDirectionKey, string eastDirectionKey, string southDirectionKey, string westDirectionKey)
+            : base()
         {
-            Size = new Size(100,100);
             NorthDirectionKey = northDirectionKey;
             EastDirectionKey = eastDirectionKey;
             SouthDirectionKey = southDirectionKey;
@@ -25,7 +27,6 @@ namespace TG
             LocationNumber = locationNumber;
             LocationName = locationName;
             Name = LocationName;
-            Size = new System.Drawing.Size(117, 128);
             TabIndex = 0;
             Text = LocationName;
         }
@@ -40,6 +41,7 @@ namespace TG
         public string LegacyLocationNumber;
 
         public bool CanHaveMenhir;
+        public uint? MenhirValue;
         public LocationSetlementTypeEnum LocationSetlementType;
         public bool Dreams;
         public object LocationAction;//TODO
@@ -57,6 +59,13 @@ namespace TG
                 e.Graphics.DrawString(WestDirectionKey, Font, new SolidBrush(ForeColor), 1, (Height / 2) - (FontHeight / 2));
             if (!string.IsNullOrEmpty(EastDirectionKey))
                 e.Graphics.DrawString(EastDirectionKey, Font, new SolidBrush(ForeColor), Width - e.Graphics.MeasureString(EastDirectionKey, Font).Width, (Height / 2) - (FontHeight / 2));
+        }
+
+        public List<string> GetNeighbourLocationNumbers()
+        {
+            var retVal = new List<string>() { NorthDirectionKey,EastDirectionKey,SouthDirectionKey,WestDirectionKey};
+            retVal.RemoveAll(string.IsNullOrEmpty);
+            return retVal;
         }
     }
 }

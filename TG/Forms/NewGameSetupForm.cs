@@ -65,7 +65,7 @@ namespace TG.Forms
 
             var saveSheet = new SaveSheet { fileName = saveFilenameTextBox.Text };
 
-            //init ostatnych hracov a ostatne veci do savu
+            //TODO init ostatnych hracov a ostatne veci do savu
             saveSheet.Players.Add(new Player()
             {
                 Character = NewGameDataLib
@@ -77,9 +77,11 @@ namespace TG.Forms
                 PlayerNumber = 1
             });
 
+            saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = "101",MenhirValue = 9 - saveSheet.Players.Count });
+
             if (SaveManager.CurrentSaveSheet != null)
             {
-                throw new Exception("current save sheet isntempty, wft?");
+                throw new Exception("current save sheet isnt empty, wft?");
             }
 
             SaveManager.CurrentSaveSheet = saveSheet;

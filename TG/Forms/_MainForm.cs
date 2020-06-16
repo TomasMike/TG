@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TG.CustomControls;
 using TG.Forms;
 
 namespace TG
@@ -16,21 +17,35 @@ namespace TG
         public _MainForm()
         {
             InitializeComponent();
-            
+
         }
 
-        private MapPanel mapPanel= new MapPanel();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             var startMenu = new StartMenuForm();
             startMenu.ShowDialog();
-            if (LocationsLib.Locations != null) mapPanel.Controls.AddRange(LocationsLib.Locations.ToArray());
-            mapPanel.Location = Location;
-            mapPanel.Size = ClientSize;
-            mapPanel.RefreshMapLayout();
+            InitGameFromSaveSheet();
 
-          
+        }
+
+        public void InitGameFromSaveSheet()
+        {
+            //TODO init ine herne komponenty
+            foreach (var l in SaveManager.CurrentSaveSheet.Locations)
+            {
+                mapPanel1.AddLocationCardToMap(l.LocationNumber,l.MenhirValue);
+            }
+
+            foreach (var p in SaveManager.CurrentSaveSheet.Players)
+            {
+
+                CharacterBoard chb = new CharacterBoard();
+                p.
+            }
+
+            mapPanel1.RefreshMapLayout();
+            SaveManager.Save();
         }
 
 
