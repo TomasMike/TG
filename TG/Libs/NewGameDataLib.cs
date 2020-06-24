@@ -24,6 +24,12 @@ namespace TG.Forms
                 case CharacterName.Beor:
                     retVal.CharacterName = CharacterName.Beor;
                     retVal.Bear = 2;
+                    retVal.CurrentEnergy = 6;
+                    retVal.MaxEnergy = 6;
+                    retVal.CurrentHealth = 9;
+                    retVal.MaxHealth= 9;
+                    retVal.CurrentTerror = 0;
+                    retVal.MaxTerror = 6;
                     //....
                     break;
                 default: throw new Exception("character not setupped.");
@@ -38,6 +44,7 @@ namespace TG.Forms
                     break;
                 default: throw new Exception("archetype not setupped.");
             }
+
 
             return retVal;
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <fileName>2020_06_16_11_54_08</fileName>
+  <fileName>2020_06_24_11_23_52</fileName>
   <Players>
     <Player>
       <PlayerNumber>1</PlayerNumber>
@@ -14,11 +14,11 @@
         <Dove>0</Dove>
         <Mouse>0</Mouse>
         <Owl>0</Owl>
-        <MaxHealth>0</MaxHealth>
-        <CurrentHealth>0</CurrentHealth>
-        <MaxEnergy>0</MaxEnergy>
-        <CurrentEnergy>0</CurrentEnergy>
-        <MaxTerror>0</MaxTerror>
+        <MaxHealth>9</MaxHealth>
+        <CurrentHealth>9</CurrentHealth>
+        <MaxEnergy>6</MaxEnergy>
+        <CurrentEnergy>6</CurrentEnergy>
+        <MaxTerror>6</MaxTerror>
         <CurrentTerror>0</CurrentTerror>
       </Character>
     </Player>

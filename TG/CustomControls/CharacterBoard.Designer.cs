@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // UserControl1
+            // CharacterBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "CharacterBoard";
-            this.Size = new System.Drawing.Size(222, 267);
+            this.Size = new System.Drawing.Size(327, 312);
             this.ResumeLayout(false);
 
         }

@@ -49,7 +49,7 @@ namespace TG.Forms
         {
             var ng = new NewGameSetupForm();
             ng.ShowDialog();
-
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -60,6 +60,8 @@ namespace TG.Forms
             ofd.InitialDirectory = SaveManager.SaveFolder;
             ofd.ShowDialog();
             SaveManager.Load(ofd.FileName);
+
+            this.DialogResult = DialogResult.OK;
             this.Close();
 
         }
@@ -83,6 +85,7 @@ namespace TG.Forms
             }
             SaveManager.Load(latestFileInfo.FullName);
 
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
