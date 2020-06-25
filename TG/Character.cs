@@ -9,20 +9,20 @@ namespace TG
 		public CharacterName CharacterName;
 		public CharacterArchetype Archetype;
 
-		public int Bear;
-		public int Pig;
-		public int Snake;
+		public int Bear { get; set; }
+		public int Pig { get; set; }
+		public int Snake { get; set; }
 
-		public int Dove;
-		public int Mouse;
-		public int Owl;
+		public int Dove { get; set; }
+		public int Mouse { get; set; }
+		public int Owl { get; set; }
 
-		public int MaxHealth;
-		public int CurrentHealth;
-		public int MaxEnergy;
-		public int CurrentEnergy;
-		public int MaxTerror;
-		public int CurrentTerror;
+		public int MaxHealth { get; set; }
+		public int CurrentHealth { get; set; }
+		public int MaxEnergy { get; set; }
+		public int CurrentEnergy { get; set; }
+		public int MaxTerror { get; set; }
+		public int CurrentTerror { get; set; }
 
 		public object Skills;
 

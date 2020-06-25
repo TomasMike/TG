@@ -125,6 +125,22 @@
     <EmbeddedResource Include="Forms\QuestionForm.resx">
       <DependentUpon>QuestionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Asker.datasource" />
+    <None Include="Properties\DataSources\Card.datasource" />
+    <None Include="Properties\DataSources\CardLib.datasource" />
+    <None Include="Properties\DataSources\Character.datasource" />
+    <None Include="Properties\DataSources\EnconterAttack.datasource" />
+    <None Include="Properties\DataSources\Encounter.datasource" />
+    <None Include="Properties\DataSources\EncounterCard.datasource" />
+    <None Include="Properties\DataSources\EncounterLib.datasource" />
+    <None Include="Properties\DataSources\Game.datasource" />
+    <None Include="Properties\DataSources\Player.datasource" />
+    <None Include="Properties\DataSources\QuestionForm.datasource" />
+    <None Include="Properties\DataSources\QuestionFromComboBoxItem.datasource" />
+    <None Include="Properties\DataSources\SaveManager.datasource" />
+    <None Include="Properties\DataSources\SaveSheet.datasource" />
+    <None Include="Properties\DataSources\TG.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\TG.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

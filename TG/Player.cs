@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace TG
 {
+    [DefaultBindingProperty("PlayerNumber")]
     public class Player
     {
-        public int PlayerNumber;
-        public string Name;
-        public Character Character;
+        [Bindable(BindableSupport.Yes)]
+        public int PlayerNumber { get; set; }
+        public string Name { get; set; }
+        public Character Character { get; set; }
 
         //public List<Card> Hand;
         //public List<Card> DrawingDeck;

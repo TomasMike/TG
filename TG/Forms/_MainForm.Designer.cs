@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.playerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -73,6 +78,7 @@
             // 
             // button1
             // 
+            this.button1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.playerBindingSource, "PlayerNumber", true));
             this.button1.Location = new System.Drawing.Point(435, 501);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -80,6 +86,14 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // playerBindingSource
+            // 
+            this.playerBindingSource.DataSource = typeof(TG.Player);
+            // 
+            // questionFormBindingSource
+            // 
+            this.questionFormBindingSource.DataSource = typeof(TG.Character);
             // 
             // _MainForm
             // 
@@ -96,6 +110,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,6 +124,8 @@
         private System.Windows.Forms.ToolStripMenuItem niecoToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.BindingSource questionFormBindingSource;
+        private System.Windows.Forms.BindingSource playerBindingSource;
     }
 }
 
