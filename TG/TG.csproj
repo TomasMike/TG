@@ -57,6 +57,12 @@
     <Compile Include="CustomControls\CharacterBoard.Designer.cs">
       <DependentUpon>CharacterBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AskerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AskerForm.Designer.cs">
+      <DependentUpon>AskerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Libs\LocationsLib.cs" />
     <Compile Include="CustomControls\LocationCardControl.cs">
       <SubType>Component</SubType>
@@ -103,6 +109,9 @@
     <Compile Include="SavingLoading\SaveSheet.cs" />
     <EmbeddedResource Include="CustomControls\CharacterBoard.resx">
       <DependentUpon>CharacterBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AskerForm.resx">
+      <DependentUpon>AskerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\_MainForm.resx">
       <DependentUpon>_MainForm.cs</DependentUpon>

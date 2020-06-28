@@ -17,7 +17,27 @@ namespace TG
 
         public void StartNew()
         {
-            var save = new SaveSheet();
+            //Remove expired menhirs
+            //remove locations out of the menhir range
+            //reduce menhir dial and remove time tokens
+            //reveal and read new event card
+            //move guardians
+            //change equip
+        }
+
+        public void StartOfTheDay()
+        {
+            //System.Windows.Forms.MessageBox.Show()
+        }
+
+        public void Day()
+        {
+
+        }
+
+        public void EndOfDay()
+        {
+
         }
     }
 

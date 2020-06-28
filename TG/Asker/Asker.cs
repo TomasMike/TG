@@ -4,6 +4,13 @@ namespace TG
 {
     public static class Asker
     {
+      
+
+        
+    }
+
+    public static class OldAsker
+    {
         public static string AskText(string question)
         {
             var q = new QuestionForm(question);
@@ -25,7 +32,5 @@ namespace TG
             q.Show();
             return q.stringOutput;
         }
-
-        
     }
 }
