@@ -11,6 +11,8 @@ namespace TG.CustomControls
         public CharacterBoard()
         {
             InitializeComponent();
+            this.components = new Container();
+
             AutoSize = true;
             BackColor = Color.Bisque;
             var labels = new List<Control>();
@@ -28,7 +30,7 @@ namespace TG.CustomControls
             labels.Add(ExperienceLabel);
             labels.Add(MagicLabel);
 
-            labels.Add(AggresionLabel);
+            labels.Add(AggressionLabel);
             labels.Add(CourageLabel);
             labels.Add(PracticalityLabel);
            
@@ -41,20 +43,25 @@ namespace TG.CustomControls
 
             var values = new List<Control>();
             values.Add(NameValue);
-            values.Add(AggresionValue);
-            values.Add(CourageValue);
-            values.Add(PracticalityValue);
-            values.Add(EmpathyValue);
-            values.Add(CautionValue);
-            values.Add(SpiritualityValue);
+           
+           
             values.Add(EnergyValue);
             values.Add(HealthValue);
             values.Add(TerrorValue);
+
             values.Add(FoodValue);
             values.Add(ReputationValue);
             values.Add(WealthValue);
             values.Add(ExperienceValue);
             values.Add(MagicValue);
+
+            values.Add(AggressionValue);
+            values.Add(CourageValue);
+            values.Add(PracticalityValue);
+
+            values.Add(EmpathyValue);
+            values.Add(CautionValue);
+            values.Add(SpiritualityValue);
 
             //NameLabel          .
             //AggresionLabel     .
@@ -73,7 +80,7 @@ namespace TG.CustomControls
             //MagicLabel         .
 
             NameLabel.Text = "Name";
-            AggresionLabel.Text = "Aggresion";
+            AggressionLabel.Text = "Aggresion";
             CourageLabel.Text = "Courage";
             PracticalityLabel.Text = "Practicality";
             EmpathyLabel.Text = "Empathy";
@@ -113,12 +120,36 @@ namespace TG.CustomControls
         public CharacterBoard(Player p):this()
         {
             AttachedPlayer = p;
+            bs = new BindingSource(components);
+            ((ISupportInitialize)bs).BeginInit();
+            bs.DataSource = AttachedPlayer;
 
-            this.HealthValue.DataBindings.Add("Text", AttachedPlayer, "CurrentHealth");
+            NameValue.DataBindings.Add("Text", AttachedPlayer, "Name",true, DataSourceUpdateMode.OnPropertyChanged);
+            HealthValue.DataBindings.Add("Text", AttachedPlayer, "Character.CurrentHealth",true,DataSourceUpdateMode.OnPropertyChanged);
+            EnergyValue.DataBindings.Add("Text", AttachedPlayer, "Character.CurrentEnergy", true, DataSourceUpdateMode.OnPropertyChanged);
+            TerrorValue.DataBindings.Add("Text", AttachedPlayer, "Character.CurrentTerror", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            AggressionValue.DataBindings.Add("Text", AttachedPlayer, "Character.Aggression", true, DataSourceUpdateMode.OnPropertyChanged);
+            CourageValue.DataBindings.Add("Text", AttachedPlayer, "Character.Courage", true, DataSourceUpdateMode.OnPropertyChanged);
+            PracticalityValue.DataBindings.Add("Text", AttachedPlayer, "Character.Practicality", true, DataSourceUpdateMode.OnPropertyChanged);
+           
+            EmpathyValue.DataBindings.Add("Text", AttachedPlayer, "Character.Empathy", true, DataSourceUpdateMode.OnPropertyChanged);
+            CautionValue.DataBindings.Add("Text", AttachedPlayer, "Character.Caution", true, DataSourceUpdateMode.OnPropertyChanged);
+            SpiritualityValue.DataBindings.Add("Text", AttachedPlayer, "Character.Spirituality", true, DataSourceUpdateMode.OnPropertyChanged);
+            
+            FoodValue.DataBindings.Add("Text", AttachedPlayer, "Character.Food", true, DataSourceUpdateMode.OnPropertyChanged);
+            ReputationValue.DataBindings.Add("Text", AttachedPlayer, "Character.Reputation", true, DataSourceUpdateMode.OnPropertyChanged);
+            WealthValue.DataBindings.Add("Text", AttachedPlayer, "Character.Wealth", true, DataSourceUpdateMode.OnPropertyChanged);
+            ExperienceValue.DataBindings.Add("Text", AttachedPlayer, "Character.Experience", true, DataSourceUpdateMode.OnPropertyChanged);
+            MagicValue.DataBindings.Add("Text", AttachedPlayer, "Character.Magic", true, DataSourceUpdateMode.OnPropertyChanged);
+            
+            ((ISupportInitialize)bs).EndInit();
+
+
         }
 
         public Label NameLabel= new Label(); 
-        public Label AggresionLabel= new Label();
+        public Label AggressionLabel= new Label();
         public Label CourageLabel= new Label();
         public Label PracticalityLabel= new Label();
         public Label EmpathyLabel= new Label();
@@ -133,7 +164,7 @@ namespace TG.CustomControls
         public Label ExperienceLabel= new Label();
         public Label MagicLabel= new Label();
         public Label NameValue= new Label();
-        public Label AggresionValue= new Label();
+        public Label AggressionValue= new Label();
         public Label CourageValue= new Label();
         public Label PracticalityValue= new Label();
         public Label EmpathyValue= new Label();
@@ -150,7 +181,7 @@ namespace TG.CustomControls
 
         public Player AttachedPlayer;
 
-
+        public BindingSource bs;
 
     }
 }

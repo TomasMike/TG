@@ -10,7 +10,6 @@ namespace TG
     public class MapPanel : Panel
     {
         public  IEnumerable<LocationCardControl> LocationCards => Controls.Cast<LocationCardControl>();
-        
         public MapPanel()
         {
             Location = new Point(10, 10);
@@ -80,24 +79,75 @@ namespace TG
             }
         }
 
-        public void ActivateMenhir(LocationCardControl lcc, uint? value)
+        public void RemoveLocationsOutsideMenhirRange()
+        {
+            var LocsToRemove = new List<LocationCardControl>();
+            foreach (LocationCardControl l in Controls)
+            {
+                if (!MapUtils.GetSurroundingLocations(l).Any(_ => _.MenhirValue >= 0))
+                {
+                    LocsToRemove.Add(l);
+                }
+            }
+
+            foreach (var l in LocsToRemove)
+            {
+                   Controls.Remove(l);
+            }
+        }
+
+        public void ActivateMenhir(LocationCardControl lcc, int value)
         {
             lcc.MenhirValue = value;
             AddMissingMapTiles();
         }
 
-        public void AddLocationCardToMap(string locationNumber, int? alsoActivateMenhirWithValue = null)
+        public void AddLocationCardToMap(string locationNumber, int alsoActivateMenhirWithValue = -1)
         {
             var l = LocationsLib.Locations.FirstOrDefault(_ => _.LocationNumber == locationNumber);
-            if(l == null)
-                throw  new Exception("wanted to add location that doesnt exist or isnt settuped.");
+            if (l == null)
+                throw new Exception("wanted to add location that doesnt exist or isnt settuped.");
 
             this.Controls.Add(l);
-            if(alsoActivateMenhirWithValue != null)
-                ActivateMenhir(l,(uint?)alsoActivateMenhirWithValue);
+            if (alsoActivateMenhirWithValue >= 0)
+            {
+                ActivateMenhir(l, alsoActivateMenhirWithValue);
+                AddMissingMapTiles();
+            }
 
-            AddMissingMapTiles();
             RefreshMapLayout();
         }
+
+    }
+
+    public static class MapUtils
+    {
+        public static List<LocationCardControl> GetSurroundingLocations(LocationCardControl lcc)
+        {
+            var retval = new List<LocationCardControl>();
+            var n = _MainForm.Instance.mapPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var e = _MainForm.Instance.mapPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var s = _MainForm.Instance.mapPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var w = _MainForm.Instance.mapPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+
+            if (n != null)
+                retval.AddRange(_MainForm.Instance.mapPanel.LocationCards.Where(_ =>
+                    _.LocationNumber == n.WestDirectionKey || _.LocationNumber == n.EastDirectionKey));
+
+            if (e != null)
+                retval.AddRange(_MainForm.Instance.mapPanel.LocationCards.Where(_ =>
+                    _.LocationNumber == e.NorthDirectionKey || _.LocationNumber == e.SouthDirectionKey));
+
+            if (s != null)
+                retval.AddRange(_MainForm.Instance.mapPanel.LocationCards.Where(_ =>
+                    _.LocationNumber == s.WestDirectionKey || _.LocationNumber == s.EastDirectionKey));
+
+            if (w != null)
+                retval.AddRange(_MainForm.Instance.mapPanel.LocationCards.Where(_ =>
+                    _.LocationNumber == w.NorthDirectionKey || _.LocationNumber == w.SouthDirectionKey));
+
+            return retval;
+        }
+
     }
 }

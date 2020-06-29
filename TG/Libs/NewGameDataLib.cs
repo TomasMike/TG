@@ -23,7 +23,7 @@ namespace TG.Forms
             {
                 case CharacterName.Beor:
                     retVal.CharacterName = CharacterName.Beor;
-                    retVal.Bear = 2;
+                    retVal.Aggression = 2;
                     retVal.CurrentEnergy = 6;
                     retVal.MaxEnergy = 6;
                     retVal.CurrentHealth = 9;

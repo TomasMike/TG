@@ -41,7 +41,11 @@ namespace TG
         public string LegacyLocationNumber;
 
         public bool CanHaveMenhir;
-        public uint? MenhirValue;
+        
+        /// <summary>
+        /// If the location doesnt have a menhir its -1
+        /// </summary>
+        public int MenhirValue;
         public LocationSetlementTypeEnum LocationSetlementType;
         public bool Dreams;
         public object LocationAction;//TODO

@@ -8,18 +8,23 @@
       <Character>
         <CharacterName>Beor</CharacterName>
         <Archetype>Blue</Archetype>
-        <Bear>2</Bear>
-        <Pig>0</Pig>
-        <Snake>0</Snake>
-        <Dove>0</Dove>
-        <Mouse>0</Mouse>
-        <Owl>0</Owl>
+        <Aggression>0</Aggression>
+        <Courage>0</Courage>
+        <Practicality>0</Practicality>
+        <Empathy>0</Empathy>
+        <Caution>0</Caution>
+        <Spirituality>0</Spirituality>
         <MaxHealth>9</MaxHealth>
         <CurrentHealth>9</CurrentHealth>
         <MaxEnergy>6</MaxEnergy>
         <CurrentEnergy>6</CurrentEnergy>
         <MaxTerror>6</MaxTerror>
         <CurrentTerror>0</CurrentTerror>
+        <Food>0</Food>
+        <Reputation>0</Reputation>
+        <Wealth>0</Wealth>
+        <Experience>0</Experience>
+        <Magic>0</Magic>
       </Character>
     </Player>
   </Players>

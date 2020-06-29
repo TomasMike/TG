@@ -19,7 +19,7 @@ namespace TG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new _MainForm());
+            Application.Run(_MainForm.Instance);
             //Application.Run(new MainForm());
         }
     }

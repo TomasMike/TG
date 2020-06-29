@@ -32,12 +32,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.mainContentPanel = new System.Windows.Forms.Panel();
             this.playerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -69,23 +67,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(899, 570);
-            this.panel1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.playerBindingSource, "PlayerNumber", true));
-            this.button1.Location = new System.Drawing.Point(435, 501);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainContentPanel.Location = new System.Drawing.Point(0, 24);
+            this.mainContentPanel.Name = "mainContentPanel";
+            this.mainContentPanel.Size = new System.Drawing.Size(899, 570);
+            this.mainContentPanel.TabIndex = 1;
             // 
             // playerBindingSource
             // 
@@ -101,7 +87,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(899, 594);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.mainContentPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "_MainForm";
@@ -109,7 +95,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -122,8 +107,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem niecoToolStripMenuItem;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel mainContentPanel;
         private System.Windows.Forms.BindingSource questionFormBindingSource;
         private System.Windows.Forms.BindingSource playerBindingSource;
     }

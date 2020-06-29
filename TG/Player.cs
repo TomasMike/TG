@@ -6,7 +6,7 @@ namespace TG
     [DefaultBindingProperty("PlayerNumber")]
     public class Player
     {
-        [Bindable(BindableSupport.Yes)]
+        
         public int PlayerNumber { get; set; }
         public string Name { get; set; }
         public Character Character { get; set; }
