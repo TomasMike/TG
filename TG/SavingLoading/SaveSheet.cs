@@ -18,6 +18,6 @@ namespace TG
     public class LocationSaveObject
     {
         public int MenhirValue;
-        public string LocationNumber;
+        public int LocationNumber;
     }
 }

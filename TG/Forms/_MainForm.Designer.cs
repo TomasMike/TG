@@ -33,10 +33,8 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContentPanel = new System.Windows.Forms.Panel();
-            this.playerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,17 +63,13 @@
             this.niecoToolStripMenuItem.Text = "nieco";
             this.niecoToolStripMenuItem.Click += new System.EventHandler(this.niecoToolStripMenuItem_Click);
             // 
-            // panel1
+            // mainContentPanel
             // 
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContentPanel.Location = new System.Drawing.Point(0, 24);
             this.mainContentPanel.Name = "mainContentPanel";
             this.mainContentPanel.Size = new System.Drawing.Size(899, 570);
             this.mainContentPanel.TabIndex = 1;
-            // 
-            // playerBindingSource
-            // 
-            this.playerBindingSource.DataSource = typeof(TG.Player);
             // 
             // questionFormBindingSource
             // 
@@ -95,7 +89,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -109,7 +102,6 @@
         private System.Windows.Forms.ToolStripMenuItem niecoToolStripMenuItem;
         private System.Windows.Forms.Panel mainContentPanel;
         private System.Windows.Forms.BindingSource questionFormBindingSource;
-        private System.Windows.Forms.BindingSource playerBindingSource;
     }
 }
 

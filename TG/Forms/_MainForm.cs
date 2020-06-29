@@ -14,13 +14,17 @@ namespace TG
 {
     public partial class _MainForm : Form
     {
+        private static _MainForm instance = null;
+
+        public static _MainForm Instance => instance ?? (instance = new _MainForm());
+
+
         public _MainForm()
         {
             InitializeComponent();
-
         }
 
-        MapPanel mp = new MapPanel();
+        public MapPanel mp = new MapPanel();
         FlowLayoutPanel chFlowLayoutPanel = new FlowLayoutPanel();
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -29,13 +33,13 @@ namespace TG
 
             mp.Dock = DockStyle.Left;
             mp.AutoSize = true;
-            panel1.Controls.Add(mp);
+            mainContentPanel.Controls.Add(mp);
 
             chFlowLayoutPanel.Dock = DockStyle.Right;
             chFlowLayoutPanel.AutoSize = true;
             //chFlowLayoutPanel.Size = new Size(100,100);
             chFlowLayoutPanel.BackColor = Color.Aqua;
-            panel1.Controls.Add(chFlowLayoutPanel);
+            mainContentPanel.Controls.Add(chFlowLayoutPanel);
 
             var result = startMenu.ShowDialog();
 
@@ -82,7 +86,7 @@ namespace TG
 
         private void niecoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chFlowLayoutPanel.Controls.Add(new Button());
+            SaveManager.CurrentSaveSheet.Players[0].Character.CurrentHealth--;
         }
 
         private void button1_Click(object sender, EventArgs e)

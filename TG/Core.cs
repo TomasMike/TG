@@ -8,6 +8,7 @@ namespace TG
     public sealed class Game
     {
         private static Game instance = null;
+
         Game() { }
 
         public static Game Instance => instance ?? (instance = new Game());
@@ -16,7 +17,26 @@ namespace TG
 
         public void StartNew()
         {
-            //remove expired menhirs
+            //Remove expired menhirs
+            //remove locations out of the menhir range
+            //reduce menhir dial and remove time tokens
+            //reveal and read new event card
+            //move guardians
+            //change equip
+        }
+
+        public void StartOfTheDay()
+        {
+            //System.Windows.Forms.MessageBox.Show()
+        }
+
+        public void Day()
+        {
+
+        }
+
+        public void EndOfDay()
+        {
 
         }
     }

@@ -18,10 +18,10 @@ namespace TG.Forms
             this.AutoSize = true;
         }
 
-        public T Ask<T>(IEnumerable<T> list)
-        {
+        //public T Ask<T>(IEnumerable<T> list)
+        //{
 
-        }
+        //}
     }
 
     public class Option<T>

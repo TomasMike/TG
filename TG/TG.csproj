@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asker\Asker.cs" />
+    <Compile Include="CustomControls\LocationCardControlv2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\LocationCardControlv2.Designer.cs">
+      <DependentUpon>LocationCardControlv2.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     <Compile Include="SavingLoading\SaveSheet.cs" />
     <EmbeddedResource Include="CustomControls\CharacterBoard.resx">
       <DependentUpon>CharacterBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\LocationCardControlv2.resx">
+      <DependentUpon>LocationCardControlv2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AskerForm.resx">
       <DependentUpon>AskerForm.cs</DependentUpon>

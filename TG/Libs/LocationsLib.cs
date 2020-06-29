@@ -14,11 +14,11 @@ namespace TG.Forms
                     new LocationCardControl()
                     {
                         LocationName = "Cuanacht",
-                        LocationNumber = "101",
-                        NorthDirectionKey = "102",
-                        SouthDirectionKey = "103",
-                        WestDirectionKey = "104",
-                        EastDirectionKey = "105",
+                        LocationNumber = 101,
+                        NorthDirectionKey = 102,
+                        SouthDirectionKey = 103,
+                        WestDirectionKey = 104,
+                        EastDirectionKey = 105,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
@@ -27,8 +27,8 @@ namespace TG.Forms
                     new LocationCardControl()
                     {
                         LocationName = "Hunters Grove",
-                        LocationNumber = "102",
-                        SouthDirectionKey = "101",
+                        LocationNumber = 102,
+                        SouthDirectionKey = 101,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
@@ -37,8 +37,8 @@ namespace TG.Forms
                     new LocationCardControl()
                     {
                         LocationName = "Forlorn Swords",
-                        LocationNumber = "103",
-                        NorthDirectionKey = "101",
+                        LocationNumber = 103,
+                        NorthDirectionKey = 101,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
@@ -47,8 +47,8 @@ namespace TG.Forms
                     new LocationCardControl()
                     {
                         LocationName = "Warriors Refuge",
-                        LocationNumber = "104",
-                        EastDirectionKey = "101",
+                        LocationNumber = 104,
+                        EastDirectionKey = 101,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
@@ -57,8 +57,8 @@ namespace TG.Forms
                     new LocationCardControl()
                     {
                         LocationName = "Burned Thing",
-                        LocationNumber = "105",
-                        WestDirectionKey = "101",
+                        LocationNumber = 105,
+                        WestDirectionKey = 101,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,

@@ -11,13 +11,13 @@ namespace TG
         public LocationCardControl()
         {
             Size = new Size(60, 120);
-            this.UseVisualStyleBackColor = true;
-            this.Text = this.LocationName;
+            UseVisualStyleBackColor = true;
+            Text = LocationName;
 
         }
 
-        public LocationCardControl(string locationNumber, string locationName, string northDirectionKey, string eastDirectionKey, string southDirectionKey, string westDirectionKey)
-            : base()
+        public LocationCardControl(int locationNumber, string locationName, int northDirectionKey, int eastDirectionKey, int southDirectionKey, int westDirectionKey)
+            : this()
         {
             NorthDirectionKey = northDirectionKey;
             EastDirectionKey = eastDirectionKey;
@@ -28,20 +28,19 @@ namespace TG
             LocationName = locationName;
             Name = LocationName;
             TabIndex = 0;
-            Text = LocationName;
         }
 
-        public string NorthDirectionKey;
-        public string EastDirectionKey;
-        public string SouthDirectionKey;
-        public string WestDirectionKey;
+        public int NorthDirectionKey;
+        public int EastDirectionKey;
+        public int SouthDirectionKey;
+        public int WestDirectionKey;
 
         public string LocationName;
-        public string LocationNumber;
+        public int LocationNumber;
         public string LegacyLocationNumber;
 
         public bool CanHaveMenhir;
-        
+
         /// <summary>
         /// If the location doesnt have a menhir its -1
         /// </summary>
@@ -55,20 +54,22 @@ namespace TG
         {
             base.OnPaint(e);
 
-            if (!string.IsNullOrEmpty(NorthDirectionKey))
-                e.Graphics.DrawString(NorthDirectionKey, Font, new SolidBrush(ForeColor), Width / 2 - (e.Graphics.MeasureString(NorthDirectionKey, Font).Width / 2), 1);
-            if (!string.IsNullOrEmpty(SouthDirectionKey))
-                e.Graphics.DrawString(SouthDirectionKey, Font, new SolidBrush(ForeColor), Width / 2 - (e.Graphics.MeasureString(SouthDirectionKey, Font).Width / 2), Height - Font.Height);
-            if (!string.IsNullOrEmpty(WestDirectionKey))
-                e.Graphics.DrawString(WestDirectionKey, Font, new SolidBrush(ForeColor), 1, (Height / 2) - (FontHeight / 2));
-            if (!string.IsNullOrEmpty(EastDirectionKey))
-                e.Graphics.DrawString(EastDirectionKey, Font, new SolidBrush(ForeColor), Width - e.Graphics.MeasureString(EastDirectionKey, Font).Width, (Height / 2) - (FontHeight / 2));
+            if (NorthDirectionKey != 0)
+                e.Graphics.DrawString(NorthDirectionKey.ToString(), Font, new SolidBrush(ForeColor), Width / 2 - (e.Graphics.MeasureString(NorthDirectionKey.ToString(), Font).Width / 2), 1);
+            if (SouthDirectionKey != 0)
+                e.Graphics.DrawString(SouthDirectionKey.ToString(), Font, new SolidBrush(ForeColor), Width / 2 - (e.Graphics.MeasureString(SouthDirectionKey.ToString(), Font).Width / 2), Height - Font.Height);
+            if (WestDirectionKey != 0)
+                e.Graphics.DrawString(WestDirectionKey.ToString(), Font, new SolidBrush(ForeColor), 1, (Height / 2) - (FontHeight / 2));
+            if (EastDirectionKey != 0)
+                e.Graphics.DrawString(EastDirectionKey.ToString(), Font, new SolidBrush(ForeColor), Width - e.Graphics.MeasureString(EastDirectionKey.ToString(), Font).Width, (Height / 2) - (FontHeight / 2));
+
+
         }
 
-        public List<string> GetNeighbourLocationNumbers()
+        public List<int> GetNeighbourLocationNumbers()
         {
-            var retVal = new List<string>() { NorthDirectionKey,EastDirectionKey,SouthDirectionKey,WestDirectionKey};
-            retVal.RemoveAll(string.IsNullOrEmpty);
+            var retVal = new List<int>() { NorthDirectionKey, EastDirectionKey, SouthDirectionKey, WestDirectionKey };
+            retVal.RemoveAll(_ => _ != 0);
             return retVal;
         }
     }
