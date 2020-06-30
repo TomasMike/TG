@@ -94,9 +94,6 @@ namespace PlaygroundWForms
             {
                 sb.Append($"{datum.Day:00}.{datum.Month:00}.{datum.Year} [");
 
-                //sb.Append(string.Join(" - ", dochadzkaCU.Where(_ => _.Od.Date == datum).Select(_ => $"{_.Od.Hour}:{_.Od.Minute}-{_.Do.Hour}:{_.Do.Minute}")));
-                //sb.Append("] [");
-                //sb.Append(string.Join(" - ", timetrackerData.Where(_ => _.Od.Date == datum).Select(_ => $"{_.Od.Hour}:{_.Od.Minute}-{_.Do.Hour}:{_.Do.Minute}")));
                 var doSum = dochadzkaCU.Where(_ => _.Od.Date == datum).Sum(_ => (_.Do - _.Od).TotalMinutes);
                 var ttSum = timetrackerData.Where(_ => _.Od.Date == datum).Sum(_ => (_.Do - _.Od).TotalMinutes);
                 var doDuration = $"{((doSum - (doSum % 60)) / 60):00}:{(doSum % 60):00}:00";
@@ -111,6 +108,12 @@ namespace PlaygroundWForms
 
                 sb.AppendLine("]");
             }
+
+            sb.AppendLine();
+            var tt = timetrackerData.Sum(_ => (_.Do - _.Od).TotalMinutes) - timetrackerData.Select(_ => _.Od.Date).Distinct().Count() * 8 * 60;
+            var @do = dochadzkaCU.Sum(_ => (_.Do - _.Od).TotalMinutes) - dochadzkaCU.Select(_ => _.Od.Date).Distinct().Count() * 8 * 60;
+            sb.AppendLine($"Nadrobene podla timetracker {tt} minut a podla dochadzky {@do} minut.");
+
 
             //MessageBox.Show(sb.ToString());
             form.FillTextbox(sb.ToString());

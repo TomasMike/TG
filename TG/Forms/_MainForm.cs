@@ -14,9 +14,9 @@ namespace TG
 {
     public partial class _MainForm : Form
     {
-        private static _MainForm instance = null;
+        private static _MainForm _instance = null;
 
-        public static _MainForm Instance => instance ?? (instance = new _MainForm());
+        public static _MainForm Instance => _instance ?? (_instance = new _MainForm());
 
 
         public _MainForm()
@@ -24,22 +24,29 @@ namespace TG
             InitializeComponent();
         }
 
-        public MapPanel mp = new MapPanel();
-        FlowLayoutPanel chFlowLayoutPanel = new FlowLayoutPanel();
+        public MapPanel Mp = new MapPanel();
+        readonly FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
+        readonly FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             var startMenu = new StartMenuForm();
 
-            mp.Dock = DockStyle.Left;
-            mp.AutoSize = true;
-            mainContentPanel.Controls.Add(mp);
+            Mp.Dock = DockStyle.Left;
+            Mp.AutoSize = true;
+            mainContentPanel.Controls.Add(Mp);
 
-            chFlowLayoutPanel.Dock = DockStyle.Right;
-            chFlowLayoutPanel.AutoSize = true;
+            _characterPanelFlPanel.Dock = DockStyle.Right;
+            _characterPanelFlPanel.AutoSize = true;
             //chFlowLayoutPanel.Size = new Size(100,100);
-            chFlowLayoutPanel.BackColor = Color.Aqua;
-            mainContentPanel.Controls.Add(chFlowLayoutPanel);
+            _characterPanelFlPanel.BackColor = Color.Aqua;
+            mainContentPanel.Controls.Add(_characterPanelFlPanel);
+
+
+            _actionButtonFlPanel.Dock = DockStyle.Bottom;
+            _actionButtonFlPanel.AutoSize = true;
+            mainContentPanel.Controls.Add(_actionButtonFlPanel);
+
 
             var result = startMenu.ShowDialog();
 
@@ -55,27 +62,27 @@ namespace TG
             //TODO init ine herne komponenty
             foreach (var l in SaveManager.CurrentSaveSheet.Locations)
             {
-                mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
+                Mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
             }
 
-            chFlowLayoutPanel.SuspendLayout();
+            _characterPanelFlPanel.SuspendLayout();
             foreach (var p in SaveManager.CurrentSaveSheet.Players)
             {
 
                 CharacterBoard chb = new CharacterBoard(p);
 
 
-                chFlowLayoutPanel.Controls.Add(chb);
+                _characterPanelFlPanel.Controls.Add(chb);
                 //bs = new BindingSource();
                 //bs.
                 //((CharacterBoard)(chFlowLayoutPanel.Controls[0])).HealthValue.DataBindings.Add("Text", SaveManager.CurrentSaveSheet.Players[0].Character, "CurrentHealth");
             }
-            chFlowLayoutPanel.ResumeLayout(false);
-            chFlowLayoutPanel.PerformLayout();
+            _characterPanelFlPanel.ResumeLayout(false);
+            _characterPanelFlPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            mp.RefreshMapLayout();
+            Mp.RefreshMapLayout();
             SaveManager.Save();
         }
 
@@ -93,6 +100,6 @@ namespace TG
         {
         }
 
-        private BindingSource bs;
+        private BindingSource _bs;
     }
 }

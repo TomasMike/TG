@@ -23,7 +23,7 @@ namespace TG.Forms
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
                         LocationAction = new object()
-                    },
+                    }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Hunters Grove",
@@ -33,7 +33,7 @@ namespace TG.Forms
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
                         LocationAction = new object()
-                    },
+                    }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Forlorn Swords",
@@ -43,7 +43,7 @@ namespace TG.Forms
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
                         LocationAction = new object()
-                    },
+                    }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Warriors Refuge",
@@ -53,7 +53,7 @@ namespace TG.Forms
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
                         LocationAction = new object()
-                    },
+                    }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Burned Thing",
@@ -63,7 +63,7 @@ namespace TG.Forms
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
                         LocationAction = new object()
-                    },
+                    }.Init(),
                 });
             private set => _locations = value;
         }

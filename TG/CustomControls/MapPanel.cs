@@ -52,14 +52,16 @@ namespace TG
             var mostTopRowIndex = locGrid.Min(_ => _.Item3);
             var mostLeftColIndex = locGrid.Min(_ => _.Item2);
             var mapPadding = 10;
-            var tileMargin = 0;
+            var tileMargin = 5;
 
             foreach (var l in locGrid)
             {
                 var col = l.Item2 - mostLeftColIndex;
                 var row = l.Item3 - mostTopRowIndex;
 
-                l.Item1.Location = new Point(col * l.Item1.Width + mapPadding + (col - 1) * tileMargin, row * l.Item1.Height + mapPadding + ((row - 1) * tileMargin));
+                l.Item1.Location = new Point(
+                    col * l.Item1.Width + mapPadding + (col - 1) * tileMargin, 
+                    row * l.Item1.Height + mapPadding + ((row - 1) * tileMargin));
             }
 
             this.PerformLayout();
@@ -125,25 +127,25 @@ namespace TG
         public static List<LocationCardControl> GetSurroundingLocations(LocationCardControl lcc)
         {
             var retval = new List<LocationCardControl>();
-            var n = _MainForm.Instance.mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
-            var e = _MainForm.Instance.mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
-            var s = _MainForm.Instance.mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
-            var w = _MainForm.Instance.mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var n = _MainForm.Instance.Mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var e = _MainForm.Instance.Mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var s = _MainForm.Instance.Mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
+            var w = _MainForm.Instance.Mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == lcc.LocationNumber);
 
             if (n != null)
-                retval.AddRange(_MainForm.Instance.mp.LocationCards.Where(_ =>
+                retval.AddRange(_MainForm.Instance.Mp.LocationCards.Where(_ =>
                     _.LocationNumber == n.WestDirectionKey || _.LocationNumber == n.EastDirectionKey));
 
             if (e != null)
-                retval.AddRange(_MainForm.Instance.mp.LocationCards.Where(_ =>
+                retval.AddRange(_MainForm.Instance.Mp.LocationCards.Where(_ =>
                     _.LocationNumber == e.NorthDirectionKey || _.LocationNumber == e.SouthDirectionKey));
 
             if (s != null)
-                retval.AddRange(_MainForm.Instance.mp.LocationCards.Where(_ =>
+                retval.AddRange(_MainForm.Instance.Mp.LocationCards.Where(_ =>
                     _.LocationNumber == s.WestDirectionKey || _.LocationNumber == s.EastDirectionKey));
 
             if (w != null)
-                retval.AddRange(_MainForm.Instance.mp.LocationCards.Where(_ =>
+                retval.AddRange(_MainForm.Instance.Mp.LocationCards.Where(_ =>
                     _.LocationNumber == w.NorthDirectionKey || _.LocationNumber == w.SouthDirectionKey));
 
             return retval;

@@ -32,13 +32,27 @@ namespace TG
 
         public void Day()
         {
-
+            if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+            {
+                Asker.Ask
+            }
         }
 
         public void EndOfDay()
         {
 
         }
+    }
+
+    public enum ActionType
+    {
+        Explore,
+        Travel,
+        LocationAction,
+        CharacterAction,
+        InspectMenhir,
+        Pass,
+        Other //Items,Skills,Secrets
     }
 
     public class Encounter

@@ -77,7 +77,7 @@ namespace TG.Forms
                 PlayerNumber = 1
             });
 
-            saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = "101",MenhirValue = 9 - saveSheet.Players.Count });
+            saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = 101,MenhirValue = 9 - saveSheet.Players.Count });
 
             if (SaveManager.CurrentSaveSheet != null)
             {
