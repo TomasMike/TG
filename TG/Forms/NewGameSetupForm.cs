@@ -74,7 +74,7 @@ namespace TG.Forms
                         EnumUtils.ParseStringToEnum<CharacterArchetype>(p1arch.SelectedItem.ToString())
                         ),
                 Name = p1name.Text,
-                PlayerNumber = 1
+                PlayerNumber = PlayerNumber.Player1
             });
 
             saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = 101,MenhirValue = 9 - saveSheet.Players.Count });

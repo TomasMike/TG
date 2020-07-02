@@ -8,8 +8,28 @@ namespace TG
 {
     public class Character : INotifyPropertyChanged
     {
+        public Character()
+        {
+
+        }
+
+        public object Skills;
+
+
         public CharacterName CharacterName;
         public CharacterArchetype Archetype;
+
+
+        //public bool CanCharacterDoAnyAction()
+        //{
+        //    if (CurrentEnergy > 0)
+        //        return true;
+
+
+        //}
+
+
+        #region Atributes,propertyChanged events...
 
         private int _aggression;
         private int _courage;
@@ -43,12 +63,10 @@ namespace TG
         public int MaxTerror { get => this._maxTerror; set { if (value == _maxTerror) return; _maxTerror = value; NotifyPropertyChanged(); } }
         public int CurrentTerror { get => this._currentTerror; set { if (value == _currentTerror) return; _currentTerror = value; NotifyPropertyChanged(); } }
         public int Food { get => this._food; set { if (value == _food) return; _food = value; NotifyPropertyChanged(); } }
-        public int  Reputation { get => this._reputation; set { if (value == _reputation) return; _reputation = value; NotifyPropertyChanged(); } }
+        public int Reputation { get => this._reputation; set { if (value == _reputation) return; _reputation = value; NotifyPropertyChanged(); } }
         public int Wealth { get => this._wealth; set { if (value == _wealth) return; _wealth = value; NotifyPropertyChanged(); } }
         public int Experience { get => this._experience; set { if (value == _experience) return; _experience = value; NotifyPropertyChanged(); } }
         public int Magic { get => this._magic; set { if (value == _magic) return; _magic = value; NotifyPropertyChanged(); } }
-
-        public object Skills;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,10 +77,7 @@ namespace TG
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public Character()
-        {
-
-        }
+        #endregion
     }
 
 }

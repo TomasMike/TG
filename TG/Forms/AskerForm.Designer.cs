@@ -1,6 +1,6 @@
 ﻿namespace TG.Forms
 {
-    partial class AskerForm
+    partial class AskerForm<T>
     {
         /// <summary>
         /// Required designer variable.

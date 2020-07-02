@@ -11,41 +11,48 @@ using System.Windows.Forms;
 
 namespace TG.Forms
 {
-    public partial class AskerForm : Form
+    public partial class AskerForm<T> : Form
     {
         public AskerForm()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
 
-        public List<IAskerOption> PickAskerOptions = new List<IAskerOption>();
-        public AskerForm(IEnumerable<IAskerOption> list,bool canCancel)
+        public List<IAskerOption<T>> PickAskerOptions = new List<IAskerOption<T>>();
+        public AskerForm(string question, IEnumerable<IAskerOption<T>> list,bool canCancel)
             : this()
         {
+            flowLayoutPanel1.Controls.Add(new Label() { Text = question});
+
             foreach (var o in list)
             {
-                var b = new AskerButton();
+                var b = new AskerButton<T>();
                 b.Text = o.GetOptionDescription();
                 b.AttachedOption = o;
                 b.Click += pickOptionClick;
+                flowLayoutPanel1.Controls.Add(b);
             }
 
             if(canCancel)
-
+            {
+                var b = new Button();
+                b.Text = "Cancel";
+                b.Click += (sender, args) => this.Close();
+                flowLayoutPanel1.Controls.Add(b);
+            }
         }
 
         private void pickOptionClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var b = sender as AskerButton<T>;
+            if(b == null)
+                throw new Exception();
         }
-
-
-
     }
 
-    public class AskerButton : Button
+    public class AskerButton<T> : Button
     {
-        public IAskerOption AttachedOption;
+        public IAskerOption<T> AttachedOption;
     }
 
 

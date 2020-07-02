@@ -32,10 +32,19 @@ namespace TG
 
         public void Day()
         {
-            if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+
+            var playersWhoActedThisRound = new List<Player>();
+            while (true)
             {
-                Asker.Ask
+                if(SaveManager.CurrentSaveSheet.Players.Any())
+                if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+                {
+                    var reply = Asker.PickOnePlayer("who will be next active player?", false);
+                }
+
             }
+
+           
         }
 
         public void EndOfDay()

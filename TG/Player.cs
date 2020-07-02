@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using TG.Enums;
 
 namespace TG
 {
@@ -7,7 +8,7 @@ namespace TG
     public class Player
     {
         
-        public int PlayerNumber { get; set; }
+        public PlayerNumber PlayerNumber { get; set; }
         public string Name { get; set; }
         public Character Character { get; set; }
 

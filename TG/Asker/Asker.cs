@@ -1,40 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TG.Enums;
 using TG.Forms;
 
 namespace TG
 {
     public static class Asker
     {
-        public static IAskerOption Ask(IEnumerable<IAskerOption> options, bool canCancel)
+        public static IAskerOption<T> Ask<T>(string question, IEnumerable<IAskerOption<T>> options, bool canCancel)
         {
-            var f = new AskerForm(options);
+            var f = new AskerForm<T>(question, options, canCancel);
             f.ShowDialog();
+            return f.PickAskerOptions.FirstOrDefault();
         }
 
-        public static AskerPlayerOption PickOnePlayer(bool canCancel)
+        public static PlayerNumber PickOnePlayer(string question, bool canCancel)
         {
-            var options = new List<Option<AskerPlayerOption>>();
+            var options = new List<Option<PlayerNumber>>();
 
             for (int i = 0; i < SaveManager.CurrentSaveSheet.Players.Count; i++)
             {
-                options.Add(new Option<AskerPlayerOption>((AskerPlayerOption)i));
+                options.Add(new Option<PlayerNumber>((PlayerNumber)i));
             }
 
-            return Ask(options, canCancel).option;
+            return Ask(question, options, canCancel).GetOptionObject();
         }
-
-
     }
 
-    public enum AskerPlayerOption
-    {
-        Player1,
-        Player2,
-        Player3,
-        Player4
-    }
+
 
     public static class OldAsker
     {
@@ -63,12 +57,14 @@ namespace TG
 
 
 
-    public interface IAskerOption
+    public interface IAskerOption<T>
     {
         string GetOptionDescription();
+
+        T GetOptionObject();
     }
 
-    public class Option<T> : IAskerOption
+    public class Option<T> : IAskerOption<T>
     {
         public Option(T item)
         {
@@ -80,6 +76,11 @@ namespace TG
         public string GetOptionDescription()
         {
             return typeof(T).IsEnum ? option.ToString() : TextDescription;
+        }
+
+        public T GetOptionObject()
+        {
+            return option;
         }
     }
 
