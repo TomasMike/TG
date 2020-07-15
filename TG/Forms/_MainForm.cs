@@ -8,29 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TG.CustomControls;
+using TG.Enums;
 using TG.Forms;
 
 namespace TG
 {
     public partial class _MainForm : Form
     {
-        private static _MainForm _instance = null;
-
+        #region Singleton logic
         public static _MainForm Instance => _instance ?? (_instance = new _MainForm());
-
 
         public _MainForm()
         {
             InitializeComponent();
         }
+        #endregion
 
+
+        private static _MainForm _instance = null;
+        private BindingSource _bs;
         public MapPanel Mp = new MapPanel();
         readonly FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
         readonly FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var startMenu = new StartMenuForm();
 
             Mp.Dock = DockStyle.Left;
             Mp.AutoSize = true;
@@ -38,16 +40,15 @@ namespace TG
 
             _characterPanelFlPanel.Dock = DockStyle.Right;
             _characterPanelFlPanel.AutoSize = true;
-            //chFlowLayoutPanel.Size = new Size(100,100);
             _characterPanelFlPanel.BackColor = Color.Aqua;
             mainContentPanel.Controls.Add(_characterPanelFlPanel);
 
-
             _actionButtonFlPanel.Dock = DockStyle.Bottom;
             _actionButtonFlPanel.AutoSize = true;
+            _actionButtonFlPanel.BackColor = Color.DarkViolet;
             mainContentPanel.Controls.Add(_actionButtonFlPanel);
 
-
+            var startMenu = new StartMenuForm();
             var result = startMenu.ShowDialog();
 
             if (result == DialogResult.OK)
@@ -68,38 +69,95 @@ namespace TG
             _characterPanelFlPanel.SuspendLayout();
             foreach (var p in SaveManager.CurrentSaveSheet.Players)
             {
-
                 CharacterBoard chb = new CharacterBoard(p);
-
-
                 _characterPanelFlPanel.Controls.Add(chb);
-                //bs = new BindingSource();
-                //bs.
-                //((CharacterBoard)(chFlowLayoutPanel.Controls[0])).HealthValue.DataBindings.Add("Text", SaveManager.CurrentSaveSheet.Players[0].Character, "CurrentHealth");
             }
+
             _characterPanelFlPanel.ResumeLayout(false);
             _characterPanelFlPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            InitActionButtonPanel();
             Mp.RefreshMapLayout();
             SaveManager.Save();
+
+
+            //start game chain
+            ProcessMorningStuff();
         }
 
-        private void ChFlowLayoutPanel_BindingContextChanged(object sender, EventArgs e)
+        private void InitActionButtonPanel()
         {
-            var x = 3;
+            var width = Enum.GetNames(typeof(ActionType)).Max(_ => TextRenderer.MeasureText(_, this.Font).Width)+10;
+
+            foreach (var item in Enum.GetNames(typeof(ActionType)))
+            {
+                var b = new Button
+                {
+                    Text = item,
+                    BackColor = Color.White,
+                    Width = width
+                };
+                
+
+                _actionButtonFlPanel.Controls.Add(b);
+
+            }
+
         }
+        #region Game Logic
+
+        private List<PlayerNumber> playersWhoActedThisRound = new List<PlayerNumber>();
+
+        /// <summary>
+        /// StartOfTheDay
+        /// </summary>
+        public void ProcessMorningStuff()
+        {
+            //Remove expired menhirs
+            //remove locations out of the menhir range
+            //reduce menhir dial and remove time tokens
+            //reveal and read new event card
+            //move guardians
+            //change equip
+
+            DuringDay();
+        }
+
+        public void DuringDay()
+        {
+            if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+            {
+                var playersWhoDidntActThisRound = SaveManager.CurrentSaveSheet.Players.Select(_ => _.PlayerNumber).ToList();
+                playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
+
+                var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
+                Game.Instance.ActivePlayer = reply;
+            }
+            else
+            {
+                //singleplayer
+                Game.Instance.ActivePlayer = PlayerNumber.Player1;
+            }
+
+            StartNextPlayerTurn();
+        }
+
+        public void StartNextPlayerTurn()
+        {
+            //enable/disable available action buttons
+        }
+
+        #endregion
 
         private void niecoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveManager.CurrentSaveSheet.Players[0].Character.CurrentHealth--;
+            DuringDay();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MoveActionClick(object sender, EventArgs e) 
         {
-        }
 
-        private BindingSource _bs;
+        }
     }
 }

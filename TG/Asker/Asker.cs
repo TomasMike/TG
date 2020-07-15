@@ -12,7 +12,7 @@ namespace TG
         {
             var f = new AskerForm<T>(question, options, canCancel);
             f.ShowDialog();
-            return f.PickAskerOptions.FirstOrDefault();
+            return f.PickedAskerOptions.FirstOrDefault();
         }
 
         public static PlayerNumber PickOnePlayer(string question, bool canCancel)
@@ -23,6 +23,7 @@ namespace TG
             {
                 options.Add(new Option<PlayerNumber>((PlayerNumber)i));
             }
+
 
             return Ask(question, options, canCancel).GetOptionObject();
         }

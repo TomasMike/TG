@@ -15,14 +15,22 @@ namespace TG.Forms
     {
         public AskerForm()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
+   
+        public List<IAskerOption<T>> PickedAskerOptions = new List<IAskerOption<T>>();
 
-        public List<IAskerOption<T>> PickAskerOptions = new List<IAskerOption<T>>();
         public AskerForm(string question, IEnumerable<IAskerOption<T>> list,bool canCancel)
             : this()
         {
-            flowLayoutPanel1.Controls.Add(new Label() { Text = question});
+            this.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(
+                new Label() 
+                { 
+                    Text = question,
+                    AutoSize = true
+                }
+            );
 
             foreach (var o in list)
             {
@@ -47,6 +55,9 @@ namespace TG.Forms
             var b = sender as AskerButton<T>;
             if(b == null)
                 throw new Exception();
+
+            PickedAskerOptions.Add(b.AttachedOption);
+            this.Close();
         }
     }
 

@@ -32,6 +32,17 @@ namespace TG.Forms
                     retVal.MaxTerror = 6;
                     //....
                     break;
+                case CharacterName.Ailei:
+                    retVal.CharacterName = CharacterName.Ailei;
+                    retVal.Aggression = 2;
+                    retVal.CurrentEnergy = 6;
+                    retVal.MaxEnergy = 6;
+                    retVal.CurrentHealth = 9;
+                    retVal.MaxHealth = 9;
+                    retVal.CurrentTerror = 0;
+                    retVal.MaxTerror = 6;
+                    //....
+                    break;
                 default: throw new Exception("character not setupped.");
             }
 
@@ -39,8 +50,11 @@ namespace TG.Forms
 
             switch (ca)
             {
-                case CharacterArchetype.Blue:
                     //setup starting health/energy/max terror, starting/advancement combat/dilpomacy decks and so
+                case CharacterArchetype.Blue:
+                case CharacterArchetype.Gray:
+                case CharacterArchetype.Green:
+                case CharacterArchetype.Brown:
                     break;
                 default: throw new Exception("archetype not setupped.");
             }

@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <fileName>2020_06_24_11_23_52</fileName>
+  <fileName>2020_07_15_12_02_53</fileName>
   <Players>
     <Player>
-      <PlayerNumber>1</PlayerNumber>
+      <PlayerNumber>Player1</PlayerNumber>
       <Name>Tomo</Name>
       <Character>
         <CharacterName>Beor</CharacterName>
         <Archetype>Blue</Archetype>
-        <Aggression>0</Aggression>
+        <Aggression>2</Aggression>
         <Courage>0</Courage>
         <Practicality>0</Practicality>
         <Empathy>0</Empathy>
@@ -26,6 +26,7 @@
         <Experience>0</Experience>
         <Magic>0</Magic>
       </Character>
+      <Location>101</Location>
     </Player>
   </Players>
   <Locations>

@@ -7,45 +7,29 @@ namespace TG
 {
     public sealed class Game
     {
+        #region Singleton Logic
         private static Game instance = null;
 
         Game() { }
 
-        public static Game Instance => instance ?? (instance = new Game());
+        public static Game Instance => instance ?? (instance = new Game()); 
+        #endregion
 
         public static SaveSheet CurrentSaveSheet;
 
-        public void StartNew()
+        private static PlayerNumber _activePlayer;
+        public PlayerNumber ActivePlayer 
         {
-            //Remove expired menhirs
-            //remove locations out of the menhir range
-            //reduce menhir dial and remove time tokens
-            //reveal and read new event card
-            //move guardians
-            //change equip
+            get { return _activePlayer; }
+            set 
+            { 
+                _activePlayer = value;
+                _MainForm.Instance.Refresh();
+            } 
         }
 
-        public void StartOfTheDay()
-        {
-            //System.Windows.Forms.MessageBox.Show()
-        }
 
-        public void Day()
-        {
 
-            var playersWhoActedThisRound = new List<Player>();
-            while (true)
-            {
-                if(SaveManager.CurrentSaveSheet.Players.Any())
-                if (SaveManager.CurrentSaveSheet.Players.Count > 1)
-                {
-                    var reply = Asker.PickOnePlayer("who will be next active player?", false);
-                }
-
-            }
-
-           
-        }
 
         public void EndOfDay()
         {

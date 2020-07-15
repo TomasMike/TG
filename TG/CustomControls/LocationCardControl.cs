@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using TG.Enums;
 
@@ -16,39 +17,30 @@ namespace TG
 
         public TableLayoutPanel LocationDescriptionControlsArea = new TableLayoutPanel();
         public Label LocationNameNumber = new Label();
+        public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.Location == LocationNumber);
 
-        public List<Player> PlayersInLocation = new List<Player>();
+        private Size directionLabelSize = TextRenderer.MeasureText("000", _MainForm.DefaultFont);
+
 
         public LocationCardControl Init()
         {
-            var directionLabelSize = TextRenderer.MeasureText("000", NLabel.Font);
-            //LocationDescriptionControlsArea.BackColor = Color.Red;
-            LocationDescriptionControlsArea.Location = new Point(directionLabelSize.Width, directionLabelSize.Height);
-            LocationDescriptionControlsArea.Size = new Size(Width - directionLabelSize.Width * 2, Height - directionLabelSize.Height * 2);
-
-            LocationDescriptionControlsArea.Controls.Add(LocationNameNumber);
-            LocationDescriptionControlsArea.RowCount =1 ;
-
-            LocationDescriptionControlsArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
-            
-            
             LocationNameNumber.Text = $"{LocationNumber} - {LocationName}";
             LocationNameNumber.TextAlign = ContentAlignment.TopCenter;
             LocationNameNumber.Dock=DockStyle.Fill;
+            LocationDescriptionControlsArea.Controls.Add(LocationNameNumber);
 
-            var p1Label = new Label();
-            p1Label.Text = $"P1 {SaveManager.CurrentSaveSheet.Players[0].Name}";
-            p1Label.TextAlign = ContentAlignment.TopCenter;
-            p1Label.Dock = DockStyle.Top;
-            LocationDescriptionControlsArea.Controls.Add(p1Label);
+            LocationDescriptionControlsArea.Location = new Point(directionLabelSize.Width, directionLabelSize.Height);
+            LocationDescriptionControlsArea.Size = new Size(Width - directionLabelSize.Width * 2, Height - directionLabelSize.Height * 2);
+            LocationDescriptionControlsArea.RowCount = 1;
+            RefreshLocationDescriptionArea();
+
+            this.Paint += ( sender, e) => { RefreshLocationDescriptionArea(); };
 
             if (NorthDirectionKey != 0)
             {
                 NLabel.Text = NorthDirectionKey.ToString();
                 NLabel.Location = new Point(Width / 2 - directionLabelSize.Width / 2, 0);
-         
                 this.Controls.Add(NLabel);
-
             }
 
             if (EastDirectionKey != 0)
@@ -56,7 +48,6 @@ namespace TG
                 ELabel.Text = EastDirectionKey.ToString();
                 ELabel.Location = new Point(Width - directionLabelSize.Width, Height / 2 - directionLabelSize.Height / 2);
                 this.Controls.Add(ELabel);
-
             }
 
             if (SouthDirectionKey != 0)
@@ -74,6 +65,30 @@ namespace TG
             }
 
             return this;
+        }
+
+
+        private void RefreshLocationDescriptionArea()
+        {
+            LocationDescriptionControlsArea.Controls.Clear();
+
+      
+
+
+
+            LocationDescriptionControlsArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+
+
+            foreach (var item in PlayersInLocation)
+            {
+                var l = new Label();
+                l.Text = $"{item.PlayerNumber} {item.Name}-{item.Character.CharacterName}";
+                l.TextAlign = ContentAlignment.TopCenter;
+                l.Dock = DockStyle.Top;
+                if (Game.Instance.ActivePlayer == item.PlayerNumber)
+                    l.BackColor = Color.Orange;
+                LocationDescriptionControlsArea.Controls.Add(l);
+            }
         }
 
         public LocationCardControl()

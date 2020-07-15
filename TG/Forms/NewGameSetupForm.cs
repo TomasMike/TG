@@ -21,8 +21,8 @@ namespace TG.Forms
             InitializeComponent();
         }
 
-        public string[] CharacterDataSource = Enum.GetNames(typeof(CharacterName));
-        public string[] ArchetypeDataSource = Enum.GetNames(typeof(CharacterArchetype));
+        public string[] CharacterDataSource => Enum.GetNames(typeof(CharacterName));
+        public string[] ArchetypeDataSource => Enum.GetNames(typeof(CharacterArchetype));
 
         private void NewGameSetupcs_Load(object sender, EventArgs e)
         {
@@ -30,8 +30,17 @@ namespace TG.Forms
             p1name.Text = "Tomo";
             saveFilenameTextBox.Text = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
 
-            p1char.DataSource = p2char.DataSource = p3char.DataSource = p4char.DataSource = CharacterDataSource;
-            p1arch.DataSource = p2arch.DataSource = p3arch.DataSource = p4arch.DataSource = ArchetypeDataSource;
+            //p1char.DataSource = p2char.DataSource = p3char.DataSource = p4char.DataSource = CharacterDataSource;
+            //p1arch.DataSource = p2arch.DataSource = p3arch.DataSource = p4arch.DataSource = ArchetypeDataSource;
+
+            p1char.DataSource = CharacterDataSource;
+            p2char.DataSource = CharacterDataSource;
+            p3char.DataSource = CharacterDataSource;
+            p4char.DataSource = CharacterDataSource;
+            p1arch.DataSource = ArchetypeDataSource;
+            p2arch.DataSource = ArchetypeDataSource;
+            p3arch.DataSource = ArchetypeDataSource;
+            p4arch.DataSource = ArchetypeDataSource;
             foreach (Control c in p2panel.Controls) { c.Hide(); }
             foreach (Control c in p3panel.Controls) { c.Hide(); }
             foreach (Control c in p4panel.Controls) { c.Hide(); }
@@ -40,7 +49,6 @@ namespace TG.Forms
         private void ValidateNameBoxes(object sender, CancelEventArgs e)
         {
             TextBox control = sender as TextBox;
-            control.Focus();
             e.Cancel = control.Text == string.Empty;
             if (e.Cancel)
             {
@@ -65,19 +73,35 @@ namespace TG.Forms
 
             var saveSheet = new SaveSheet { fileName = saveFilenameTextBox.Text };
 
-            //TODO init ostatnych hracov a ostatne veci do savu
-            saveSheet.Players.Add(new Player()
+            #region
+
+            Action<ComboBox,ComboBox, PlayerNumber,TextBox> initPlayer = (charCmb,archCmb,pNum,nameTxb) =>
             {
-                Character = NewGameDataLib
-                    .GetStartingCharacter(
-                        EnumUtils.ParseStringToEnum<CharacterName>(p1char.SelectedItem.ToString()),
-                        EnumUtils.ParseStringToEnum<CharacterArchetype>(p1arch.SelectedItem.ToString())
-                        ),
-                Name = p1name.Text,
-                PlayerNumber = PlayerNumber.Player1
-            });
+                if(charCmb.Visible && !string.IsNullOrEmpty (nameTxb.Text))
+                {
+                    saveSheet.Players.Add(new Player()
+                    {
+                        Character = NewGameDataLib
+                       .GetStartingCharacter(
+                           EnumUtils.ParseStringToEnum<CharacterName>(charCmb.SelectedItem.ToString()),
+                           EnumUtils.ParseStringToEnum<CharacterArchetype>(archCmb.SelectedItem.ToString())
+                           ),
+                        Name = nameTxb.Text,
+                        PlayerNumber = pNum,
+                        Location = 101
+                    });
+                }
+            };
+
+            initPlayer(p1char, p1arch, PlayerNumber.Player1, p1name);
+            initPlayer(p2char, p2arch, PlayerNumber.Player2, p2name);
+            initPlayer(p3char, p3arch, PlayerNumber.Player3, p3name);
+            initPlayer(p4char, p4arch, PlayerNumber.Player4, p4name);
+
+            #endregion
 
             saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = 101,MenhirValue = 9 - saveSheet.Players.Count });
+
 
             if (SaveManager.CurrentSaveSheet != null)
             {
@@ -87,7 +111,6 @@ namespace TG.Forms
             SaveManager.CurrentSaveSheet = saveSheet;
             SaveManager.Save();
             this.Close();
-
 
         }
 
