@@ -85,7 +85,7 @@ namespace TG
                 l.Text = $"{item.PlayerNumber} {item.Name}-{item.Character.CharacterName}";
                 l.TextAlign = ContentAlignment.TopCenter;
                 l.Dock = DockStyle.Top;
-                if (Game.Instance.ActivePlayer == item.PlayerNumber)
+                if (Game.Instance.ActivePlayerNumber == item.PlayerNumber)
                     l.BackColor = Color.Orange;
                 LocationDescriptionControlsArea.Controls.Add(l);
             }

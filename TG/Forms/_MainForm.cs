@@ -28,8 +28,8 @@ namespace TG
         private static _MainForm _instance = null;
         private BindingSource _bs;
         public MapPanel Mp = new MapPanel();
-        readonly FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
-        readonly FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
+        public FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
+        public FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -90,13 +90,14 @@ namespace TG
         {
             var width = Enum.GetNames(typeof(ActionType)).Max(_ => TextRenderer.MeasureText(_, this.Font).Width)+10;
 
-            foreach (var item in Enum.GetNames(typeof(ActionType)))
+            foreach (ActionType item in Enum.GetValues(typeof(ActionType)))
             {
-                var b = new Button
+                var b = new MainActionButton
                 {
-                    Text = item,
+                    Text = item.ToString(),
                     BackColor = Color.White,
-                    Width = width
+                    Width = width,
+                    ActionType = item
                 };
                 
 
@@ -132,12 +133,12 @@ namespace TG
                 playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
 
                 var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
-                Game.Instance.ActivePlayer = reply;
+                Game.Instance.ActivePlayerNumber = reply;
             }
             else
             {
                 //singleplayer
-                Game.Instance.ActivePlayer = PlayerNumber.Player1;
+                Game.Instance.ActivePlayerNumber = PlayerNumber.Player1;
             }
 
             StartNextPlayerTurn();
@@ -146,6 +147,7 @@ namespace TG
         public void StartNextPlayerTurn()
         {
             //enable/disable available action buttons
+
         }
 
         #endregion
@@ -159,5 +161,28 @@ namespace TG
         {
 
         }
+
+
+    }
+
+    public static class MainActionManager
+    {
+        public static void EnableDisableActionButtonsForActivePlayer()
+        {
+            var controls = _MainForm.Instance._actionButtonFlPanel.Controls;
+
+
+            foreach (Control c in controls)
+            {
+                c.Hide();
+            }
+
+            //moze mi nieco branit sa hybat?
+            if(Game.Instance.ActivePlayer)
+
+           
+        }
+
+
     }
 }

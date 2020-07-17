@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using TG.Enums;
 
 namespace TG
@@ -17,13 +15,15 @@ namespace TG
 
         public static SaveSheet CurrentSaveSheet;
 
-        private static PlayerNumber _activePlayer;
-        public PlayerNumber ActivePlayer 
+        private static PlayerNumber _activePlayerNumber;
+
+        public Player ActivePlayer => CurrentSaveSheet.Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
+        public static PlayerNumber ActivePlayerNumber 
         {
-            get { return _activePlayer; }
+            get { return _activePlayerNumber; }
             set 
             { 
-                _activePlayer = value;
+                _activePlayerNumber = value;
                 _MainForm.Instance.Refresh();
             } 
         }
@@ -45,68 +45,7 @@ namespace TG
         CharacterAction,
         InspectMenhir,
         Pass,
-        Other //Items,Skills,Secrets
-    }
-
-    public class Encounter
-    {
-        public Character ActiveCharacter;
-        public EncounterCard ActiveEncounter;
-        public Card LastActivatedCard;
-        public List<Card> PassiveCardsInPlay;
-
-        public void Combat(Player p, EncounterCard enc)
-        {
-            var ch = p.Character;
-            var playedCards = new List<Card>();
-            //p.DrawingDeck = CardLib.GetCards();
-            LastActivatedCard = null;
-            for (int i = 1; i <= 3; i++)
-            {
-                DrawCard();
-                //Game.Instance.
-            }
-
-            while (true)
-            {
-
-                //players turn
-
-                //enemy attacks
-                var atk = enc.Attacks[enc.CurrentDamage];
-
-                if (playedCards.Any() && playedCards[playedCards.Count].OnEnemyAttack != null)
-                    atk = playedCards[playedCards.Count].OnEnemyAttack(this);
-            }
-
-        }
-
-        public List<EnconterAttack> GetActiveAttack()
-        {
-            return ActiveEncounter.Attacks[ActiveEncounter.CurrentDamage];
-        }
-
-        public void DrawCard()
-        {
-            //var c = ActiveCharacter.DrawingDeck.Last();
-            //ActiveCharacter.Hand.Add(c);
-            //ActiveCharacter.DrawingDeck.Remove(ActiveCharacter.DrawingDeck.Last());
-        }
-
-        public void PlayerTurn()
-        {
-            //List<Tuple<Card, Card, Card>> playOptions = new
-        }
-
-        private List<Tuple<Card, Card, Card>> GetCardCombinations(List<Card> cards)
-        {
-            var retVal = new List<Tuple<Card, Card, Card>>();
-            var l = cards.Count();
-
-
-            return null;
-        }
-
-
+        Other
+            //Items,Skills,Secrets
     }
 }

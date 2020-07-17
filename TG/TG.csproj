@@ -63,6 +63,7 @@
     <Compile Include="CustomControls\CharacterBoard.Designer.cs">
       <DependentUpon>CharacterBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Encounter.cs" />
     <Compile Include="Forms\AskerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +72,9 @@
     </Compile>
     <Compile Include="Libs\LocationsLib.cs" />
     <Compile Include="CustomControls\LocationCardControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\MainActionButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\EnumUtils.cs" />
