@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -14,7 +15,7 @@ namespace TG
 
         static SaveManager()
         {
-            SaveFolder = ConfigurationManager.AppSettings["SaveFolder"];
+            SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\..\SaveFiles"));
             if (string.IsNullOrEmpty(SaveFolder))
                 throw  new Exception("muset setup savefolder in appsettings");
         }

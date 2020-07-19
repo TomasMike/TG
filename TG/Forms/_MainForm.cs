@@ -178,7 +178,7 @@ namespace TG
             }
 
             //moze mi nieco branit sa hybat?
-            if(Game.Instance.ActivePlayer)
+    
 
            
         }
