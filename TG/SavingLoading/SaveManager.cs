@@ -15,7 +15,7 @@ namespace TG
 
         static SaveManager()
         {
-            SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\..\SaveFiles"));
+            SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\SaveFiles"));
             if (string.IsNullOrEmpty(SaveFolder))
                 throw  new Exception("muset setup savefolder in appsettings");
         }

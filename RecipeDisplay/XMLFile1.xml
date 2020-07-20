@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<recipes>
+  <recipe>
+    <input name="Iron Ore" q="1"/>
+    <output name="Iron Plate" q="1"/>
+  </recipe>
+  <recipe>
+    <input name="Iron Plate" q="5"/>
+    <output name="Steel Plate" q="1"/>
+  </recipe>
+  
+<!--Zinc processing 1-->
+  <recipe>
+    <input name="Iron Stick" q="3"/>
+    <input name="Zinc Ore" q="5"/>
+    <output name="Grade 1 Zinc" q="1"/>
+    <output name="Soil" q="0.7"/>
+    <output name="Stone" q="0.5"/>
+  </recipe>
+  <recipe>
+    <input name="Grade 1 Zinc" q="1"/>
+    <output name="Grade 2 Zinc" q="1"/>
+    <output name="Sand" q="0.5"/>
+  </recipe>
+  <recipe>
+    <input name="Grade 2 Zinc" q="20"/>
+    <output name="Zinc Plate" q="30"/>
+  </recipe>
+  <recipe>
+    <input name="Grade 2 Zinc" q="20"/>
+    <input name="Hot Air" q="50"/>
+    <output name="Zinc Plate" q="32"/>
+  </recipe>
+  <!--Zinc processing 1 END-->
+
+  <!--Zinc processing 2-->
+  <recipe>
+    <input name="Grade 2 Zinc" q="1"/>
+    <input name="Water" q="200"/>
+    <output name="Grade 3 Zinc" q="1"/>
+    <output name="Tailings" q="50"/>
+  </recipe>
+  <recipe>
+    <input name="Limestone" q="3"/>
+    <input name="Grade 3 Zinc" q="4"/>
+    <input name="Heavy Oil" q="100"/>
+    <output name="Molten Zinc" q="20"/>
+  </recipe>
+  <recipe>
+    <input name="Borax" q="3"/>
+    <input name="Sand Casting" q="4"/>
+    <input name="Molten Zinc" q="100"/>
+    <output name="Zinc Plate" q="20"/>
+  </recipe>
+  <!--Zinc processing 2 END-->
+  
+  <!--Zinc processing 3 -->
+  <recipe>
+    <input name="Grade 3 Zinc" q="1"/>
+    <output name="Grade 4 Zinc" q="1"/>
+    <output name="Coal Dust" q="0.5"/>
+  </recipe>
+  <recipe>
+    <input name="Grade 4 Zinc" q="1"/>
+    <output name="Powdered Zinc" q="1"/>
+    <output name="Grade 2 Zinc" q="0.3"/>
+  </recipe>
+  <recipe>
+    <input name="Sodium Hydroxide" q="5"/>
+    <input name="Zinc Pulp 3" q="200"/>
+    <input name="Grease" q="25"/>
+    <output name="Purified Zinc" q="2"/>
+    <output name="Zinc Overflow" q="40"/>
+  </recipe>
+  <recipe>
+    <input name="Purified Zinc" q="1"/>
+    <output name="Zinc Concentrate" q="1"/>
+    <output name="Lead Dust" q="0.5"/>
+  </recipe>
+  <recipe>
+    <input name="Filtration Media" q="1"/>
+    <input name="Zinc Pulp 4" q="400"/>
+    <output name="High Grade Zinc" q="4"/>
+  </recipe>
+  <recipe>
+    <input name="Limestone" q="3"/>
+    <input name="Zinc Concentrate" q="1"/>
+    <input name="Heavy Oil" q="100"/>
+    <output name="Molten Zinc" q="45"/>
+  </recipe>
+  <recipe>
+    <input name="Limestone" q="3"/>
+    <input name="High Grade Zinc" q="1"/>
+    <input name="Heavy Oil" q="150"/>
+    <output name="Molten Zinc" q="132"/>
+  </recipe>
+  <recipe>
+    <input name="Powdered Zinc" q="10"/>
+    <output name="Zinc Plate" q="30"/>
+  </recipe>
+  <recipe>
+    <input name="Zinc Overflow" q="400"/>
+    <input name="Cresylic Acid" q="30"/>
+    <input name="Pressured Air" q="100"/>
+    <output name="Zinc Pulp 1" q="400"/>
+    <output name="Zinc Waste" q="200"/>
+  </recipe>
+  <recipe>
+    <input name="Zinc Pulp 1" q="100"/>
+    <input name="Creosote" q="75"/>
+    <input name="Pressured Air" q="100"/>
+    <output name="Zinc Pulp 2" q="100"/>
+    <output name="Zinc Waste" q="50"/>
+  </recipe>
+  <recipe>
+    <input name="Zinc Pulp 2" q="300"/>
+    <input name="Aeroflat-15" q="20"/>
+    <input name="Pressured Air" q="250"/>
+    <output name="Zinc Pulp 3" q="300"/>
+    <output name="Zinc Waste" q="150"/>
+  </recipe>
+  <recipe>
+    <input name="Zinc Concentrate" q="5"/>
+    <input name="Lime" q="17"/>
+    <input name="Water" q="100"/>
+    <input name="Soda-ash Regeneration Solution" q="300"/>
+    <output name="Zinc Pulp 4" q="250"/>
+  </recipe>
+  <recipe>
+    <input name="Zinc Waste" q="150"/>
+    <input name="Water" q="400"/>
+    <output name="Zinc Pulp 4" q="50"/>
+    <output name="Tailings" q="50"/>
+  </recipe>
+  <recipe>
+    <input name="Powdered Zinc" q="5"/>
+    <input name="Water" q="100"/>
+    <input name="Kerosene" q="50"/>
+    <output name="Zinc Overflow" q="50"/>
+    <output name="Tailings" q="50"/>
+  </recipe>
+  <recipe>
+    <input name="Powdered Zinc" q="10"/>
+    <input name="Hot Air" q="50"/>
+    <output name="Zinc Plate" q="32"/>
+  </recipe>
+  <!--Zinc processing 3 END-->
+
+</recipes>
