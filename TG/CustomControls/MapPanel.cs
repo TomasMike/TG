@@ -69,7 +69,7 @@ namespace TG
 
         public void AddMissingMapTiles()
         {
-            foreach (var l in LocationCards.Where(_ => _.MenhirValue != null))
+            foreach (var l in LocationCards.Where(_ => _.MenhirValue >= 0))
             {
                 foreach (var s in l.GetNeighbourLocationNumbers())
                 {
