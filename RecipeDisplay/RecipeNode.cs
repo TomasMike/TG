@@ -20,7 +20,9 @@ namespace RecipeDisplay
         public Recipe Recipe;
         public List<RecipeNode> IncomingRecipes = new List<RecipeNode>();
         public List<RecipeNode> OutGoingRecipes = new List<RecipeNode>();
-
+        public int gridRow;
+        public int gridColumn;
+        public int childrenWidth;
 
         public void Fill()
         {
