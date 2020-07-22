@@ -20,14 +20,25 @@ namespace RecipeDisplay
         public Recipe Recipe;
         public List<RecipeNode> IncomingRecipes = new List<RecipeNode>();
         public List<RecipeNode> OutGoingRecipes = new List<RecipeNode>();
-        public int gridRow;
-        public int gridColumn;
+        //public int gridRow;
+        //public int gridColumn;
+        public int gridRowOffsetToParent;
+        public int gridColumnOffsetToParent;
         public int childrenWidth;
 
         public void Fill()
         {
             this.tableLayoutPanel1.RowCount = Math.Max(Recipe.Inputs.Count, Recipe.Outputs.Count);
+            this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.AutoSize = true;
+            for (int i = 0; i < tableLayoutPanel1.RowCount; i++)
+            {
+                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            }
+            for (int i = 0; i < this.tableLayoutPanel1.ColumnCount; i++)
+            {
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            }
             this.BackColor = Color.Red;
             for (int i = 0; i < Recipe.Inputs.Count; i++)
             {
@@ -36,6 +47,7 @@ namespace RecipeDisplay
                 {
                     Text = $"{item.Quantity}x {item.Name}",
                     AutoSize = true,
+                    BackColor = Color.Green
 
                 };
                 this.tableLayoutPanel1.Controls.Add(l, 0, i);
@@ -47,6 +59,8 @@ namespace RecipeDisplay
                 {
                     Text = $"{item.Quantity}x {item.Name}",
                     AutoSize = true,
+                    BackColor = Color.Green
+
 
                 };
                 this.tableLayoutPanel1.Controls.Add(l, 1, i);

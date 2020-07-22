@@ -8,14 +8,14 @@
     <input name="Iron Plate" q="5"/>
     <output name="Steel Plate" q="1"/>
   </recipe>
-    <recipe>
+    <!--<recipe>
     <input name="Iron Plate" q="1"/>
     <output name="Rail" q="1"/>
   </recipe>
         <recipe>
     <input name="Iron Plate" q="1"/>
     <output name="Bulltes" q="1"/>
-  </recipe>
+  </recipe>-->
   
 <!--Zinc processing 1-->
   <recipe>
@@ -77,7 +77,6 @@
     <output name="Powdered Zinc" q="1"/>
     <output name="Grade 2 Zinc" q="0,3"/>
   </recipe>
-  <!--
 
     <recipe>
     <input name="Sodium Hydroxide" q="5"/>
@@ -158,6 +157,6 @@
     <input name="Hot Air" q="50"/>
     <output name="Zinc Plate" q="32"/>
   </recipe>
-  --><!--Zinc processing 3 END-->
+ <!--Zinc processing 3 END-->
 
 </recipes>
