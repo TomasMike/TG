@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -24,6 +23,91 @@ namespace RecipeDisplay
         {
             this.Paint += Form1_Paint;
             this.AutoSize = true;
+            List<RecipeNode> labels = InitRecipes();
+
+            var x = TreeCharter.FindPathsv1(labels, "Zinc Ore", "Zinc Plate");
+            foreach (var item in x)
+            {
+                var q = TreeCharter.GetQuantityv2(item.ToList(),labels.ToList(),new ResourceChunk() {Name= "Zinc Ore", Quantity = 100 }, "Zinc Plate");
+            }
+
+
+            if (false)
+            {
+
+                var roots = labels.Where(_ => _.IncomingRecipes.Count == 0);
+
+                Action<IEnumerable<RecipeNode>> d = null;
+
+                d = n =>
+                {
+
+                    if (n.Count() == 0)
+                        return;
+
+                    var controlsAdded = new List<RecipeNode>();
+                    foreach (var item in n)
+                    {
+                        item.AutoSize = true;
+                        item.Fill();
+
+                        if (item.Recipe.Name == "ble")
+                        {
+                            item.BackColor = Color.Green;
+                        }
+                        if (!flowLayoutPanel1.Controls.Contains(item))
+                        {
+                            flowLayoutPanel1.Controls.Add(item);
+                            controlsAdded.Add(item);
+                        }
+                    }
+
+                    if (flowLayoutPanel1.Controls.Count > 0)
+                        flowLayoutPanel1.SetFlowBreak(flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1], true);
+
+
+                    foreach (var item in controlsAdded)
+                    {
+                        d(item.OutGoingRecipes);
+                    }
+                };
+
+                d(roots);
+
+            }
+            else
+            {
+                flowLayoutPanel1.Hide();
+
+                var t = new TableLayoutPanel();
+                t.RowCount = 10;
+                t.ColumnCount = 10;
+                for (int i = 0; i < 10; i++)
+                {
+                    //t.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+                    //t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10));
+                    t.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    t.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                }
+
+                t.Dock = DockStyle.Fill;
+                t.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
+
+
+                t.BackColor = Color.Beige;
+                TreeCharter.ChartTree(labels, t);
+                this.Controls.Add(t);
+                this.Refresh();
+
+            }
+
+            this.flowLayoutPanel1.Paint += Form1_Paint;
+
+
+        }
+
+        private static List<RecipeNode> InitRecipes()
+        {
             XmlDocument doc = new XmlDocument();
             doc.Load(Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\XMLFile1.xml")));
 
@@ -35,10 +119,10 @@ namespace RecipeDisplay
                 r.Name = node.Attributes["name"]?.Value;
                 foreach (XmlNode child in node.ChildNodes)
                 {
-                    var m = new RecipePart()
+                    var m = new ResourceChunk()
                     {
                         Name = child.Attributes["name"].Value,
-                        Quantity = float.Parse(child.Attributes["q"].Value)
+                        Quantity = decimal.Parse(child.Attributes["q"].Value)
                     };
 
                     if (child.Name == "input")
@@ -84,82 +168,8 @@ namespace RecipeDisplay
                 }
             }
 
-            var x = TreeCharter.FindPaths(labels, "Zinc Ore", "Zinc Plate");
-
-            if (false)
-            {
-
-                var roots = labels.Where(_ => _.IncomingRecipes.Count == 0);
-                
-                Action<IEnumerable<RecipeNode>> d = null;
-
-                d = n =>
-                {
-
-                    if (n.Count() == 0)
-                        return;
-
-                    var controlsAdded = new List<RecipeNode>();
-                    foreach (var item in n)
-                    {
-                        item.AutoSize = true;
-                        item.Fill();
-
-                        if (item.Recipe.Name == "ble")
-                        {
-                            item.BackColor = Color.Green;
-                        }
-                        if (!flowLayoutPanel1.Controls.Contains(item))
-                        {
-                            flowLayoutPanel1.Controls.Add(item);
-                            controlsAdded.Add(item);
-                        }
-                    }
-
-                    if (flowLayoutPanel1.Controls.Count > 0)
-                        flowLayoutPanel1.SetFlowBreak(flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1], true);
-
-
-                    foreach (var item in controlsAdded)
-                    {
-                        d(item.OutGoingRecipes);
-                    }
-                };
-
-                d(roots);
-             
-            }
-            else
-            {
-                flowLayoutPanel1.Hide();
-
-                var t = new TableLayoutPanel();
-                t.RowCount = 10;
-                t.ColumnCount = 10;
-                for (int i = 0; i < 10; i++)
-                {
-                    //t.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-                    //t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10));
-                    t.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                    t.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                }
-
-                t.Dock = DockStyle.Fill;
-                t.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
-
-         
-                t.BackColor = Color.Beige;
-                TreeCharter.ChartTree(labels, t);
-                this.Controls.Add(t);
-                this.Refresh();
-
-            }
-
-            this.flowLayoutPanel1.Paint += Form1_Paint;
-          
-
+            return labels;
         }
-
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -184,16 +194,16 @@ namespace RecipeDisplay
     [DebuggerDisplay("{getDebugText}")]
     public class Recipe
     {
-        public List<RecipePart> Inputs = new List<RecipePart>();
-        public List<RecipePart> Outputs = new List<RecipePart>();
+        public List<ResourceChunk> Inputs = new List<ResourceChunk>();
+        public List<ResourceChunk> Outputs = new List<ResourceChunk>();
         public string Name;
         private string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}" ;
     }
 
-    public class RecipePart
+    public class ResourceChunk
     {
         public string Name;
-        public float Quantity;
+        public decimal Quantity;
 
         public override string ToString()
         {
@@ -232,114 +242,6 @@ namespace RecipeDisplay
             a(node);
             return nodes.Count;
         }
-    }
-
-    public static class TreeCharter
-    {
-        public static void ChartTree(IEnumerable<RecipeNode> nodes ,TableLayoutPanel tlp)
-        {
-            var roots = nodes.Where(_ => _.IncomingRecipes.Count == 0).OrderByDescending(_ => Helper.GetTreeSize(_));
-
-            //m(tlp, roots,);
-        }
-
-        private static void m(TableLayoutPanel tlp, IEnumerable<RecipeNode> roots, int parentRow,int parentColumn)
-        {
-            foreach (var item in roots)
-            {
-
-            }
-            //foreach (var item in roots)
-            //{
-            //    if (tlp.Controls.Contains(item))
-            //        continue;
-            //    var position = (int)Math.Ceiling(item.OutGoingRecipes.Count / 2.0f);
-            //    var controlsFromSameRow = tlp.GetControlsFromRow(row);
-            //    if (controlsFromSameRow.Any())
-            //    {
-            //        var mostRightInColumnColIndex = controlsFromSameRow.Max(_ => tlp.GetColumn(_));
-            //        var mostRightInColumn = tlp.GetControlFromPosition(mostRightInColumnColIndex, 0) as RecipeNode;
-            //        /*1*/
-            //        position += mostRightInColumnColIndex + (int)Math.Floor(mostRightInColumn.OutGoingRecipes.Count / 2.0f);
-            //    }
-            //    item.Fill();
-            //    //tlp.Controls.Add(new Label() { Text=$"{position - 1}"}, position - 1, 0);
-            //    tlp.Controls.Add(item, position - 1, row);
-
-            //    m(tlp, item.OutGoingRecipes, row + 1);
-            //}
-        }
-
-        public static IEnumerable<Control> GetControlsFromRow(this TableLayoutPanel panel, int row)
-        {
-            var retVal = new List<Control>();
-
-            foreach (Control item in panel.Controls)
-            {
-                if (panel.GetRow(item) == row)
-                {
-                    retVal.Add(item);
-                }
-
-            }
-            return retVal;
-        }
-
-        public static IEnumerable<Control> GetControlsFromColumn(this TableLayoutPanel panel, int column)
-        {
-            var retVal = new List<Control>();
-
-            foreach (Control item in panel.Controls)
-            {
-                if (panel.GetColumn(item) == column)
-                {
-                    retVal.Add(item);
-                }
-
-            }
-            return retVal;
-        }
-
-        public static List<Stack<RecipeNode>> FindPaths(IEnumerable<RecipeNode> nodes, string recipeFrom, string recipeTo)
-        {
-            var foundPaths = new List<Stack<RecipeNode>>();
-            Action<RecipeNode, Stack<RecipeNode>> q = null;
-
-            var startNodes = nodes.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == recipeFrom));
-            var endNodes = nodes.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == recipeTo));
-
-           
-
-            q = (node,path) => 
-            {
-                foreach (var item in node.OutGoingRecipes)
-                {
-                    if (path.Contains(item))
-                        continue;
-
-                    path.Push(item);
-                    if(endNodes.Contains(item))
-                    {
-                        foundPaths.Add(new Stack<RecipeNode>(path));
-                    }
-                    else
-                        q(item, path);
-                    path.Pop();
-
-                }
-            };
-
-            foreach (var item in startNodes)
-            {
-                var p = new Stack<RecipeNode>();
-                p.Push(item);
-                q(item, p);
-            }
-
-            return foundPaths;
-        }
-
-
     }
 
 
