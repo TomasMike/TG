@@ -151,10 +151,26 @@ namespace RecipeDisplay
             var currentResources = new List<ResourceChunk>();
             currentResources.Add(startingResource);
 
+            Func<decimal, int, int> getRes = (recipeQuantity, timesRecipeUsage) =>
+            {
+                var r = new Random();
+                return 0;
+            };
+
+
             while (true)
             {
-                //get recipe that uses resource that I currently have 
-                var r = pathRecipes.FirstOrDefault(a => a.Recipe.Inputs.Any(b => currentResources.Any(c => b.Name == c.Name)));
+                //get recipes that uses resource that I currently have 
+                var r = pathRecipes
+                    .Where(a => a.Recipe.Inputs
+                        .Any(b => currentResources
+                            .Any(c => b.Name == c.Name)))
+                    .Where(recipe => recipe.Recipe.Inputs
+                            .Where(b => currentResources
+                                .Any(c => b.Name == c.Name))
+                        .All(b => b.Quantity <= recipe.Recipe.Inputs
+                            .First(d =>d.Name == b.Name).Quantity))
+                    .FirstOrDefault();
 
                 if (r == null)
                 {
@@ -165,19 +181,33 @@ namespace RecipeDisplay
                 }
 
                 var resourceChunkToUseAsInput = currentResources.First(a => r.Recipe.Inputs.Any(b => a.Name == b.Name));
-                var timesRecipeUsage = resourceChunkToUseAsInput.Quantity / r.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name).Quantity;
+                var timesRecipeUsage = Math.Floor(
+                    resourceChunkToUseAsInput.Quantity / r.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name).Quantity);
 
 
                 currentResources.Remove(resourceChunkToUseAsInput);
                 foreach (var item in r.Recipe.Outputs)
                 {
-                    var q = currentResources.FirstOrDefault(_ => _.Name == item.Name);
+                    try
+                    {
+                        var addedResource = item.Quantity == Math.Round(item.Quantity)
+                            ? item.Quantity * timesRecipeUsage
+                            :0;
 
-                    if (q != null)
-                        q.Quantity += item.Quantity * timesRecipeUsage;
-                    else
-                        currentResources.Add(new ResourceChunk() { Name = item.Name, Quantity = item.Quantity * timesRecipeUsage });
 
+                        var q = currentResources.FirstOrDefault(_ => _.Name == item.Name);
+
+                        if (q != null)
+                            q.Quantity += item.Quantity * timesRecipeUsage;
+                        else
+                            currentResources.Add(new ResourceChunk() { Name = item.Name, Quantity = item.Quantity * timesRecipeUsage });
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
 
                 foreach (var item in currentResources)

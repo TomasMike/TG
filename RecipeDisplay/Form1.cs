@@ -26,9 +26,11 @@ namespace RecipeDisplay
             List<RecipeNode> labels = InitRecipes();
 
             var x = TreeCharter.FindPathsv1(labels, "Zinc Ore", "Zinc Plate");
+            var pathsYield = new List<Tuple<decimal,Stack<RecipeNode>>>();
             foreach (var item in x)
             {
                 var q = TreeCharter.GetQuantityv2(item.ToList(),labels.ToList(),new ResourceChunk() {Name= "Zinc Ore", Quantity = 100 }, "Zinc Plate");
+                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>>(q, item));
             }
 
 
