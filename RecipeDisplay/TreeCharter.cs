@@ -161,39 +161,45 @@ namespace RecipeDisplay
             while (true)
             {
                 //get recipes that uses resource that I currently have 
-                var r = pathRecipes
+                var recipeToUse = pathRecipes
                     .Where(a => a.Recipe.Inputs
-                        .Any(b => currentResources
-                            .Any(c => b.Name == c.Name)))
-                    .Where(recipe => recipe.Recipe.Inputs
-                            .Where(b => currentResources
-                                .Any(c => b.Name == c.Name))
-                        .All(b => b.Quantity <= recipe.Recipe.Inputs
-                            .First(d =>d.Name == b.Name).Quantity))
+                        .Where(b => currentResources
+                            .Any(c => b.Name == c.Name))
+                        .All(b => b.Quantity <= a.Recipe.Inputs
+                            .First(d => d.Name == b.Name).Quantity))
                     .FirstOrDefault();
 
-                if (r == null)
+                if (recipeToUse == null)
                 {
-                    r = allAvailableRecipes.FirstOrDefault(a => a.Recipe.Inputs.Any(b => currentResources.Any(c => b.Name == c.Name)));
+                    recipeToUse = allAvailableRecipes
+                        .Where(a => a.Recipe.Inputs
+                            .Where(b => currentResources
+                                .Any(c => b.Name == c.Name))
+                            .All(b => b.Quantity <= a.Recipe.Inputs
+                                .First(d => d.Name == b.Name).Quantity))
+                        .FirstOrDefault();
 
-                    if (r == null)
+                    if (recipeToUse == null)
                         break;
                 }
 
-                var resourceChunkToUseAsInput = currentResources.First(a => r.Recipe.Inputs.Any(b => a.Name == b.Name));
-                var timesRecipeUsage = Math.Floor(
-                    resourceChunkToUseAsInput.Quantity / r.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name).Quantity);
+                var resourceChunkToUseAsInput = currentResources.First(a => recipeToUse.Recipe.Inputs.Any(b => a.Name == b.Name));
+                var recipeInputChunk = recipeToUse.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name);
+                
+                var timesRecipeUsage = Math.Floor(resourceChunkToUseAsInput.Quantity / recipeInputChunk.Quantity);
 
+                var totalInputUsed = timesRecipeUsage * recipeInputChunk.Quantity;
 
-                currentResources.Remove(resourceChunkToUseAsInput);
-                foreach (var item in r.Recipe.Outputs)
+                resourceChunkToUseAsInput.Quantity -= totalInputUsed;
+
+               // currentResources.Remove(resourceChunkToUseAsInput);
+                foreach (var item in recipeToUse.Recipe.Outputs)
                 {
                     try
                     {
                         var addedResource = item.Quantity == Math.Round(item.Quantity)
                             ? item.Quantity * timesRecipeUsage
                             :0;
-
 
                         var q = currentResources.FirstOrDefault(_ => _.Name == item.Name);
 
