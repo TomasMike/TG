@@ -154,7 +154,14 @@ namespace RecipeDisplay
             Func<decimal, int, int> getRes = (recipeQuantity, timesRecipeUsage) =>
             {
                 var r = new Random();
-                return 0;
+                var retVal = 0;
+                for (int i = 0; i < timesRecipeUsage; i++)
+                {
+                    if (r.Next(1, 101) <= recipeQuantity * 100)
+                        retVal++;
+                }
+
+                return retVal;
             };
 
 
@@ -169,15 +176,33 @@ namespace RecipeDisplay
                             .First(d => d.Name == b.Name).Quantity))
                     .FirstOrDefault();
 
+                var recipesICanUse = new List<RecipeNode>();
+
+                foreach (var availableRecipe in pathRecipes)
+                {
+                    foreach (var myResource in currentResources)
+                    {
+                        if(availableRecipe.Recipe.Inputs.Any(_ => _.Name == myResource.Name))
+                        {
+                            recipesICanUse.Add(availableRecipe);
+                            break;
+                        }
+                    }
+                }
+                recipeToUse = recipesICanUse.FirstOrDefault();
                 if (recipeToUse == null)
                 {
-                    recipeToUse = allAvailableRecipes
-                        .Where(a => a.Recipe.Inputs
-                            .Where(b => currentResources
-                                .Any(c => b.Name == c.Name))
-                            .All(b => b.Quantity <= a.Recipe.Inputs
-                                .First(d => d.Name == b.Name).Quantity))
-                        .FirstOrDefault();
+                    foreach (var availableRecipe in allAvailableRecipes)
+                    {
+                        foreach (var myResource in currentResources)
+                        {
+                            if (availableRecipe.Recipe.Inputs.Any(_ => _.Name == myResource.Name))
+                            {
+                                recipesICanUse.Add(availableRecipe);
+                                break;
+                            }
+                        }
+                    }
 
                     if (recipeToUse == null)
                         break;
@@ -186,7 +211,7 @@ namespace RecipeDisplay
                 var resourceChunkToUseAsInput = currentResources.First(a => recipeToUse.Recipe.Inputs.Any(b => a.Name == b.Name));
                 var recipeInputChunk = recipeToUse.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name);
                 
-                var timesRecipeUsage = Math.Floor(resourceChunkToUseAsInput.Quantity / recipeInputChunk.Quantity);
+                int timesRecipeUsage = (int)Math.Floor(resourceChunkToUseAsInput.Quantity / recipeInputChunk.Quantity);
 
                 var totalInputUsed = timesRecipeUsage * recipeInputChunk.Quantity;
 
@@ -199,7 +224,7 @@ namespace RecipeDisplay
                     {
                         var addedResource = item.Quantity == Math.Round(item.Quantity)
                             ? item.Quantity * timesRecipeUsage
-                            :0;
+                            : getRes(item.Quantity,timesRecipeUsage);
 
                         var q = currentResources.FirstOrDefault(_ => _.Name == item.Name);
 
