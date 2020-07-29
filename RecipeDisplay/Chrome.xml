@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<recipes>
+    <!--Chromite Processing 1-->
+    <recipe>
+        <input name="Chromium Ore" q="5"/>
+        <output name="Grade 1 Chromite" q="1"/>
+    </recipe>
+    <recipe>
+        <input name="Grade 1 Chromite" q="1"/>
+        <output name="Chromite Sand" q="3"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Sand" q="15"/>
+        <output name="Chromium Ingot" q="5"/>
+    </recipe>
+
+    <!--Chromite Processing 1 END-->
+    <!--Chromite Processing 2-->
+    <recipe>
+        <input name="Grade 1 Chromite" q="2"/>
+        <output name="Grade 2 Chromite" q="0,4"/>
+        <output name="Grade 3 Chromite" q="1"/>
+    </recipe>
+    <recipe>
+        <input name="Grade 2 Chromite" q="1"/>
+        <output name="Grade 1 Chromite" q="0,5"/>
+    </recipe>
+    <recipe>
+        <input name="Grade 3 Chromite" q="1"/>
+        <output name="Chromite Sand" q="7"/>
+    </recipe>
+    <recipe>
+        <input name="Grade 3 Chromite" q="1"/>
+        <output name="Grade 4 Chromite" q="1"/>
+        <output name="Chromite Rejects" q="1"/>
+    </recipe>
+    <recipe>
+        <input name="Grade 4 Chromite" q="1"/>
+        <output name="Chromite Sand" q="8"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Rejects" q="3"/>
+        <output name="Grade 3 Chromite" q="0,6"/>
+    </recipe>
+    <!--Chromite Processing 2 END-->
+    <recipe>
+        <input name="Grade 4 Chromite" q="10"/>
+        <output name="Chromite Pulp 1" q="100"/>
+    </recipe>
+    <!--neefektivny recept, moze sposobit zacyklenie-->
+    <xrecipe>
+        <input name="Chromite Sand" q="20"/>
+        <output name="High Chromite" q="1"/>
+    </xrecipe>
+    <recipe>
+        <input name="Chromite Pulp 1" q="200"/>
+        <output name="High Chromite" q="4"/>
+        <output name="Chromite Solution" q="200"/>
+    </recipe>
+
+    <recipe>
+        <input name="Processed Chromite" q="1"/>
+        <output name="High Chromite" q="0,4"/>
+    </recipe>
+    <recipe>
+        <input name="High Chromite" q="1"/>
+        <output name="Chromite Sand" q="20"/>
+    </recipe>
+    <recipe>
+        <input name="High Chromite" q="1"/>
+        <output name="Processed Chromite" q="1"/>
+        <output name="Chromite Pulp-02" q="100"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-02" q="200"/>
+        <output name="Chromite Pulp-03" q="100"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-03" q="100"/>
+        <output name="Chromite Pulp-04" q="50"/>
+        <output name="Chromite Pulp-05" q="50"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-04" q="100"/>
+        <output name="Chromite Pulp-06" q="100"/>
+        <output name="Chromite Solution" q="50"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-06" q="100"/>
+        <output name="Chromite Pulp-05" q="50"/>
+        <output name="High Chromite" q="0,2"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-05" q="100"/>
+        <output name="Chromite Pulp-07" q="100"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Solution" q="200"/>
+        <output name="Chromite Sand" q="15"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Pulp-07" q="100"/>
+        <output name="Chromite Sand" q="55"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Sand" q="15"/>
+        <output name="Molten Chromium" q="70"/>
+    </recipe>
+    <recipe>
+        <input name="Chromite Sand" q="25"/>
+        <output name="Reduced 99.9% Chromium" q="1"/>
+    </recipe>
+        <recipe>
+        <input name="Reduced 99.9% Chromium" q="1"/>
+        <output name="Molten Chromium" q="100"/>
+    </recipe>
+            <recipe>
+        <input name="Molten Chromium" q="100"/>
+        <output name="Chromium Ingot" q="25"/>
+    </recipe>
+</recipes>

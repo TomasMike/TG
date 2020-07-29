@@ -19,20 +19,31 @@ namespace RecipeDisplay
             InitializeComponent();
         }
 
+        private enum Types
+        {
+            Chrome,
+            Zinc
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Paint += Form1_Paint;
             this.AutoSize = true;
-            List<RecipeNode> labels = InitRecipes();
+            List<RecipeNode> labels = InitRecipes("Chrome");
 
-            var x = TreeCharter.FindPathsv1(labels, "Zinc Ore", "Zinc Plate");
-            var pathsYield = new List<Tuple<decimal,Stack<RecipeNode>>>();
-            foreach (var item in x)
+            var choosenResource = Types.Chrome;
+            Stack<RecipeNode> x;
+            switch (choosenResource)
             {
-                var q = TreeCharter.GetQuantityv2(item.ToList(),labels.ToList(),new ResourceChunk() {Name= "Zinc Ore", Quantity = 100 }, "Zinc Plate");
-                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>>(q, item));
+                case Types.Chrome: 
+                    x = FindOptimalProductionPath("Chrome","Chromium Ore","Chromium Ingot",1000);
+                    break;
+                case Types.Zinc:
+                    x = FindOptimalProductionPath("Zinc", "Zinc Ore", "Zinc Ingot", 1000);
+                    break;
+                default:
+                    break;
             }
-
 
             if (false)
             {
@@ -108,10 +119,25 @@ namespace RecipeDisplay
 
         }
 
-        private static List<RecipeNode> InitRecipes()
+        private static Stack<RecipeNode> FindOptimalProductionPath(string fileName, string startingResourceName, string endingResourceName, int startingInputQuantity)
+        {
+            List<RecipeNode> labels = InitRecipes(fileName);
+            TreeCharter.FindPathsv2(labels, startingResourceName, endingResourceName);
+            var x = TreeCharter.FindPathsv1(labels, startingResourceName, endingResourceName);
+            var pathsYield = new List<Tuple<decimal, Stack<RecipeNode>>>();
+            foreach (var item in x)
+            {
+                var q = TreeCharter.GetQuantityv2(item.ToList(), labels.ToList(), new ResourceChunk() { Name = startingResourceName, Quantity = startingInputQuantity }, endingResourceName);
+                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>>(q, item));
+            }
+            var best = pathsYield.OrderByDescending(_ => _.Item1).ToList().First();
+            return best.Item2;
+        }
+
+        private static List<RecipeNode> InitRecipes(string fileName)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\XMLFile1.xml")));
+            doc.Load(Path.GetFullPath(Path.Combine(Application.StartupPath, $@"..\..\{fileName}.xml")));
 
             var recipes = new List<Recipe>();
 
@@ -199,7 +225,7 @@ namespace RecipeDisplay
         public List<ResourceChunk> Inputs = new List<ResourceChunk>();
         public List<ResourceChunk> Outputs = new List<ResourceChunk>();
         public string Name;
-        private string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}" ;
+        private string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}";
     }
 
     public class ResourceChunk
@@ -214,13 +240,13 @@ namespace RecipeDisplay
     }
 
     public static class Helper
-    { 
+    {
         public static int GetTreeSize(RecipeNode node)
         {
             var nodes = new List<RecipeNode>();
 
             Action<RecipeNode> a = null;
-            a = n => 
+            a = n =>
             {
                 foreach (var item in n.IncomingRecipes)
                 {
@@ -233,7 +259,7 @@ namespace RecipeDisplay
 
                 foreach (var item in n.OutGoingRecipes)
                 {
-                    if(!nodes.Contains(item))
+                    if (!nodes.Contains(item))
                     {
                         nodes.Add(item);
                         a(item);
