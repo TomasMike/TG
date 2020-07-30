@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -150,7 +151,7 @@ namespace RecipeDisplay
                     var m = new ResourceChunk()
                     {
                         Name = child.Attributes["name"].Value,
-                        Quantity = decimal.Parse(child.Attributes["q"].Value)
+                        Quantity = decimal.Parse(child.Attributes["q"].Value.Replace(".",CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
                     };
 
                     if (child.Name == "input")
