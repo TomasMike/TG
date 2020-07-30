@@ -18,12 +18,12 @@
     <!--Chromite Processing 2-->
     <recipe>
         <input name="Grade 1 Chromite" q="2"/>
-        <output name="Grade 2 Chromite" q="0,4"/>
+        <output name="Grade 2 Chromite" q="0.4"/>
         <output name="Grade 3 Chromite" q="1"/>
     </recipe>
     <recipe>
         <input name="Grade 2 Chromite" q="1"/>
-        <output name="Grade 1 Chromite" q="0,5"/>
+        <output name="Grade 1 Chromite" q="0.5"/>
     </recipe>
     <recipe>
         <input name="Grade 3 Chromite" q="1"/>
@@ -40,7 +40,7 @@
     </recipe>
     <recipe>
         <input name="Chromite Rejects" q="3"/>
-        <output name="Grade 3 Chromite" q="0,6"/>
+        <output name="Grade 3 Chromite" q="0.6"/>
     </recipe>
     <!--Chromite Processing 2 END-->
     <recipe>
@@ -60,7 +60,7 @@
 
     <recipe>
         <input name="Processed Chromite" q="1"/>
-        <output name="High Chromite" q="0,4"/>
+        <output name="High Chromite" q="0.4"/>
     </recipe>
     <recipe>
         <input name="High Chromite" q="1"/>
@@ -88,7 +88,7 @@
     <recipe>
         <input name="Chromite Pulp-06" q="100"/>
         <output name="Chromite Pulp-05" q="50"/>
-        <output name="High Chromite" q="0,2"/>
+        <output name="High Chromite" q="0.2"/>
     </recipe>
     <recipe>
         <input name="Chromite Pulp-05" q="100"/>

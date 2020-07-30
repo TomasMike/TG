@@ -22,13 +22,13 @@
     <input name="Iron Stick" q="3"/>
     <input name="Zinc Ore" q="5"/>
     <output name="Grade 1 Zinc" q="1"/>
-    <output name="Soil" q="0,7"/>
-    <output name="Stone" q="0,5"/>
+    <output name="Soil" q="0.7"/>
+    <output name="Stone" q="0.5"/>
   </recipe>
   <recipe>
     <input name="Grade 1 Zinc" q="1"/>
     <output name="Grade 2 Zinc" q="1"/>
-    <output name="Sand" q="0,5"/>
+    <output name="Sand" q="0.5"/>
   </recipe>
   <recipe>
     <input name="Grade 2 Zinc" q="20"/>
@@ -70,12 +70,12 @@
   <recipe>
     <input name="Grade 3 Zinc" q="1"/>
     <output name="Grade 4 Zinc" q="1"/>
-    <output name="Coal Dust" q="0,5"/>
+    <output name="Coal Dust" q="0.5"/>
   </recipe>
   <recipe >
     <input name="Grade 4 Zinc" q="1"/>
     <output name="Powdered Zinc" q="1"/>
-    <output name="Grade 2 Zinc" q="0,3"/>
+    <output name="Grade 2 Zinc" q="0.3"/>
   </recipe>
 
     <recipe>
@@ -88,7 +88,7 @@
   <recipe>
     <input name="Purified Zinc" q="1"/>
     <output name="Zinc Concentrate" q="1"/>
-    <output name="Lead Dust" q="0,5"/>
+    <output name="Lead Dust" q="0.5"/>
   </recipe>
   <recipe>
     <input name="Filtration Media" q="1"/>
