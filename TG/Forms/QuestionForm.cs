@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace TG
+namespace TG.Forms
 {
     public partial class QuestionForm : Form
     {
@@ -24,7 +24,7 @@ namespace TG
         }
 
         public QuestionForm(string question, IEnumerable<QuestionFromComboBoxItem> items)
-            :this()
+            : this()
         {
             this.textBox1.Hide();
             this.Mode = QuestionType.Dropdown;
@@ -39,9 +39,9 @@ namespace TG
         {
             if (this.Mode == QuestionType.Dropdown)
                 stringOutput = this.comboBox1.SelectedItem.ToString();
-            else if(this.Mode == QuestionType.Text)
+            else if (this.Mode == QuestionType.Text)
                 stringOutput = this.textBox1.Text;
-            else if(this.Mode == QuestionType.Int)
+            else if (this.Mode == QuestionType.Int)
             {
                 int i;
                 if (int.TryParse(this.textBox1.Text, out i))
@@ -54,7 +54,7 @@ namespace TG
                     return;
                 }
             }
-            this.Close(); 
+            this.Close();
         }
     }
 

@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TG.Enums;
+using TG.HelpersUtils;
+using TG.Libs;
+using TG.SavingLoading;
 
 namespace TG.Forms
 {
     public partial class NewGameSetupForm : Form
     {
-
         public NewGameSetupForm()
         {
             InitializeComponent();
@@ -75,23 +71,23 @@ namespace TG.Forms
 
             #region
 
-            Action<ComboBox,ComboBox, PlayerNumber,TextBox> initPlayer = (charCmb,archCmb,pNum,nameTxb) =>
-            {
-                if(charCmb.Visible && !string.IsNullOrEmpty (nameTxb.Text))
-                {
-                    saveSheet.Players.Add(new Player()
-                    {
-                        Character = NewGameDataLib
-                       .GetStartingCharacter(
-                           EnumUtils.ParseStringToEnum<CharacterName>(charCmb.SelectedItem.ToString()),
-                           EnumUtils.ParseStringToEnum<CharacterArchetype>(archCmb.SelectedItem.ToString())
-                           ),
-                        Name = nameTxb.Text,
-                        PlayerNumber = pNum,
-                        Location = 101
-                    });
-                }
-            };
+            Action<ComboBox, ComboBox, PlayerNumber, TextBox> initPlayer = (charCmb, archCmb, pNum, nameTxb) =>
+              {
+                  if (charCmb.Visible && !string.IsNullOrEmpty(nameTxb.Text))
+                  {
+                      saveSheet.Players.Add(new Player()
+                      {
+                          Character = NewGameDataLib
+                         .GetStartingCharacter(
+                             EnumUtils.ParseStringToEnum<CharacterName>(charCmb.SelectedItem.ToString()),
+                             EnumUtils.ParseStringToEnum<CharacterArchetype>(archCmb.SelectedItem.ToString())
+                             ),
+                          Name = nameTxb.Text,
+                          PlayerNumber = pNum,
+                          CurrentLocation = 101
+                      });
+                  }
+              };
 
             initPlayer(p1char, p1arch, PlayerNumber.Player1, p1name);
             initPlayer(p2char, p2arch, PlayerNumber.Player2, p2name);
@@ -100,8 +96,7 @@ namespace TG.Forms
 
             #endregion
 
-            saveSheet.Locations.Add( new LocationSaveObject { LocationNumber = 101,MenhirValue = 9 - saveSheet.Players.Count });
-
+            saveSheet.Locations.Add(new LocationSaveObject { LocationNumber = 101, MenhirValue = 9 - saveSheet.Players.Count });
 
             if (SaveManager.CurrentSaveSheet != null)
             {
@@ -111,7 +106,6 @@ namespace TG.Forms
             SaveManager.CurrentSaveSheet = saveSheet;
             SaveManager.Save();
             this.Close();
-
         }
 
         private void AddRemovePlayer(object sender, EventArgs e)
@@ -119,10 +113,10 @@ namespace TG.Forms
             Panel p;
             switch ((sender as Button).Text.Last())
             {
-                case '2': p = p2panel;break;
-                case '3': p = p3panel;break;
-                case '4': p = p4panel;break;
-                default:throw new Exception();
+                case '2': p = p2panel; break;
+                case '3': p = p3panel; break;
+                case '4': p = p4panel; break;
+                default: throw new Exception();
             }
 
             foreach (Control c in p.Controls)

@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TG.SavingLoading;
 
 namespace TG.Forms
 {
     public partial class StartMenuForm : Form
     {
-
         public StartMenuForm()
         {
             InitializeComponent();
@@ -63,14 +56,13 @@ namespace TG.Forms
 
             this.DialogResult = DialogResult.OK;
             this.Close();
-
         }
 
         private void LoadNewestSave(object sender, EventArgs e)
         {
             FileInfo latestFileInfo = null;
 
-            foreach (var f in Directory.GetFiles(SaveManager.SaveFolder,"*.xml"))
+            foreach (var f in Directory.GetFiles(SaveManager.SaveFolder, "*.xml"))
             {
                 var i = new FileInfo(f);
                 if (latestFileInfo == null || latestFileInfo.LastWriteTime < i.LastWriteTime)
@@ -81,7 +73,6 @@ namespace TG.Forms
             {
                 MessageBox.Show("No save file in save folder.");
                 return;
-                
             }
             SaveManager.Load(latestFileInfo.FullName);
 
@@ -91,7 +82,6 @@ namespace TG.Forms
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }

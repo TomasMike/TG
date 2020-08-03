@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TG.PlayerDecisionIO;
 
 namespace TG.Forms
 {
@@ -17,16 +11,16 @@ namespace TG.Forms
         {
             InitializeComponent();
         }
-   
+
         public List<IAskerOption<T>> PickedAskerOptions = new List<IAskerOption<T>>();
 
-        public AskerForm(string question, IEnumerable<IAskerOption<T>> list,bool canCancel)
+        public AskerForm(string question, IEnumerable<IAskerOption<T>> list, bool canCancel)
             : this()
         {
             this.AutoSize = true;
             flowLayoutPanel1.Controls.Add(
-                new Label() 
-                { 
+                new Label()
+                {
                     Text = question,
                     AutoSize = true
                 }
@@ -41,7 +35,7 @@ namespace TG.Forms
                 flowLayoutPanel1.Controls.Add(b);
             }
 
-            if(canCancel)
+            if (canCancel)
             {
                 var b = new Button();
                 b.Text = "Cancel";
@@ -53,7 +47,7 @@ namespace TG.Forms
         private void pickOptionClick(object sender, EventArgs e)
         {
             var b = sender as AskerButton<T>;
-            if(b == null)
+            if (b == null)
                 throw new Exception();
 
             PickedAskerOptions.Add(b.AttachedOption);
@@ -65,6 +59,4 @@ namespace TG.Forms
     {
         public IAskerOption<T> AttachedOption;
     }
-
-
 }

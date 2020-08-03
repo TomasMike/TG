@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TG
+namespace TG.SavingLoading
 {
     public class SaveSheet
     {

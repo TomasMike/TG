@@ -1,4 +1,4 @@
-﻿namespace TG
+﻿namespace TG.Forms
 {
     partial class QuestionForm
     {

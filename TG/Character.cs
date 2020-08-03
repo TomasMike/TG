@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using TG.Enums;
 
 namespace TG
@@ -10,24 +8,19 @@ namespace TG
     {
         public Character()
         {
-
         }
 
         public object Skills;
 
-
         public CharacterName CharacterName;
         public CharacterArchetype Archetype;
-
 
         //public bool CanCharacterDoAnyAction()
         //{
         //    if (CurrentEnergy > 0)
         //        return true;
 
-
         //}
-
 
         #region Atributes,propertyChanged events...
 
@@ -77,7 +70,7 @@ namespace TG
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        #endregion
-    }
 
+        #endregion Atributes,propertyChanged events...
+    }
 }
