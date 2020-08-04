@@ -17,6 +17,7 @@ namespace TG.CustomControls
         public TableLayoutPanel LocationDescriptionControlsArea = new TableLayoutPanel();
         public TableLayoutPanel LocationPlayersGuardiansArea = new TableLayoutPanel();
         public Label LocationNameNumber = new Label();
+        public LocationSelectionButton LocationActionBtn = new LocationSelectionButton();
         public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.CurrentLocation == LocationNumber);
         public List<Button> ButtonsToDisplay = new List<Button>();
 
@@ -37,7 +38,13 @@ namespace TG.CustomControls
             LocationPlayersGuardiansArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
 
             LocationDescriptionControlsArea.Controls.Add(LocationNameNumber, 0, 0);
-            LocationDescriptionControlsArea.Controls.Add(LocationPlayersGuardiansArea, 0, 1);
+            LocationDescriptionControlsArea.Controls.Add(LocationActionBtn, 0, 1);
+
+            LocationDescriptionControlsArea.Controls.Add(LocationPlayersGuardiansArea, 0, 2);
+
+            LocationActionBtn.Hide();
+            LocationActionBtn.LocationNumber = LocationNumber;
+            
 
             RefreshLocationDescriptionArea();
 

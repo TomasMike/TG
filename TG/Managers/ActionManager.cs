@@ -42,26 +42,56 @@ namespace TG.Managers
                 DisableMoveMode();
             else
                 EnableMoveMode();
+
         }
 
         public static void EnableMoveMode()
         {
-            mainActionButtons.ForEach(_ => _.Enabled = false);
+            IsTravelModeEnabled = !IsTravelModeEnabled;
+
+            mainActionButtons.ForEach(_ => _.Disable());
             var b = mainActionButtons.First(_ => _.ActionType == ActionType.Travel);
-            b.Enabled = true;
+            b.Enable();
             b.Text = "Cancel Travel";
 
             foreach (var item in LocationsHelper.GetNeighbourLocationNumbers(Game.Instance.ActivePlayer.CurrentLocationCard))
             {
+                var l = LocationsHelper.GetLCControlFromLocationNumber(item);
+                l.LocationActionBtn.Show();
+                l.LocationActionBtn.Text = "Move Here";
+                l.LocationActionBtn.Click += MoveClick;
+            }
+            _MainForm.Instance.Refresh();
+        }
 
-            } 
+        static void MoveClick(object sender, EventArgs e)
+        {
+            var p = Game.Instance.ActivePlayer;
+            p.Character.CurrentEnergy--;
+            p.CurrentLocation = ((LocationSelectionButton)sender).LocationNumber;
+            DisableMoveMode();  
         }
 
         public static void DisableMoveMode()
         {
+            IsTravelModeEnabled = !IsTravelModeEnabled;
+
+            mainActionButtons.ForEach(_ => _.Enable());
             var b = mainActionButtons.First(_ => _.ActionType == ActionType.Travel);
 
             b.Text = "Travel";
+
+            foreach (var item in _MainForm.Instance.Mp.LocationCards)
+            {
+                var l = LocationsHelper.GetLCControlFromLocationNumber(item.LocationNumber);
+                if(l.LocationActionBtn.Visible)
+                {
+                    l.LocationActionBtn.Hide();
+                    l.LocationActionBtn.Click -= MoveClick;
+                }
+            }
+            _MainForm.Instance.Refresh();
+
         }
     }
 }

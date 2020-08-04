@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\LocationSelectionButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HelpersUtils\Extensions.cs" />
     <Compile Include="Managers\ActionManager.cs" />
     <Compile Include="PlayerDecisionIO\Asker.cs" />
     <Compile Include="CustomControls\LocationCardControlv2.cs">

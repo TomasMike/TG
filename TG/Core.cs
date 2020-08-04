@@ -24,7 +24,7 @@ namespace TG
 
         private static PlayerNumber _activePlayerNumber;
 
-        public Player ActivePlayer => CurrentSaveSheet.Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
+        public Player ActivePlayer => SaveManager.CurrentSaveSheet.Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
 
         public PlayerNumber ActivePlayerNumber
         {
