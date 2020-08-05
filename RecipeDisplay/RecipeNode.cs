@@ -17,7 +17,7 @@ namespace RecipeDisplay
             InitializeComponent();
         }
 
-        public Recipe Recipe;
+        public Recipee Recipe;
         public List<RecipeNode> IncomingRecipes = new List<RecipeNode>();
         public List<RecipeNode> OutGoingRecipes = new List<RecipeNode>();
         //public int gridRow;

@@ -9,6 +9,18 @@ namespace RecipeDisplay
 {
     public static class TreeCharter
     {
+        public static List<string> IgnoredInputs = new List<string>()
+        {
+            "hot-air",
+            "salt",
+            "water",
+            "acid-solvent",
+            "borax",
+            "oxygen",
+            "sand-casting"
+        };
+
+
         public static void ChartTree(IEnumerable<RecipeNode> nodes, TableLayoutPanel tlp)
         {
             var roots = nodes.Where(_ => _.IncomingRecipes.Count == 0).OrderByDescending(_ => Helper.GetTreeSize(_));
@@ -106,7 +118,11 @@ namespace RecipeDisplay
             {
                 var p = new Stack<RecipeNode>();
                 p.Push(item);
-                q(item, p);
+
+                if (endNodes.Contains(item))
+                    foundPaths.Add(new Stack<RecipeNode>(p));
+                else
+                    q(item, p);
             }
 
             return foundPaths;
@@ -114,7 +130,7 @@ namespace RecipeDisplay
 
         public static void FindPathsv2(IEnumerable<RecipeNode> nodes, string recipeFrom, string recipeTo)
         {
-            var inputs = new Dictionary<string,int>();
+            var inputs = new Dictionary<string, int>();
             foreach (var recipe in nodes)
             {
                 foreach (var input in recipe.Recipe.Inputs)
@@ -126,7 +142,7 @@ namespace RecipeDisplay
                 }
             }
 
-            foreach (var item in inputs.Where(_ => _.Value >1))
+            foreach (var item in inputs.Where(_ => _.Value > 1))
             {
 
             }
@@ -173,9 +189,9 @@ namespace RecipeDisplay
             var currentResources = new List<ResourceChunk>();
             currentResources.Add(startingResource);
 
-            Func<decimal, int, decimal> getRes = (recipeQuantity, timesRecipeUsage) =>
+            Func<double, int, decimal> getRes = (recipeQuantity, timesRecipeUsage) =>
             {
-                if(simulateChanceBasedRecipes)
+                if (simulateChanceBasedRecipes)
                 {
                     var r = new Random();
                     var retVal = 0;
@@ -188,7 +204,7 @@ namespace RecipeDisplay
                     return retVal;
                 }
 
-                return recipeQuantity * timesRecipeUsage;
+                return Convert.ToDecimal(recipeQuantity * timesRecipeUsage);
 
             };
 
@@ -199,7 +215,7 @@ namespace RecipeDisplay
             while (true)
             {
                 j++;
-                if(j > 20)
+                if (j > 20)
                 {
                     var x = 3;
                 }
@@ -207,9 +223,30 @@ namespace RecipeDisplay
 
                 foreach (var availableRecipe in pathRecipes)
                 {
-                    foreach (var myResource in currentResources)
+                    if (availableRecipe.Recipe.Inputs.Any(a => a.Name == endingResource))
+                        continue;
+
+                    //ak aspon jeden input mam a mam ho dost
+                    if (availableRecipe.Recipe.Inputs
+                        .Any(input => currentResources
+                            .Any(cr =>
+                                cr.Name == input.Name
+                                && cr.Quantity >= input.Quantity))
+                        )
                     {
-                        if(availableRecipe.Recipe.Inputs.Any(_ => _.Name == myResource.Name && _.Quantity <= myResource.Quantity))
+                        if (availableRecipe.Recipe.Inputs.All(input =>
+                        {
+                            //ak aspon jeden input mam a mam ho dost
+                            if (currentResources.FirstOrDefault(a => a.Name == input.Name && a.Quantity >= input.Quantity) != null)
+                                return true;
+
+                            //ak je to zdroj co mozem ziskat inym receptom
+                            if (pathRecipes.Any(a => a.Recipe.Outputs.Any(b => b.Name == input.Name))) return false;
+
+
+                            return true;
+
+                        }))
                         {
                             recipesICanUse.Add(availableRecipe);
                             break;
@@ -221,9 +258,29 @@ namespace RecipeDisplay
                 {
                     foreach (var availableRecipe in allAvailableRecipes)
                     {
-                        foreach (var myResource in currentResources)
+                        if (availableRecipe.Recipe.Inputs.Any(a => a.Name == endingResource))
+                            continue;
+
+                        //ak aspon jeden input mam a mam ho dost
+                        if (availableRecipe.Recipe.Inputs
+                            .Any(input => currentResources
+                                .Any(cr =>
+                                    cr.Name == input.Name
+                                    && cr.Quantity >= input.Quantity))
+                            )
                         {
-                            if (availableRecipe.Recipe.Inputs.Any(_ => _.Name == myResource.Name && _.Quantity <= myResource.Quantity))
+                            if (availableRecipe.Recipe.Inputs.All(input =>
+                            {
+                                //ak aspon jeden input mam a mam ho dost
+                                if (currentResources.FirstOrDefault(a => a.Name == input.Name && a.Quantity >= input.Quantity) != null)
+                                     return true;
+
+                                //ak je to zdroj co mozem ziskat inym receptom
+                                if (pathRecipes.Any(a => a.Recipe.Outputs.Any(b => b.Name == input.Name))) return false;
+
+                                return true;
+
+                            }))
                             {
                                 recipesICanUse.Add(availableRecipe);
                                 break;
@@ -233,18 +290,16 @@ namespace RecipeDisplay
 
                     recipeToUse = recipesICanUse.FirstOrDefault();
 
-
-                    if (recipeToUse == null)
-                        break;
+                    if (recipeToUse == null)break;
                 }
 
-                
+
                 var resourceChunkToUseAsInput = currentResources.First(a => recipeToUse.Recipe.Inputs.Any(b => a.Name == b.Name));
 
                 var recipeInputChunk = recipeToUse.Recipe.Inputs.First(a => a.Name == resourceChunkToUseAsInput.Name);
-                
+
                 int timesRecipeUsage = (int)Math.Floor(resourceChunkToUseAsInput.Quantity / recipeInputChunk.Quantity);
-                sb.AppendLine($"{timesRecipeUsage}[{string.Join(",", recipeToUse.Recipe.Inputs)} to {string.Join(",",recipeToUse.Recipe.Outputs)}]");
+                sb.AppendLine($"{timesRecipeUsage}[{string.Join(",", recipeToUse.Recipe.Inputs)} to {string.Join(",", recipeToUse.Recipe.Outputs)}]");
 
                 var totalInputUsed = timesRecipeUsage * recipeInputChunk.Quantity;
 
@@ -255,7 +310,7 @@ namespace RecipeDisplay
 
                     var addedResource = item.Quantity == Math.Round(item.Quantity)
                         ? item.Quantity * timesRecipeUsage
-                        : getRes(item.Quantity,timesRecipeUsage);
+                        : getRes(item.Probability, timesRecipeUsage);
 
                     var q = currentResources.FirstOrDefault(_ => _.Name == item.Name);
 
@@ -264,12 +319,12 @@ namespace RecipeDisplay
                     else
                         currentResources.Add(new ResourceChunk() { Name = item.Name, Quantity = item.Quantity * timesRecipeUsage });
 
-                   
+
                 }
 
                 foreach (var item in currentResources)
                 {
-                    item.Quantity = Math.Round(item.Quantity,3);
+                    item.Quantity = Math.Round(item.Quantity, 3);
                 }
 
                 currentResources.RemoveAll(_ => _.Quantity == 0);
@@ -280,9 +335,14 @@ namespace RecipeDisplay
             {
                 sb.AppendLine($"{item.Quantity} {item.Name}");
             }
-            //MessageBox.Show(sb.ToString());
+            MessageBox.Show(sb.ToString());
 
-            return currentResources.First(a => a.Name == endingResource).Quantity;
+            if (!currentResources.Any(a => a.Name == endingResource))
+            {
+                var q = 2;
+            }
+
+            return currentResources.FirstOrDefault(a => a.Name == endingResource)?.Quantity ?? 0;
         }
     }
 }

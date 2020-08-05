@@ -30,22 +30,83 @@ namespace RecipeDisplay
 
         private void be()
         {
-            var sb = new StringBuilder();
-            sb.Append("{");
-            foreach (var item in Directory.GetFiles($@"C:\Users\tomas\AppData\Roaming\Factorio\script-output\recipes"))
-            {
-                sb.AppendLine(File.ReadAllText(item));
-                sb.Append(",");
 
+            var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Users\tmi\Downloads\f.txt"));
+            List<Recipee> rec = new List<Recipee>();
+
+            foreach (Recipe node in root.recipes)
+            {
+                var r = new Recipee();
+                if (
+                    node.name.IndexOf("void") >= 0 
+                    || node.name.IndexOf("crate") >= 0
+                    || node.name.IndexOf("stack") >= 0
+                    || node.name.IndexOf("barrel") >= 0
+                    || node.name.IndexOf("delivery") >= 0
+                    || node.name.IndexOf("pack") >= 0
+                    )
+                    continue;
+                r.Name = node.name;
+                foreach (Ingredient child in node.ingredients)
+                {
+                    var m = new ResourceChunk()
+                    {
+                        Name = child.name,
+                        Quantity = child.amount,
+                    };
+
+                        r.Inputs.Add(m);
+                }
+
+                foreach (Product child in node.products)
+                {
+                    var m = new ResourceChunk()
+                    {
+                        Name = child.name,
+                        Quantity = child.amount,
+                        Probability = child.probability
+                    };
+
+                    r.Outputs.Add(m);
+                }
+                rec.Add(r);
+
+                
             }
 
-            sb.Append("}");
+            List<RecipeNode> labels = new List<RecipeNode>();
 
-            string  s = "{{amount = 1,name = \"ash\",probability = 0.2,type = \"item\"}}";
+            foreach (Recipee re in rec)
+            {
+                var r = new RecipeNode()
+                {
+                    Recipe = re
+                };
+                labels.Add(r);
+            }
+            labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf("zinc") >= 0)).ToList();
+            foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf("zinc") >= 0))
+)
+            {
+                foreach (var input in item.Recipe.Inputs)
+                {
+                    foreach (var matchedRecipeLabel in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == input.Name)))
+                    {
+                        item.IncomingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
 
-           var x =  JsonConvert.DeserializeObject(s);
+                foreach (var output in item.Recipe.Outputs)
+                {
+                    foreach (var matchedRecipeLabel in labels.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == output.Name)))
+                    {
+                        item.OutGoingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
+            }
+            //var q = labels.Where(_ => _.Recipe.Inputs.Any(a => a.Name.IndexOf("copper-ore") >= 0));
             
-            // File.WriteAllText(@"C:\temp\f.txt", sb.ToString());
+            FindOptimalProductionPath(null, "ore-zinc", "zinc-plate", 1000, labels);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -145,10 +206,10 @@ namespace RecipeDisplay
 
         }
 
-        private static Stack<RecipeNode> FindOptimalProductionPath(string fileName, string startingResourceName, string endingResourceName, int startingInputQuantity)
+        private static Stack<RecipeNode> FindOptimalProductionPath(string fileName, string startingResourceName, string endingResourceName, int startingInputQuantity, IEnumerable<RecipeNode> recipes = null)
         {
-            List<RecipeNode> labels = InitRecipes(fileName);
-            TreeCharter.FindPathsv2(labels, startingResourceName, endingResourceName);
+            IEnumerable<RecipeNode> labels = recipes ?? InitRecipes(fileName);
+            //TreeCharter.FindPathsv2(labels, startingResourceName, endingResourceName);
             var x = TreeCharter.FindPathsv1(labels, startingResourceName, endingResourceName);
             var pathsYield = new List<Tuple<decimal, Stack<RecipeNode>>>();
             foreach (var item in x)
@@ -165,11 +226,11 @@ namespace RecipeDisplay
             XmlDocument doc = new XmlDocument();
             doc.Load(Path.GetFullPath(Path.Combine(Application.StartupPath, $@"..\..\{fileName}.xml")));
 
-            var recipes = new List<Recipe>();
+            var recipes = new List<Recipee>();
 
             foreach (XmlNode node in doc.SelectNodes("//recipe"))
             {
-                var r = new Recipe();
+                var r = new Recipee();
                 r.Name = node.Attributes["name"]?.Value;
                 foreach (XmlNode child in node.ChildNodes)
                 {
@@ -192,7 +253,7 @@ namespace RecipeDisplay
 
             List<RecipeNode> labels = new List<RecipeNode>();
 
-            foreach (Recipe rec in recipes)
+            foreach (Recipee rec in recipes)
             {
                 var r = new RecipeNode()
                 {
@@ -243,7 +304,7 @@ namespace RecipeDisplay
         }
     }
 
-
+    #region classesForJSONDeserialize
     public class Ingredient
     {
         public int amount { get; set; }
@@ -274,12 +335,14 @@ namespace RecipeDisplay
     public class Root
     {
         public List<Recipe> recipes { get; set; }
-    }
+    } 
+    #endregion
+
 
 
 
     [DebuggerDisplay("{getDebugText}")]
-    public class Recipe
+    public class Recipee
     {
         public List<ResourceChunk> Inputs = new List<ResourceChunk>();
         public List<ResourceChunk> Outputs = new List<ResourceChunk>();
@@ -291,6 +354,7 @@ namespace RecipeDisplay
     {
         public string Name;
         public decimal Quantity;
+        public double Probability;
 
         public override string ToString()
         {
