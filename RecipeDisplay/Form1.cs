@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -26,8 +28,31 @@ namespace RecipeDisplay
             Zinc
         }
 
+        private void be()
+        {
+            var sb = new StringBuilder();
+            sb.Append("{");
+            foreach (var item in Directory.GetFiles($@"C:\Users\tomas\AppData\Roaming\Factorio\script-output\recipes"))
+            {
+                sb.AppendLine(File.ReadAllText(item));
+                sb.Append(",");
+
+            }
+
+            sb.Append("}");
+
+            string  s = "{{amount = 1,name = \"ash\",probability = 0.2,type = \"item\"}}";
+
+           var x =  JsonConvert.DeserializeObject(s);
+            
+            // File.WriteAllText(@"C:\temp\f.txt", sb.ToString());
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            be();
+            return;
             this.Paint += Form1_Paint;
             this.AutoSize = true;
             List<RecipeNode> labels = InitRecipes("Chrome");
@@ -216,6 +241,39 @@ namespace RecipeDisplay
 
             }
         }
+    }
+
+
+    public class Ingredient
+    {
+        public int amount { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public double? maximum_temperature { get; set; }
+        public double? minimum_temperature { get; set; }
+    }
+
+    public class Product
+    {
+        public int amount { get; set; }
+        public string name { get; set; }
+        public double probability { get; set; }
+        public string type { get; set; }
+        public int? temperature { get; set; }
+    }
+
+    public class Recipe
+    {
+        public string category { get; set; }
+        public double energy { get; set; }
+        public List<Ingredient> ingredients { get; set; }
+        public string name { get; set; }
+        public List<Product> products { get; set; }
+    }
+
+    public class Root
+    {
+        public List<Recipe> recipes { get; set; }
     }
 
 
