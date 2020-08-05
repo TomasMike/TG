@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using TG.CustomControls;
 using TG.Enums;
 
-namespace TG.Forms
+namespace TG.Libs
 {
     public static class LocationsLib
     {
         private static List<LocationCardControl> _locations;
+
         public static List<LocationCardControl> Locations
         {
             get =>

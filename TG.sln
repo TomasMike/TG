@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundWForms", "Playgro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeDisplay", "RecipeDisplay\RecipeDisplay.csproj", "{1DA31C3C-4003-46E7-8955-0FE77674DB68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{61DE6750-4A6D-4B58-84DF-CA1DCCA6C95A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1DA31C3C-4003-46E7-8955-0FE77674DB68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA31C3C-4003-46E7-8955-0FE77674DB68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA31C3C-4003-46E7-8955-0FE77674DB68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61DE6750-4A6D-4B58-84DF-CA1DCCA6C95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61DE6750-4A6D-4B58-84DF-CA1DCCA6C95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61DE6750-4A6D-4B58-84DF-CA1DCCA6C95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61DE6750-4A6D-4B58-84DF-CA1DCCA6C95A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

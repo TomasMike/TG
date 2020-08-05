@@ -25,7 +25,6 @@ namespace TG
 
             while (true)
             {
-
                 //players turn
 
                 //enemy attacks
@@ -34,7 +33,6 @@ namespace TG
                 if (playedCards.Any() && playedCards[playedCards.Count].OnEnemyAttack != null)
                     atk = playedCards[playedCards.Count].OnEnemyAttack(this);
             }
-
         }
 
         public List<EnconterAttack> GetActiveAttack()
@@ -59,10 +57,7 @@ namespace TG
             var retVal = new List<Tuple<Card, Card, Card>>();
             var l = cards.Count();
 
-
             return null;
         }
-
-
     }
 }

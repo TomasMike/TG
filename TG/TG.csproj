@@ -47,13 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asker\Asker.cs" />
+    <Compile Include="Managers\ActionManager.cs" />
+    <Compile Include="PlayerDecisionIO\Asker.cs" />
     <Compile Include="CustomControls\LocationCardControlv2.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomControls\LocationCardControlv2.Designer.cs">
       <DependentUpon>LocationCardControlv2.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelpersUtils\MapHelper.cs" />
     <Compile Include="CustomControls\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -77,7 +79,7 @@
     <Compile Include="CustomControls\MainActionButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="HelpersUtils\EnumUtils.cs" />
     <Compile Include="imported\EnconterAttack.cs" />
     <Compile Include="Libs\NewGameDataLib.cs" />
     <Compile Include="imported\Card.cs" />
@@ -107,6 +109,7 @@
       <DependentUpon>StartMenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Player.cs" />
+    <Compile Include="HelpersUtils\LocationsHelper.cs" />
     <Compile Include="_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\QuestionForm.cs">
@@ -176,12 +179,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MapLocations\" />
-    <Folder Include="New folder - Copy %285%29\" />
-    <Folder Include="New folder - Copy %286%29\" />
-    <Folder Include="New folder - Copy %287%29\" />
-    <Folder Include="New folder - Copy %288%29\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Windows.Forms;
 using TG.Enums;
 
-namespace TG.Forms
+namespace TG.Libs
 {
     public static class NewGameDataLib
     {
-        public static Character GetStartingCharacter(CharacterName cn,CharacterArchetype ca)
+        public static Character GetStartingCharacter(CharacterName cn, CharacterArchetype ca)
         {
             if (
-                (cn == CharacterName.Beor && ca != CharacterArchetype.Blue)
-                || (cn == CharacterName.Arev && ca != CharacterArchetype.Gray)
-                || (cn == CharacterName.Maggot && ca != CharacterArchetype.Brown)
-                || (cn == CharacterName.Ailei && ca != CharacterArchetype.Green)
+                cn == CharacterName.Beor && ca != CharacterArchetype.Blue
+                || cn == CharacterName.Arev && ca != CharacterArchetype.Gray
+                || cn == CharacterName.Maggot && ca != CharacterArchetype.Brown
+                || cn == CharacterName.Ailei && ca != CharacterArchetype.Green
             )
             {
-                throw  new Exception("This character/archetype combination is not allowed.");
+                throw new Exception("This character/archetype combination is not allowed.");
             }
 
             var retVal = new Character();
@@ -27,11 +26,12 @@ namespace TG.Forms
                     retVal.CurrentEnergy = 6;
                     retVal.MaxEnergy = 6;
                     retVal.CurrentHealth = 9;
-                    retVal.MaxHealth= 9;
+                    retVal.MaxHealth = 9;
                     retVal.CurrentTerror = 0;
                     retVal.MaxTerror = 6;
                     //....
                     break;
+
                 case CharacterName.Ailei:
                     retVal.CharacterName = CharacterName.Ailei;
                     retVal.Aggression = 2;
@@ -43,6 +43,7 @@ namespace TG.Forms
                     retVal.MaxTerror = 6;
                     //....
                     break;
+
                 default: throw new Exception("character not setupped.");
             }
 
@@ -50,15 +51,15 @@ namespace TG.Forms
 
             switch (ca)
             {
-                    //setup starting health/energy/max terror, starting/advancement combat/dilpomacy decks and so
+                //setup starting health/energy/max terror, starting/advancement combat/dilpomacy decks and so
                 case CharacterArchetype.Blue:
                 case CharacterArchetype.Gray:
                 case CharacterArchetype.Green:
                 case CharacterArchetype.Brown:
                     break;
+
                 default: throw new Exception("archetype not setupped.");
             }
-
 
             return retVal;
         }

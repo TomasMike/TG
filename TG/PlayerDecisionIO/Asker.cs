@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using TG.Enums;
 using TG.Forms;
+using TG.SavingLoading;
 
-namespace TG
+namespace TG.PlayerDecisionIO
 {
     public static class Asker
     {
@@ -24,12 +24,9 @@ namespace TG
                 options.Add(new Option<PlayerNumber>((PlayerNumber)i));
             }
 
-
             return Ask(question, options, canCancel).GetOptionObject();
         }
     }
-
-
 
     public static class OldAsker
     {
@@ -56,8 +53,6 @@ namespace TG
         }
     }
 
-
-
     public interface IAskerOption<T>
     {
         string GetOptionDescription();
@@ -74,6 +69,7 @@ namespace TG
 
         public T option;
         public string TextDescription;
+
         public string GetOptionDescription()
         {
             return typeof(T).IsEnum ? option.ToString() : TextDescription;
@@ -84,5 +80,4 @@ namespace TG
             return option;
         }
     }
-
 }

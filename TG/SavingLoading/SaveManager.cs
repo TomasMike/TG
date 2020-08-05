@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Serialization;
 
-namespace TG
+namespace TG.SavingLoading
 {
     public static class SaveManager
     {
@@ -17,7 +14,7 @@ namespace TG
         {
             SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\SaveFiles"));
             if (string.IsNullOrEmpty(SaveFolder))
-                throw  new Exception("muset setup savefolder in appsettings");
+                throw new Exception("muset setup savefolder in appsettings");
         }
 
         public static void Save()
@@ -25,7 +22,7 @@ namespace TG
             if (CurrentSaveSheet == null)
                 throw new Exception("current save sheet is empty, wft?");
             XmlSerializer writer = new XmlSerializer(typeof(SaveSheet));
-            var path = Path.Combine(SaveFolder,CurrentSaveSheet.fileName+".xml");
+            var path = Path.Combine(SaveFolder, CurrentSaveSheet.fileName + ".xml");
             FileStream file = File.Create(path);
             writer.Serialize(file, CurrentSaveSheet);
             file.Close();
@@ -33,7 +30,7 @@ namespace TG
 
         public static void Load(string path)
         {
-            if (SaveManager.CurrentSaveSheet != null)
+            if (CurrentSaveSheet != null)
                 throw new Exception("current save sheet isntempty, wft?");
 
             var serializer = new XmlSerializer(typeof(SaveSheet));

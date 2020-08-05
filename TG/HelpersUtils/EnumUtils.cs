@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace TG.Forms
+namespace TG.HelpersUtils
 {
     public static class EnumUtils
     {
         public static T ParseStringToEnum<T>(string text)
-            where T :struct
+            where T : struct
         {
-            if (Enum.TryParse<T>(text, out T result))
+            if (Enum.TryParse(text, out T result))
                 return result;
 
             throw new Exception($"cant parse [{text}] to type [{typeof(T)}]");
