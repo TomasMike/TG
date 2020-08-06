@@ -335,7 +335,7 @@ namespace RecipeDisplay
             {
                 sb.AppendLine($"{item.Quantity} {item.Name}");
             }
-            MessageBox.Show(sb.ToString());
+            //MessageBox.Show(sb.ToString());
 
             if (!currentResources.Any(a => a.Name == endingResource))
             {

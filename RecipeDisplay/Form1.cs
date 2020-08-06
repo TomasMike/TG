@@ -31,14 +31,14 @@ namespace RecipeDisplay
         private void be()
         {
 
-            var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Users\tmi\Downloads\f.txt"));
+            var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Downloads\f.txt"));
             List<Recipee> rec = new List<Recipee>();
 
             foreach (Recipe node in root.recipes)
             {
                 var r = new Recipee();
                 if (
-                    node.name.IndexOf("void") >= 0 
+                    node.name.IndexOf("void") >= 0
                     || node.name.IndexOf("crate") >= 0
                     || node.name.IndexOf("stack") >= 0
                     || node.name.IndexOf("barrel") >= 0
@@ -55,7 +55,7 @@ namespace RecipeDisplay
                         Quantity = child.amount,
                     };
 
-                        r.Inputs.Add(m);
+                    r.Inputs.Add(m);
                 }
 
                 foreach (Product child in node.products)
@@ -71,7 +71,7 @@ namespace RecipeDisplay
                 }
                 rec.Add(r);
 
-                
+
             }
 
             List<RecipeNode> labels = new List<RecipeNode>();
@@ -84,8 +84,15 @@ namespace RecipeDisplay
                 };
                 labels.Add(r);
             }
-            labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf("zinc") >= 0)).ToList();
-            foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf("zinc") >= 0))
+            
+            labels = getMostEfficientPath(labels,"copper","copper-ore","copper-plate",1000);
+            //labels = getMostEfficientPath(labels);
+        }
+
+        private static List<RecipeNode> getMostEfficientPath(List<RecipeNode> labels,string keyWord,string startingResource,string endingResource,int amount)
+        {
+            labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0)).ToList();
+            foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0))
 )
             {
                 foreach (var input in item.Recipe.Inputs)
@@ -105,8 +112,9 @@ namespace RecipeDisplay
                 }
             }
             //var q = labels.Where(_ => _.Recipe.Inputs.Any(a => a.Name.IndexOf("copper-ore") >= 0));
-            
-            FindOptimalProductionPath(null, "ore-zinc", "zinc-plate", 1000, labels);
+
+            FindOptimalProductionPath(null, startingResource, endingResource, amount, labels);
+            return labels;
         }
 
         private void Form1_Load(object sender, EventArgs e)
