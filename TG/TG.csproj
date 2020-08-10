@@ -59,7 +59,6 @@
     <Compile Include="CustomControls\LocationCardControlv2.Designer.cs">
       <DependentUpon>LocationCardControlv2.cs</DependentUpon>
     </Compile>
-    <Compile Include="HelpersUtils\MapHelper.cs" />
     <Compile Include="CustomControls\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>

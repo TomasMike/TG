@@ -49,7 +49,7 @@ namespace TG.Managers
         {
             IsTravelModeEnabled = !IsTravelModeEnabled;
 
-            mainActionButtons.ForEach(_ => _.Disable());
+            mainActionButtons.ForEach(_ => { if (_.ActionType != ActionType.Travel) _.Disable(); });
             var b = mainActionButtons.First(_ => _.ActionType == ActionType.Travel);
             b.Enable();
             b.Text = "Cancel Travel";
@@ -69,6 +69,7 @@ namespace TG.Managers
             var p = Game.Instance.ActivePlayer;
             p.Character.CurrentEnergy--;
             p.CurrentLocation = ((LocationSelectionButton)sender).LocationNumber;
+            _MainForm.Instance.Mp.AddMissingLocationsAfterTravel(p.CurrentLocation);
             DisableMoveMode();  
         }
 

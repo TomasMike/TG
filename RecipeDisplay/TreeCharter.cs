@@ -17,8 +17,18 @@ namespace RecipeDisplay
             "acid-solvent",
             "borax",
             "oxygen",
-            "sand-casting"
+            "sand-casting",
+            "sodium-sulfate",
+            "diesel",
+            "pressured-air",
+            "lime",
+            "syngas",
+            "grease",
+            "y_block_heat",
+            "y_toolhead"
         };
+
+        private static List<string> MissingNotIgnoredResourcesReportedThisSession = new List<string>();
 
 
         public static void ChartTree(IEnumerable<RecipeNode> nodes, TableLayoutPanel tlp)
@@ -182,7 +192,7 @@ namespace RecipeDisplay
             return currentQuantity;
         }
 
-        public static decimal GetQuantityv2(List<RecipeNode> pathRecipes, List<RecipeNode> allAvailableRecipes, ResourceChunk startingResource, string endingResource)
+        public static Tuple<decimal,string> GetQuantityv2(List<RecipeNode> pathRecipes, List<RecipeNode> allAvailableRecipes, ResourceChunk startingResource, string endingResource)
         {
             var simulateChanceBasedRecipes = false;
 
@@ -241,10 +251,27 @@ namespace RecipeDisplay
                                 return true;
 
                             //ak je to zdroj co mozem ziskat inym receptom
-                            if (pathRecipes.Any(a => a.Recipe.Outputs.Any(b => b.Name == input.Name))) return false;
+                            //if (pathRecipes.Any(a => a.Recipe.Outputs.Any(b => b.Name == input.Name))) return false;
 
+                            if(IgnoredInputs.Contains(input.Name))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                //ak app uz informovala ze nemam surku a dal som ok, je to ocakavana chybajuca surka vramci pouzivanych receptov
+                                if(MissingNotIgnoredResourcesReportedThisSession.Contains(input.Name))
+                                {
+                                    return false;
+                                }
 
-                            return true;
+                                //MessageBox.Show($"nemam {input.Name}");
+
+                                MissingNotIgnoredResourcesReportedThisSession.Add(input.Name);
+                                return false;
+                            }
+
+                            //return true;
 
                         }))
                         {
@@ -342,7 +369,7 @@ namespace RecipeDisplay
                 var q = 2;
             }
 
-            return currentResources.FirstOrDefault(a => a.Name == endingResource)?.Quantity ?? 0;
+            return new Tuple<decimal,string>(currentResources.FirstOrDefault(a => a.Name == endingResource)?.Quantity ?? 0,sb.ToString());
         }
     }
 }

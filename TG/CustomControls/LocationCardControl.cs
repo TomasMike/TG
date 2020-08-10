@@ -18,16 +18,38 @@ namespace TG.CustomControls
         public TableLayoutPanel LocationPlayersGuardiansArea = new TableLayoutPanel();
         public Label LocationNameNumber = new Label();
         public LocationSelectionButton LocationActionBtn = new LocationSelectionButton();
+
         public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.CurrentLocation == LocationNumber);
         public List<Button> ButtonsToDisplay = new List<Button>();
 
         private Size directionLabelSize = TextRenderer.MeasureText("000", DefaultFont);
+
+        public LocationCardControl()
+        {
+            BackColor = Color.DarkSeaGreen;
+            TabIndex = 1;
+            Size = new Size(180, 180);
+            MenhirValue = -1;
+
+            Controls.Add(LocationDescriptionControlsArea);
+        }
+        public LocationCardControl(int locationNumber, string locationName, int northDirectionKey, int eastDirectionKey, int southDirectionKey, int westDirectionKey)
+    : this()
+        {
+            NorthDirectionKey = northDirectionKey;
+            EastDirectionKey = eastDirectionKey;
+            SouthDirectionKey = southDirectionKey;
+            WestDirectionKey = westDirectionKey;
+        }
+
 
         public LocationCardControl Init()
         {
             LocationNameNumber.Text = $"{LocationNumber} - {LocationName}";
             LocationNameNumber.TextAlign = ContentAlignment.TopCenter;
             LocationNameNumber.Dock = DockStyle.Fill;
+            //LocationNameNumber.BackColor = Color.Yellow;
+            LocationNameNumber.AutoSize = true;
 
             LocationDescriptionControlsArea.Location = new Point(directionLabelSize.Width, directionLabelSize.Height);
             LocationDescriptionControlsArea.Size = new Size(Width - directionLabelSize.Width * 2, Height - directionLabelSize.Height * 2);
@@ -44,7 +66,6 @@ namespace TG.CustomControls
 
             LocationActionBtn.Hide();
             LocationActionBtn.LocationNumber = LocationNumber;
-            
 
             RefreshLocationDescriptionArea();
 
@@ -102,23 +123,9 @@ namespace TG.CustomControls
             }
         }
 
-        public LocationCardControl()
-        {
-            BackColor = Color.DarkSeaGreen;
-            TabIndex = 1;
-            Size = new Size(180, 180);
 
-            Controls.Add(LocationDescriptionControlsArea);
-        }
 
-        public LocationCardControl(int locationNumber, string locationName, int northDirectionKey, int eastDirectionKey, int southDirectionKey, int westDirectionKey)
-            : this()
-        {
-            NorthDirectionKey = northDirectionKey;
-            EastDirectionKey = eastDirectionKey;
-            SouthDirectionKey = southDirectionKey;
-            WestDirectionKey = westDirectionKey;
-        }
+
 
         public int NorthDirectionKey;
         public int EastDirectionKey;

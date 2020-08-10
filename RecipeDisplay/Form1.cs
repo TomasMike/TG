@@ -31,7 +31,8 @@ namespace RecipeDisplay
         private void be()
         {
 
-            var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Downloads\f.txt"));
+            var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Users\tmi\Downloads\f.txt"));
+            //var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Downloads\f.txt"));
             List<Recipee> rec = new List<Recipee>();
 
             foreach (Recipe node in root.recipes)
@@ -219,13 +220,16 @@ namespace RecipeDisplay
             IEnumerable<RecipeNode> labels = recipes ?? InitRecipes(fileName);
             //TreeCharter.FindPathsv2(labels, startingResourceName, endingResourceName);
             var x = TreeCharter.FindPathsv1(labels, startingResourceName, endingResourceName);
-            var pathsYield = new List<Tuple<decimal, Stack<RecipeNode>>>();
+            var pathsYield = new List<Tuple<decimal, Stack<RecipeNode>,string>>();
             foreach (var item in x)
             {
                 var q = TreeCharter.GetQuantityv2(item.ToList(), labels.ToList(), new ResourceChunk() { Name = startingResourceName, Quantity = startingInputQuantity }, endingResourceName);
-                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>>(q, item));
+                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>,string>(q.Item1, item,q.Item2));
             }
-            var best = pathsYield.OrderByDescending(_ => _.Item1).ToList().First();
+            var orderedYields = pathsYield.OrderByDescending(_ => _.Item1).ToList();
+
+
+            var best = orderedYields.First();
             return best.Item2;
         }
 
@@ -355,7 +359,7 @@ namespace RecipeDisplay
         public List<ResourceChunk> Inputs = new List<ResourceChunk>();
         public List<ResourceChunk> Outputs = new List<ResourceChunk>();
         public string Name;
-        private string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}";
+        public string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}";
     }
 
     public class ResourceChunk

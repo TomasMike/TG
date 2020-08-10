@@ -8,13 +8,13 @@ namespace TG
         public static void Enable(this Button button)
         {
             button.Enabled = true;
-            button.ForeColor = Color.Black;
+            button.BackColor = Color.White;
         }
 
         public static void Disable(this Button button)
         {
             button.Enabled = false;
-            button.ForeColor = Color.White;
+            button.BackColor = Color.Black;
         }
     }
 }
