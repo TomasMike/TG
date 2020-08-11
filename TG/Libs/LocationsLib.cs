@@ -15,7 +15,7 @@ namespace TG.Libs
                 {
                     new LocationCardControl()
                     {
-                        LocationName = "Cuanacht",
+                        LocationName = "Cuanacht Farmhold",
                         LocationNumber = 101,
                         NorthDirectionKey = 102,
                         WestDirectionKey = 103,
@@ -24,11 +24,11 @@ namespace TG.Libs
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                         Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object() //1energy -> 1rep(1 per day)
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Hunters Grove",
+                        LocationName = "Hunters' Grove",
                         LocationNumber = 102,
                         NorthDirectionKey = 113,
                         WestDirectionKey = 106,
@@ -36,29 +36,28 @@ namespace TG.Libs
                         EastDirectionKey = 107,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object()//2e -> 2food + green encounter
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Warriors Refuge",
+                        LocationName = "Warrior Fair",
                         LocationNumber = 103,
                         WestDirectionKey = 118,
                         SouthDirectionKey = 108,
                         EastDirectionKey = 101,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object()//4e -> -1hp +1exp(1 per day)
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Burned Thing",
+                        LocationName = "Charred Conclave",
                         LocationNumber = 104,
                         NorthDirectionKey = 107,
                         WestDirectionKey = 101,
                         SouthDirectionKey = 109,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object()//none //on enter gray enc
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -68,11 +67,11 @@ namespace TG.Libs
                         WestDirectionKey = 108,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object()//1e -> -1 wealth, draw 1 craftable item
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Some Haunted Place",
+                        LocationName = "Fore-dweller Mounds",
                         LocationNumber = 106,
                         NorthDirectionKey = 112,
                         WestDirectionKey = 116,
@@ -80,7 +79,7 @@ namespace TG.Libs
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()
+                        LocationAction = new object()//2e -> +1terror,1wealth...zloztite
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -97,18 +96,17 @@ namespace TG.Libs
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Pavuci les?",
+                        LocationName = "Grubwood",
                         LocationNumber = 108,
                         NorthDirectionKey = 103,
                         WestDirectionKey = 120,
                         EastDirectionKey = 105,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        Dreams = true,
                         LocationAction = new object()
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "Crazy Alcatraz?",
+                        LocationName = "Island Asylum",
                         LocationNumber = 109,
                         NorthDirectionKey = 104,
                         LocationSetlementType = LocationSetlementTypeEnum.None,

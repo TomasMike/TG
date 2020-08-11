@@ -86,13 +86,13 @@ namespace RecipeDisplay
                 labels.Add(r);
             }
             
-            labels = getMostEfficientPath(labels,"copper","copper-ore","copper-plate",1000);
+            labels = getMostEfficientPath(labels,"titanium", "ore-titanium", "titanium-plate", 1000);
             //labels = getMostEfficientPath(labels);
         }
 
         private static List<RecipeNode> getMostEfficientPath(List<RecipeNode> labels,string keyWord,string startingResource,string endingResource,int amount)
         {
-            labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0)).ToList();
+            //labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0)).ToList();
             foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0))
 )
             {
