@@ -30,6 +30,8 @@ namespace RecipeDisplay
 
         private void be()
         {
+            Class1.Start();
+           // return;
 
             var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Users\tmi\Downloads\f.txt"));
             //var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Downloads\f.txt"));
@@ -45,6 +47,7 @@ namespace RecipeDisplay
                     || node.name.IndexOf("barrel") >= 0
                     || node.name.IndexOf("delivery") >= 0
                     || node.name.IndexOf("pack") >= 0
+                    || node.name.IndexOf("blackhole") >= 0
                     )
                     continue;
                 r.Name = node.name;
@@ -85,7 +88,20 @@ namespace RecipeDisplay
                 };
                 labels.Add(r);
             }
-            
+
+            File.WriteAllText(
+                @"C:\temp\titan.txt", 
+                string.Join(
+                    Environment.NewLine, 
+                    labels
+                        .Where(_ => 
+                            _.Recipe.Name.IndexOf("titan") >= 0 
+                            || _.Recipe.Inputs.Any(a => a.Name.IndexOf("titan") >= 0)
+                            || _.Recipe.Outputs.Any(a => a.Name.IndexOf("titan") >= 0)
+                        )
+                        .Select(_ => _.Recipe.getDebugText)));
+
+
             labels = getMostEfficientPath(labels,"titanium", "ore-titanium", "titanium-plate", 1000);
             //labels = getMostEfficientPath(labels);
         }
@@ -93,8 +109,8 @@ namespace RecipeDisplay
         private static List<RecipeNode> getMostEfficientPath(List<RecipeNode> labels,string keyWord,string startingResource,string endingResource,int amount)
         {
             //labels = labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0)).ToList();
-            foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0))
-)
+            //foreach (var item in labels.Where(_ => _.Recipe.Outputs.Any(__ => __.Name.IndexOf(keyWord) >= 0))
+            foreach (var item in labels)
             {
                 foreach (var input in item.Recipe.Inputs)
                 {
@@ -123,94 +139,94 @@ namespace RecipeDisplay
 
             be();
             return;
-            this.Paint += Form1_Paint;
-            this.AutoSize = true;
-            List<RecipeNode> labels = InitRecipes("Chrome");
+            //this.Paint += Form1_Paint;
+            //this.AutoSize = true;
+            //List<RecipeNode> labels = InitRecipes("Chrome");
 
-            var choosenResource = Types.Chrome;
-            Stack<RecipeNode> x;
-            switch (choosenResource)
-            {
-                case Types.Chrome: 
-                    x = FindOptimalProductionPath("Chrome","Chromium Ore","Chromium Ingot",1000);
-                    break;
-                case Types.Zinc:
-                    x = FindOptimalProductionPath("Zinc", "Zinc Ore", "Zinc Ingot", 1000);
-                    break;
-                default:
-                    break;
-            }
+            //var choosenResource = Types.Chrome;
+            //Stack<RecipeNode> x;
+            //switch (choosenResource)
+            //{
+            //    case Types.Chrome: 
+            //        x = FindOptimalProductionPath("Chrome","Chromium Ore","Chromium Ingot",1000);
+            //        break;
+            //    case Types.Zinc:
+            //        x = FindOptimalProductionPath("Zinc", "Zinc Ore", "Zinc Ingot", 1000);
+            //        break;
+            //    default:
+            //        break;
+            //}
 
-            if (false)
-            {
+            //if (false)
+            //{
 
-                var roots = labels.Where(_ => _.IncomingRecipes.Count == 0);
+            //    var roots = labels.Where(_ => _.IncomingRecipes.Count == 0);
 
-                Action<IEnumerable<RecipeNode>> d = null;
+            //    Action<IEnumerable<RecipeNode>> d = null;
 
-                d = n =>
-                {
+            //    d = n =>
+            //    {
 
-                    if (n.Count() == 0)
-                        return;
+            //        if (n.Count() == 0)
+            //            return;
 
-                    var controlsAdded = new List<RecipeNode>();
-                    foreach (var item in n)
-                    {
-                        item.AutoSize = true;
-                        item.Fill();
+            //        var controlsAdded = new List<RecipeNodeUC>();
+            //        foreach (var item in n)
+            //        {
+            //            item.AutoSize = true;
+            //            item.Fill();
 
-                        if (item.Recipe.Name == "ble")
-                        {
-                            item.BackColor = Color.Green;
-                        }
-                        if (!flowLayoutPanel1.Controls.Contains(item))
-                        {
-                            flowLayoutPanel1.Controls.Add(item);
-                            controlsAdded.Add(item);
-                        }
-                    }
+            //            if (item.Recipe.Name == "ble")
+            //            {
+            //                item.BackColor = Color.Green;
+            //            }
+            //            if (!flowLayoutPanel1.Controls.Contains(item))
+            //            {
+            //                flowLayoutPanel1.Controls.Add(item);
+            //                controlsAdded.Add(item);
+            //            }
+            //        }
 
-                    if (flowLayoutPanel1.Controls.Count > 0)
-                        flowLayoutPanel1.SetFlowBreak(flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1], true);
-
-
-                    foreach (var item in controlsAdded)
-                    {
-                        d(item.OutGoingRecipes);
-                    }
-                };
-
-                d(roots);
-
-            }
-            else
-            {
-                flowLayoutPanel1.Hide();
-
-                var t = new TableLayoutPanel();
-                t.RowCount = 10;
-                t.ColumnCount = 10;
-                for (int i = 0; i < 10; i++)
-                {
-                    //t.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-                    //t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10));
-                    t.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                    t.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                }
-
-                t.Dock = DockStyle.Fill;
-                t.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
+            //        if (flowLayoutPanel1.Controls.Count > 0)
+            //            flowLayoutPanel1.SetFlowBreak(flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1], true);
 
 
-                t.BackColor = Color.Beige;
-                TreeCharter.ChartTree(labels, t);
-                this.Controls.Add(t);
-                this.Refresh();
+            //        foreach (var item in controlsAdded)
+            //        {
+            //            d(item.OutGoingRecipes);
+            //        }
+            //    };
 
-            }
+            //    d(roots);
 
-            this.flowLayoutPanel1.Paint += Form1_Paint;
+            //}
+            //else
+            //{
+            //    flowLayoutPanel1.Hide();
+
+            //    var t = new TableLayoutPanel();
+            //    t.RowCount = 10;
+            //    t.ColumnCount = 10;
+            //    for (int i = 0; i < 10; i++)
+            //    {
+            //        //t.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+            //        //t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10));
+            //        t.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            //        t.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            //    }
+
+            //    t.Dock = DockStyle.Fill;
+            //    t.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
+
+
+            //    t.BackColor = Color.Beige;
+            //    TreeCharter.ChartTree(labels, t);
+            //    this.Controls.Add(t);
+            //    this.Refresh();
+
+            //}
+
+            //this.flowLayoutPanel1.Paint += Form1_Paint;
 
 
         }
@@ -227,7 +243,6 @@ namespace RecipeDisplay
                 pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>,string>(q.Item1, item,q.Item2));
             }
             var orderedYields = pathsYield.OrderByDescending(_ => _.Item1).ToList();
-
 
             var best = orderedYields.First();
             return best.Item2;
@@ -303,9 +318,9 @@ namespace RecipeDisplay
             var g = e.Graphics;
             Pen pen = new Pen(Color.Black);
             pen.Width = 4;
-            foreach (RecipeNode me in this.flowLayoutPanel1.Controls)
+            foreach (RecipeNodeUC me in this.flowLayoutPanel1.Controls)
             {
-                foreach (RecipeNode him in me.IncomingRecipes)
+                foreach (RecipeNodeUC him in me.IncomingRecipes)
                 {
                     Point pMe = new Point(me.Location.X + me.Size.Width / 2, me.Location.Y + me.Size.Height / 2);
                     Point pHim = new Point(him.Location.X + him.Size.Width / 2, him.Location.Y + him.Size.Height / 2);
@@ -356,7 +371,10 @@ namespace RecipeDisplay
     [DebuggerDisplay("{getDebugText}")]
     public class Recipee
     {
+        [NonSerialized]
         public List<ResourceChunk> Inputs = new List<ResourceChunk>();
+
+        [NonSerialized]
         public List<ResourceChunk> Outputs = new List<ResourceChunk>();
         public string Name;
         public string getDebugText => $"{string.Join(",", Inputs)}=>{string.Join(",", Outputs)}";
@@ -376,11 +394,11 @@ namespace RecipeDisplay
 
     public static class Helper
     {
-        public static int GetTreeSize(RecipeNode node)
+        public static int GetTreeSize(RecipeNodeUC node)
         {
-            var nodes = new List<RecipeNode>();
+            var nodes = new List<RecipeNodeUC>();
 
-            Action<RecipeNode> a = null;
+            Action<RecipeNodeUC> a = null;
             a = n =>
             {
                 foreach (var item in n.IncomingRecipes)

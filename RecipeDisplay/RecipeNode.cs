@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace RecipeDisplay
 {
-    public partial class RecipeNode : UserControl
+    public partial class RecipeNodeUC : UserControl
     {
-        public RecipeNode()
+        public RecipeNodeUC()
         {
             InitializeComponent();
         }
 
         public Recipee Recipe;
-        public List<RecipeNode> IncomingRecipes = new List<RecipeNode>();
-        public List<RecipeNode> OutGoingRecipes = new List<RecipeNode>();
+        public List<RecipeNodeUC> IncomingRecipes = new List<RecipeNodeUC>();
+        public List<RecipeNodeUC> OutGoingRecipes = new List<RecipeNodeUC>();
         //public int gridRow;
         //public int gridColumn;
         public int gridRowOffsetToParent;
@@ -66,5 +66,21 @@ namespace RecipeDisplay
                 this.tableLayoutPanel1.Controls.Add(l, 1, i);
             }
         }
+    }
+
+    public class RecipeNode
+    {
+        public RecipeNode()
+        {
+        }
+
+        public Recipee Recipe;
+        public List<RecipeNode> IncomingRecipes = new List<RecipeNode>();
+        public List<RecipeNode> OutGoingRecipes = new List<RecipeNode>();
+        public int gridRowOffsetToParent;
+        public int gridColumnOffsetToParent;
+        public int childrenWidth;
+
+        
     }
 }

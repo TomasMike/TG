@@ -1,6 +1,6 @@
 ﻿namespace RecipeDisplay
 {
-    partial class RecipeNode
+    partial class RecipeNodeUC
     {
         /// <summary> 
         /// Required designer variable.
