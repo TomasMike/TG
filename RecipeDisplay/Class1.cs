@@ -5,17 +5,58 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace RecipeDisplay
 {
     public static class Class1
     {
+
+        public static string  SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\SaveFiles"));
+
         public static void Start()
         {
-            var recipes = LoadRecipes();
+            var recipes = LoadRecipes().Select(_ => new RecipeNode() { Recipe = _}).ToList();
+            foreach (var item in recipes)
+            {
+                foreach (var input in item.Recipe.Inputs)
+                {
+                    foreach (var matchedRecipeLabel in recipes.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == input.Name)))
+                    {
+                        item.IncomingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
+
+                foreach (var output in item.Recipe.Outputs)
+                {
+                    foreach (var matchedRecipeLabel in recipes.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == output.Name)))
+                    {
+                        item.OutGoingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
+            }
+            FindOptimalProductionPath(recipes, "ore-titanium", "titanium-plate", 1000);
+        }
 
 
+
+        private static Stack<RecipeNode> FindOptimalProductionPath(IEnumerable<RecipeNode> recipes, string startingResourceName, string endingResourceName, int startingInputQuantity)
+        {
+            IEnumerable<RecipeNode> labels = recipes;
+            var x = TreeCharter.FindPathsv1(labels, startingResourceName, endingResourceName);
+            var pathsYield = new List<Tuple<decimal, Stack<RecipeNode>, string>>();
+            
+            foreach (var item in x)
+            {
+                var q = TreeCharter.GetQuantityv2(item.ToList(), labels.ToList(), new ResourceChunk() { Name = startingResourceName, Quantity = startingInputQuantity }, endingResourceName);
+                pathsYield.Add(new Tuple<decimal, Stack<RecipeNode>, string>(q.Item1, item, q.Item2));
+            }
+
+            var orderedYields = pathsYield.OrderByDescending(_ => _.Item1).ToList();
+
+            var best = orderedYields.First();
+            return best.Item2;
         }
 
         public static List<Recipee> LoadRecipes()

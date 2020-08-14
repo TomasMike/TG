@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -9,6 +10,10 @@ namespace RecipeDisplay
 {
     public static class TreeCharter
     {
+
+        static string SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\SaveFiles"));
+
+
         public static List<string> IgnoredInputs = new List<string>()
         {
             "hot-air",
@@ -103,26 +108,31 @@ namespace RecipeDisplay
             var startNodes = nodes.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == recipeFrom));
             var endNodes = nodes.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == recipeTo));
 
+
             var includeRecipes = new List<string>();
             var excludedRecipes = new List<string>();
 
+            if (File.Exists(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_include.txt")))
+                includeRecipes.AddRange(File.ReadAllText(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_include.txt")).Split(','));
 
+            if (File.Exists(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_exclude.txt")))
+                excludedRecipes.AddRange(File.ReadAllText(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_exclude.txt")).Split(','));
 
             q = (node, path) =>
             {
                 foreach (var item in node.OutGoingRecipes)
                 {
-                    if(includeRecipes.Contains(item.Recipe.Name))
+                    if (includeRecipes.Contains(item.Recipe.Name))
                     {
 
                     }
-                    else if(excludedRecipes.Contains(item.Recipe.Name))
+                    else if (excludedRecipes.Contains(item.Recipe.Name))
                     {
                         continue;
                     }
                     else
                     {
-                        if(MessageBox.Show($@"Include this recipe?[{item.Recipe.getDebugText}]","",MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show($@"Include this recipe?[{item.Recipe.getDebugText}]", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             includeRecipes.Add(item.Recipe.Name);
                         }
@@ -141,7 +151,7 @@ namespace RecipeDisplay
                     {
                         foundPaths.Add(new Stack<RecipeNode>(path));
                     }
-                    else if(path.Count <= 50)
+                    else if (path.Count <= 50)
                         q(item, path);
 
                     path.Pop();
@@ -160,6 +170,8 @@ namespace RecipeDisplay
                     q(item, p);
             }
 
+            File.WriteAllText(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_include.txt"), string.Join(",", includeRecipes));
+            File.WriteAllText(Path.Combine(SaveFolder, $"{recipeFrom}_{recipeTo}_exclude.txt"), string.Join(",", excludedRecipes));
 
 
             return foundPaths;
@@ -212,14 +224,11 @@ namespace RecipeDisplay
                 currentResource = nextResource;
             }
 
-
-
-
-            MessageBox.Show(sb.ToString());
+            //MessageBox.Show(sb.ToString());
             return currentQuantity;
         }
 
-        public static Tuple<decimal,string> GetQuantityv2(List<RecipeNode> pathRecipes, List<RecipeNode> allAvailableRecipes, ResourceChunk startingResource, string endingResource)
+        public static Tuple<decimal, string> GetQuantityv2(List<RecipeNode> pathRecipes, List<RecipeNode> allAvailableRecipes, ResourceChunk startingResource, string endingResource)
         {
             var simulateChanceBasedRecipes = false;
 
@@ -280,14 +289,14 @@ namespace RecipeDisplay
                             //ak je to zdroj co mozem ziskat inym receptom
                             //if (pathRecipes.Any(a => a.Recipe.Outputs.Any(b => b.Name == input.Name))) return false;
 
-                            if(IgnoredInputs.Contains(input.Name))
+                            if (IgnoredInputs.Contains(input.Name))
                             {
                                 return true;
                             }
                             else
                             {
                                 //ak app uz informovala ze nemam surku a dal som ok, je to ocakavana chybajuca surka vramci pouzivanych receptov
-                                if(MissingNotIgnoredResourcesReportedThisSession.Contains(input.Name))
+                                if (MissingNotIgnoredResourcesReportedThisSession.Contains(input.Name))
                                 {
                                     return false;
                                 }
@@ -324,7 +333,7 @@ namespace RecipeDisplay
                 foreach (var item in recipeToUse.Recipe.Outputs)
                 {
 
-                    var addedResource = item.Quantity == Math.Round(item.Quantity)
+                    var addedResource = item.Probability == 1
                         ? item.Quantity * timesRecipeUsage
                         : getRes(item.Probability, timesRecipeUsage);
 
@@ -351,14 +360,21 @@ namespace RecipeDisplay
             {
                 sb.AppendLine($"{item.Quantity} {item.Name}");
             }
-            //MessageBox.Show(sb.ToString());
+
+            sb.AppendLine();
+            sb.AppendLine("Ending resources:");
+
+            currentResources.ForEach(_ => sb.AppendLine($"{_.Quantity}x {_.Name}"));
+
 
             if (!currentResources.Any(a => a.Name == endingResource))
             {
                 var q = 2;
             }
 
-            return new Tuple<decimal,string>(currentResources.FirstOrDefault(a => a.Name == endingResource)?.Quantity ?? 0,sb.ToString());
+            var endingQuantity = currentResources.FirstOrDefault(a => a.Name == endingResource)?.Quantity ?? 0;
+            File.WriteAllText($@"{SaveFolder}\{startingResource.Name}_{endingResource}_{endingQuantity}_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.txt", sb.ToString());
+            return new Tuple<decimal, string>(endingQuantity, sb.ToString());
         }
     }
 }

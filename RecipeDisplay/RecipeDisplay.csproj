@@ -95,5 +95,8 @@
     <Content Include="Chrome.xml" />
     <Content Include="Zinc.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SaveFiles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

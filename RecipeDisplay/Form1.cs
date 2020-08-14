@@ -31,7 +31,7 @@ namespace RecipeDisplay
         private void be()
         {
             Class1.Start();
-           // return;
+            return;
 
             var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Users\tmi\Downloads\f.txt"));
             //var root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(@"C:\Downloads\f.txt"));
@@ -89,17 +89,7 @@ namespace RecipeDisplay
                 labels.Add(r);
             }
 
-            File.WriteAllText(
-                @"C:\temp\titan.txt", 
-                string.Join(
-                    Environment.NewLine, 
-                    labels
-                        .Where(_ => 
-                            _.Recipe.Name.IndexOf("titan") >= 0 
-                            || _.Recipe.Inputs.Any(a => a.Name.IndexOf("titan") >= 0)
-                            || _.Recipe.Outputs.Any(a => a.Name.IndexOf("titan") >= 0)
-                        )
-                        .Select(_ => _.Recipe.getDebugText)));
+          
 
 
             labels = getMostEfficientPath(labels,"titanium", "ore-titanium", "titanium-plate", 1000);
@@ -136,9 +126,14 @@ namespace RecipeDisplay
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //be();
 
-            be();
+            DisplayRecipes();
+
             return;
+
+
+            #region MyRegion
             //this.Paint += Form1_Paint;
             //this.AutoSize = true;
             //List<RecipeNode> labels = InitRecipes("Chrome");
@@ -226,9 +221,52 @@ namespace RecipeDisplay
 
             //}
 
-            //this.flowLayoutPanel1.Paint += Form1_Paint;
+            //this.flowLayoutPanel1.Paint += Form1_Paint; 
+            #endregion
 
 
+        }
+
+        private void DisplayRecipes()
+        {
+            //vytvor nodes
+            var recipes = Class1.LoadRecipes().Select(_ => new RecipeNode() { Recipe = _ }).ToList();
+            var labels = recipes.Select(_ => new RecipeNodeUC() { Recipe = _.Recipe });
+            var q = File.ReadAllText(Path.Combine(Class1.SaveFolder, $"ore-titanium_titanium-plate_include.txt")).Split(',');
+            var recipeNodesToUse = labels.Where(_ => q.Contains(_.Recipe.Name));
+            
+            //napln income outcome recipe
+            foreach (var item in recipeNodesToUse)
+            {
+                foreach (var input in item.Recipe.Inputs)
+                {
+                    foreach (var matchedRecipeLabel in recipeNodesToUse.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == input.Name)))
+                    {
+                        item.IncomingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
+
+                foreach (var output in item.Recipe.Outputs)
+                {
+                    foreach (var matchedRecipeLabel in recipeNodesToUse.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == output.Name)))
+                    {
+                        item.OutGoingRecipes.Add(matchedRecipeLabel);
+                    }
+                }
+            }
+
+            //najdi startovne koncove node
+            var startResourceName = "ore-titanium";
+            var endResourceName = "titanium-plate";
+            var startNodes = recipeNodesToUse.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == startResourceName));
+            var endNodes = recipeNodesToUse.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == endResourceName));
+
+            var rowcount = Math.Round(Math.Sqrt(recipeNodesToUse.Count()));
+
+
+            //this.Controls
+
+            //startNodes.ToList()[0].gridRow
         }
 
         private static Stack<RecipeNode> FindOptimalProductionPath(string fileName, string startingResourceName, string endingResourceName, int startingInputQuantity, IEnumerable<RecipeNode> recipes = null)
@@ -315,19 +353,19 @@ namespace RecipeDisplay
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            var g = e.Graphics;
-            Pen pen = new Pen(Color.Black);
-            pen.Width = 4;
-            foreach (RecipeNodeUC me in this.flowLayoutPanel1.Controls)
-            {
-                foreach (RecipeNodeUC him in me.IncomingRecipes)
-                {
-                    Point pMe = new Point(me.Location.X + me.Size.Width / 2, me.Location.Y + me.Size.Height / 2);
-                    Point pHim = new Point(him.Location.X + him.Size.Width / 2, him.Location.Y + him.Size.Height / 2);
-                    g.DrawLine(pen, pMe.X, pMe.Y, pHim.X, pHim.Y);
-                }
+            //var g = e.Graphics;
+            //Pen pen = new Pen(Color.Black);
+            //pen.Width = 4;
+            //foreach (RecipeNodeUC me in this.flowLayoutPanel1.Controls)
+            //{
+            //    foreach (RecipeNodeUC him in me.IncomingRecipes)
+            //    {
+            //        Point pMe = new Point(me.Location.X + me.Size.Width / 2, me.Location.Y + me.Size.Height / 2);
+            //        Point pHim = new Point(him.Location.X + him.Size.Width / 2, him.Location.Y + him.Size.Height / 2);
+            //        g.DrawLine(pen, pMe.X, pMe.Y, pHim.X, pHim.Y);
+            //    }
 
-            }
+            //}
         }
     }
 
@@ -425,5 +463,10 @@ namespace RecipeDisplay
         }
     }
 
-
+    public interface IRecipeContainer
+    {
+        Recipee GetRecipe();
+        List<RecipeNode> GetIncomingRecipes();
+        List<RecipeNode> GetOutGoingRecipes();
+    }
 }

@@ -20,8 +20,8 @@ namespace RecipeDisplay
         public Recipee Recipe;
         public List<RecipeNodeUC> IncomingRecipes = new List<RecipeNodeUC>();
         public List<RecipeNodeUC> OutGoingRecipes = new List<RecipeNodeUC>();
-        //public int gridRow;
-        //public int gridColumn;
+        public int gridRow;
+        public int gridColumn;
         public int gridRowOffsetToParent;
         public int gridColumnOffsetToParent;
         public int childrenWidth;
