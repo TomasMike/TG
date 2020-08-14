@@ -128,7 +128,29 @@ namespace RecipeDisplay
         {
             //be();
 
-            DisplayRecipes();
+            if (false)
+            {
+                RecipeNodeUC r = new RecipeNodeUC()
+                {
+                    Recipe = new Recipee()
+                    {
+                        Inputs = new List<ResourceChunk>()
+                    {
+                        new ResourceChunk(){Name ="iron-ore",Probability =1,Quantity = 1}
+                    },
+                        Outputs = new List<ResourceChunk>()
+                    {
+                        new ResourceChunk(){Name ="iron-plate",Probability =1,Quantity = 1}
+                    }
+                    },
+                    Name = "iron-ore-to-iron-plate"
+                };
+                r.Fill();
+                this.Controls.Add(r);
+                //r.Size = new Size(50, 50);
+            }
+            else
+                DisplayRecipes();
 
             return;
 
@@ -233,7 +255,7 @@ namespace RecipeDisplay
             var recipes = Class1.LoadRecipes().Select(_ => new RecipeNode() { Recipe = _ }).ToList();
             var labels = recipes.Select(_ => new RecipeNodeUC() { Recipe = _.Recipe });
             var q = File.ReadAllText(Path.Combine(Class1.SaveFolder, $"ore-titanium_titanium-plate_include.txt")).Split(',');
-            var recipeNodesToUse = labels.Where(_ => q.Contains(_.Recipe.Name));
+            var recipeNodesToUse = labels.Where(_ => q.Contains(_.Recipe.Name)).ToList();
             
             //napln income outcome recipe
             foreach (var item in recipeNodesToUse)
@@ -261,7 +283,23 @@ namespace RecipeDisplay
             var startNodes = recipeNodesToUse.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == startResourceName));
             var endNodes = recipeNodesToUse.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == endResourceName));
 
-            var rowcount = Math.Round(Math.Sqrt(recipeNodesToUse.Count()));
+            var colcount =(int)Math.Round(Math.Sqrt(recipeNodesToUse.Count()));
+            var padding = 10;
+
+            for (int i = 0; i < recipeNodesToUse.Count(); i++)
+            {
+
+                var item = recipeNodesToUse[i];
+                this.Controls.Add(item);
+                item.Fill();
+
+                item.gridRow = i == 0 ? 0 : (int)Math.Floor((decimal)(i / colcount));
+                item.gridColumn = i % colcount;
+
+                //item.Location = new Point()
+
+            }
+
 
 
             //this.Controls
