@@ -282,29 +282,79 @@ namespace RecipeDisplay
             var endResourceName = "titanium-plate";
             var startNodes = recipeNodesToUse.Where(_ => _.Recipe.Inputs.Any(__ => __.Name == startResourceName));
             var endNodes = recipeNodesToUse.Where(_ => _.Recipe.Outputs.Any(__ => __.Name == endResourceName));
-
-            var colcount =(int)Math.Round(Math.Sqrt(recipeNodesToUse.Count()));
-            var padding = 10;
-
-            for (int i = 0; i < recipeNodesToUse.Count(); i++)
+            //
+            
+            if (false)
             {
 
-                var item = recipeNodesToUse[i];
-                this.Controls.Add(item);
-                item.Fill();
+            //nastav grid/row na zobrazenie do kocky +-
+            var colcount =(int)Math.Round(Math.Sqrt(recipeNodesToUse.Count()));
+            var sb = new StringBuilder();
+                for (int i = 0; i < recipeNodesToUse.Count(); i++)
+                {
 
-                item.gridRow = i == 0 ? 0 : (int)Math.Floor((decimal)(i / colcount));
-                item.gridColumn = i % colcount;
+                    var item = recipeNodesToUse[i];
+                    this.Controls.Add(item);
+                    item.Fill();
 
-                //item.Location = new Point()
+                    item.gridRow = i == 0 ? 0 : (int)Math.Floor((decimal)(i / colcount));
+                    item.gridColumn = i % colcount;
+                    sb.Append($"r{item.gridRow}c{item.gridColumn}");
 
+                }
+            }
+            else
+            {
+                //zorad ich nejako postupne
+                var allreadySetCells = new List<RecipeNodeUC>();
+                Action<List<RecipeNodeUC>,int> a = null;
+                a = (rcps,rowIndex) => 
+                {
+                    var nextRecipes = new List<RecipeNodeUC>();
+
+                    foreach (var item in rcps)
+                    {
+                        if (!allreadySetCells.Contains(item))
+                        {
+                            this.Controls.Add(item);
+                            item.Fill();
+                            allreadySetCells.Add(item);
+                            nextRecipes.AddRange(item.OutGoingRecipes);
+                            item.gridRow = rowIndex;
+                            item.gridColumn = allreadySetCells.Count(_ => _.gridRow == rowIndex) - 1;
+                        }
+                    }
+
+                    if(nextRecipes.Any())
+                        a(nextRecipes, ++rowIndex);
+                };
+
+                a(startNodes.ToList(), 0);
+            }
+            ///////
+
+            //vygeneruj ciary
+            var recipePairs = new List<Tuple<RecipeNodeUC, RecipeNodeUC>>();
+
+            Action<RecipeNodeUC> aa = null;
+
+
+
+            ///
+
+
+            //nastav spolocne vyska/sirka a rozmiestni podla row/col
+            var w = recipeNodesToUse.Select(_ => _.Size.Width).Max();
+            var h = recipeNodesToUse.Select(_ => _.Size.Height).Max();
+            var padding = 10;
+
+            foreach (var item in recipeNodesToUse)
+            {
+                item.Size = new Size(w, h);
+                item.Location = new Point( item.gridColumn * item.Width + (item.gridColumn + 1) * padding, item.gridRow * item.Height + (item.gridRow + 1) * padding);
             }
 
 
-
-            //this.Controls
-
-            //startNodes.ToList()[0].gridRow
         }
 
         private static Stack<RecipeNode> FindOptimalProductionPath(string fileName, string startingResourceName, string endingResourceName, int startingInputQuantity, IEnumerable<RecipeNode> recipes = null)

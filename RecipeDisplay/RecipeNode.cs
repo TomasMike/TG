@@ -15,11 +15,18 @@ namespace RecipeDisplay
         public RecipeNodeUC()
         {
             InitializeComponent();
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowOnly;
+            tableLayoutPanel1 = new TableLayoutPanel();
+            this.Controls.Add(tableLayoutPanel1);
         }
+
+        public TableLayoutPanel tableLayoutPanel1;
 
         public Recipee Recipe;
         public List<RecipeNodeUC> IncomingRecipes = new List<RecipeNodeUC>();
         public List<RecipeNodeUC> OutGoingRecipes = new List<RecipeNodeUC>();
+
         public int gridRow;
         public int gridColumn;
         public int gridRowOffsetToParent;
@@ -28,18 +35,10 @@ namespace RecipeDisplay
 
         public void Fill()
         {
-            this.tableLayoutPanel1.RowCount = Math.Max(Recipe.Inputs.Count, Recipe.Outputs.Count);
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.AutoSize = true;
-            for (int i = 0; i < tableLayoutPanel1.RowCount; i++)
-            {
-                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            }
-            for (int i = 0; i < this.tableLayoutPanel1.ColumnCount; i++)
-            {
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            }
-            this.BackColor = Color.Red;
+            this.tableLayoutPanel1.RowCount = (Recipe.Inputs.Count + Recipe.Outputs.Count);
+            this.tableLayoutPanel1.ColumnCount = 0;
+      
+            this.BackColor = Color.LightYellow;
             for (int i = 0; i < Recipe.Inputs.Count; i++)
             {
                 var item = Recipe.Inputs[i];
@@ -47,8 +46,7 @@ namespace RecipeDisplay
                 {
                     Text = $"{item.Quantity}x {item.Name}",
                     AutoSize = true,
-                    BackColor = Color.Green
-
+                    BackColor = Color.Orange
                 };
                 this.tableLayoutPanel1.Controls.Add(l, 0, i);
             }
@@ -59,12 +57,21 @@ namespace RecipeDisplay
                 {
                     Text = $"{item.Quantity}x {item.Name}",
                     AutoSize = true,
-                    BackColor = Color.Green
+                    BackColor = Color.LightGreen
 
 
                 };
-                this.tableLayoutPanel1.Controls.Add(l, 1, i);
+                this.tableLayoutPanel1.Controls.Add(l, 0, Recipe.Inputs.Count + i);
             }
+
+            var width = 0;
+            foreach (Label item in this.tableLayoutPanel1.Controls)
+            {
+                var w = TextRenderer.MeasureText(item.Text, DefaultFont).Width;
+                width = Math.Max(w, width);
+            }
+            tableLayoutPanel1.Width = width;
+            tableLayoutPanel1.Height = tableLayoutPanel1.Controls.Count * TextRenderer.MeasureText("abc", DefaultFont).Height;
         }
     }
 
@@ -81,6 +88,6 @@ namespace RecipeDisplay
         public int gridColumnOffsetToParent;
         public int childrenWidth;
 
-        
+
     }
 }
