@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TG.CustomControls;
 using TG.Forms;
 using TG.HelpersUtils;
+using TG.SavingLoading;
 
 namespace TG.Managers
 {
@@ -14,6 +15,10 @@ namespace TG.Managers
         private static List<MainActionButton> mainActionButtons = new List<MainActionButton>();
 
         private static bool IsTravelModeEnabled = false;
+
+        public static event BasicEventHandler ActionFinished;
+
+        public delegate void BasicEventHandler();
 
         public static void InitActionButtonPanel()
         {
@@ -34,6 +39,15 @@ namespace TG.Managers
             }
 
             mainActionButtons.First(_ => _.ActionType == ActionType.Travel).Click += TravelActionClick;
+
+            //
+            ActionFinished += ActionManager_ActionFinished;
+            //
+        }
+
+        private static void ActionManager_ActionFinished()
+        {
+            SaveManager.Save();
         }
 
         private static void TravelActionClick(object sender, EventArgs e)
@@ -70,7 +84,8 @@ namespace TG.Managers
             p.Character.CurrentEnergy--;
             p.CurrentLocation = ((LocationSelectionButton)sender).LocationNumber;
             _MainForm.Instance.Mp.AddMissingLocationsAfterTravel(p.CurrentLocation);
-            DisableMoveMode();  
+            DisableMoveMode();
+            ActionFinished.Invoke();
         }
 
         public static void DisableMoveMode()
@@ -91,8 +106,8 @@ namespace TG.Managers
                     l.LocationActionBtn.Click -= MoveClick;
                 }
             }
-            _MainForm.Instance.Refresh();
 
+            _MainForm.Instance.Refresh();
         }
     }
 }

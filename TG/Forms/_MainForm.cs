@@ -78,9 +78,9 @@ namespace TG.Forms
             Game.Instance.ProcessMorningStuff();
         }
 
-        private void niecoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Game.Instance.DuringDay();
+            SaveManager.Save();
         }
     }
 }

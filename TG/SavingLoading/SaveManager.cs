@@ -21,6 +21,9 @@ namespace TG.SavingLoading
         {
             if (CurrentSaveSheet == null)
                 throw new Exception("current save sheet is empty, wft?");
+
+            CurrentSaveSheet.Save();
+
             XmlSerializer writer = new XmlSerializer(typeof(SaveSheet));
             var path = Path.Combine(SaveFolder, CurrentSaveSheet.fileName + ".xml");
             FileStream file = File.Create(path);

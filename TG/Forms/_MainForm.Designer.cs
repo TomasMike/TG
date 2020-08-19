@@ -59,9 +59,9 @@
             // niecoToolStripMenuItem
             // 
             this.niecoToolStripMenuItem.Name = "niecoToolStripMenuItem";
-            this.niecoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.niecoToolStripMenuItem.Text = "nieco";
-            this.niecoToolStripMenuItem.Click += new System.EventHandler(this.niecoToolStripMenuItem_Click);
+            this.niecoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.niecoToolStripMenuItem.Text = "Save";
+            this.niecoToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // mainContentPanel
             // 

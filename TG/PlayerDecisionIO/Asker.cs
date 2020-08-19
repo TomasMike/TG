@@ -26,6 +26,11 @@ namespace TG.PlayerDecisionIO
 
             return Ask(question, options, canCancel).GetOptionObject();
         }
+
+        public static T Ask<T>(string question,Dictionary<int,T> options, bool canCancel)
+        {
+
+        }
     }
 
     public static class OldAsker

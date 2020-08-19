@@ -30,7 +30,7 @@ namespace TG.Libs
                     {
                         LocationName = "Hunters' Grove",
                         LocationNumber = 102,
-                        NorthDirectionKey = 113,
+                        //NorthDirectionKey = 113,
                         WestDirectionKey = 106,
                         SouthDirectionKey = 101,
                         EastDirectionKey = 107,
@@ -42,7 +42,7 @@ namespace TG.Libs
                     {
                         LocationName = "Warrior Fair",
                         LocationNumber = 103,
-                        WestDirectionKey = 118,
+                        //WestDirectionKey = 118,
                         SouthDirectionKey = 108,
                         EastDirectionKey = 101,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
@@ -73,8 +73,8 @@ namespace TG.Libs
                     {
                         LocationName = "Fore-dweller Mounds",
                         LocationNumber = 106,
-                        NorthDirectionKey = 112,
-                        WestDirectionKey = 116,
+                        //NorthDirectionKey = 112,
+                        //WestDirectionKey = 116,
                         EastDirectionKey = 102,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
@@ -85,10 +85,10 @@ namespace TG.Libs
                     {
                         LocationName = "Whitening",
                         LocationNumber = 107,
-                        NorthDirectionKey = 114,
+                        //NorthDirectionKey = 114,
                         WestDirectionKey = 102,
                         SouthDirectionKey = 104,
-                        EastDirectionKey = 117,
+                        //EastDirectionKey = 117,
                         CanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
                         Dreams = true,
@@ -99,7 +99,7 @@ namespace TG.Libs
                         LocationName = "Grubwood",
                         LocationNumber = 108,
                         NorthDirectionKey = 103,
-                        WestDirectionKey = 120,
+                        //WestDirectionKey = 120,
                         EastDirectionKey = 105,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         LocationAction = new object()
