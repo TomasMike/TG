@@ -1,4 +1,6 @@
-﻿namespace TG.Forms
+﻿using TG.PlayerCharacterItems;
+
+namespace TG.Forms
 {
     partial class _MainForm
     {
@@ -73,7 +75,7 @@
             // 
             // questionFormBindingSource
             // 
-            this.questionFormBindingSource.DataSource = typeof(TG.Character);
+            this.questionFormBindingSource.DataSource = typeof(Character);
             // 
             // _MainForm
             // 

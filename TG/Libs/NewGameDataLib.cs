@@ -1,5 +1,6 @@
 ﻿using System;
 using TG.Enums;
+using TG.PlayerCharacterItems;
 
 namespace TG.Libs
 {

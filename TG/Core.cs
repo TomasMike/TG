@@ -2,6 +2,7 @@
 using System.Linq;
 using TG.Enums;
 using TG.Forms;
+using TG.PlayerCharacterItems;
 using TG.PlayerDecisionIO;
 using TG.SavingLoading;
 

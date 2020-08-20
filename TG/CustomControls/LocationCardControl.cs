@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TG.Enums;
+using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
 namespace TG.CustomControls

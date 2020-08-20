@@ -58,6 +58,8 @@
     <Compile Include="Libs\ExplorationScenariosLib.cs" />
     <Compile Include="Managers\ActionManager.cs" />
     <Compile Include="Managers\ExplorationManager.cs" />
+    <Compile Include="PlayerCharacterItems\Item.cs" />
+    <Compile Include="PlayerCharacterItems\SecretItem.cs" />
     <Compile Include="PlayerDecisionIO\Asker.cs" />
     <Compile Include="CustomControls\LocationCardControlv2.cs">
       <SubType>UserControl</SubType>
@@ -94,7 +96,7 @@
     <Compile Include="imported\Card.cs" />
     <Compile Include="imported\CardLib.cs" />
     <Compile Include="imported\CombatCardSide.cs" />
-    <Compile Include="Character.cs" />
+    <Compile Include="PlayerCharacterItems\Character.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="imported\Encounter.cs" />
     <Compile Include="imported\EncounterLib.cs" />
@@ -117,7 +119,7 @@
     <Compile Include="Forms\StartMenuForm.Designer.cs">
       <DependentUpon>StartMenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerCharacterItems\Player.cs" />
     <Compile Include="HelpersUtils\LocationsHelper.cs" />
     <Compile Include="_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

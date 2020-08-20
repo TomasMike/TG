@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TG.Enums;
 
-namespace TG
-
+namespace TG.PlayerCharacterItems
 {
+
     public class Character : INotifyPropertyChanged
     {
         public Character()
@@ -16,6 +17,8 @@ namespace TG
 
         public CharacterName CharacterName;
         public CharacterArchetype Archetype;
+
+        public List<Item> Items = new List<Item>();
 
         #region Atributes,propertyChanged events...
 
@@ -79,7 +82,7 @@ namespace TG
             get => _empathy;
             set
             {
-                if (value == _empathy) return; 
+                if (value == _empathy) return;
                 _empathy = value;
                 NotifyPropertyChanged();
             }
@@ -90,7 +93,7 @@ namespace TG
             get => _caution;
             set
             {
-                if (value == _caution) return; 
+                if (value == _caution) return;
                 _caution = value;
                 NotifyPropertyChanged();
             }
@@ -101,7 +104,7 @@ namespace TG
             get => _spirituality;
             set
             {
-                if (value == _spirituality) return; 
+                if (value == _spirituality) return;
                 _spirituality = value;
                 NotifyPropertyChanged();
             }
@@ -112,7 +115,7 @@ namespace TG
             get => _maxHealth;
             set
             {
-                if (value == _maxHealth) return; 
+                if (value == _maxHealth) return;
                 _maxHealth = value;
                 NotifyPropertyChanged();
             }
@@ -139,7 +142,7 @@ namespace TG
             get => _maxEnergy;
             set
             {
-                if (value == _maxEnergy) return; 
+                if (value == _maxEnergy) return;
                 _maxEnergy = value;
                 NotifyPropertyChanged();
             }
@@ -167,7 +170,7 @@ namespace TG
             get => _maxTerror;
             set
             {
-                if (value == _maxTerror) return; 
+                if (value == _maxTerror) return;
                 _maxTerror = value;
                 NotifyPropertyChanged();
             }
@@ -194,7 +197,7 @@ namespace TG
             get => _food;
             set
             {
-                if (value == _food) return; 
+                if (value == _food) return;
                 _food = value;
                 NotifyPropertyChanged();
             }
@@ -205,7 +208,7 @@ namespace TG
             get => _reputation;
             set
             {
-                if (value == _reputation) return; 
+                if (value == _reputation) return;
                 _reputation = value;
                 NotifyPropertyChanged();
             }
@@ -216,7 +219,7 @@ namespace TG
             get => _wealth;
             set
             {
-                if (value == _wealth) return; 
+                if (value == _wealth) return;
                 _wealth = value;
                 NotifyPropertyChanged();
             }
@@ -227,7 +230,7 @@ namespace TG
             get => _experience;
             set
             {
-                if (value == _experience) return; 
+                if (value == _experience) return;
                 _experience = value;
                 NotifyPropertyChanged();
             }
@@ -238,7 +241,7 @@ namespace TG
             get => _magic;
             set
             {
-                if (value == _magic) return; 
+                if (value == _magic) return;
                 _magic = value;
                 NotifyPropertyChanged();
             }

@@ -4,7 +4,7 @@ using TG.CustomControls;
 using TG.Enums;
 using TG.HelpersUtils;
 
-namespace TG
+namespace TG.PlayerCharacterItems
 {
     [DefaultBindingProperty("PlayerNumber")]
     public class Player

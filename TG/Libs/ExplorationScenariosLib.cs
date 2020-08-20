@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TG.Exploration;
+using TG.SavingLoading;
 
 namespace TG.Libs
 {
@@ -14,7 +15,24 @@ namespace TG.Libs
                     {101, 
                         new ExplorationScenario
                         {
-                            ExplorationIntroText = "Vitaj v meste?",
+                            ExplorationIntroText = "A deep feeling of loss fills everyhing in Cuanacht - from dilapidated farms to the sunken eyes of those who remain in town. The menhir in the market is all but extinguished and everyone brave or resourceful enough has left to find a solution.",
+                            CheckForcedOption = o => 
+                            {
+                                var retVal = new CheckForcedOptionResult();
+
+                                if(SaveManager.CurrentSaveSheet.Statuses.ContainsKey("Winds of Wyrdness"))
+                                {
+                                    retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
+                                    retVal.ReturnValue = 121;
+                                }
+                                else if(Game.Instance.ActivePlayer)
+                                {
+
+                                }
+
+
+
+                            }
                             Options = new Dictionary<int, ScenarioParagraph>
                             {
                                 {1,

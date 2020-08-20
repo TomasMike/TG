@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TG.Forms;
 using System.Linq;
+using TG.PlayerCharacterItems;
 
 namespace TG.SavingLoading
 {
@@ -9,6 +10,7 @@ namespace TG.SavingLoading
         public string fileName;
         public List<Player> Players;
         public List<LocationSaveObject> Locations;
+        public Dictionary<string, string> Statuses;
 
         public SaveSheet()
         {

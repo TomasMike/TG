@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TG.Enums;
 using TG.HelpersUtils;
 using TG.Libs;
+using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
 namespace TG.Forms

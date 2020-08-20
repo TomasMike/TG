@@ -3,9 +3,11 @@ using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
 {
-    public class ScenarioParagraph: IAskerOption<ScenarioParagraph>
+    public class ScenarioParagraph
     {
         public string Text;
         public Dictionary<int, ParagraphOption> ParagraphOptions;
     }
+
+ 
 }
