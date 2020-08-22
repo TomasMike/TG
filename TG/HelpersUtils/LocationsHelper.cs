@@ -2,7 +2,6 @@
 using System.Linq;
 using TG.CustomControls;
 using TG.Forms;
-using TG.PlayerCharacterItems;
 
 namespace TG.HelpersUtils
 {
@@ -88,20 +87,6 @@ namespace TG.HelpersUtils
         public static IEnumerable<LocationCardControl> GetSurroundingLocations(int locationNumber)
         {
             return GetSurroundingLocationsNumbers(locationNumber).Select(_ => GetLCControlFromLocationNumber(_));
-        }
-    }
-
-    public static class CharacterHelper
-    {
-        public static bool HasCharacterSecret(this Character ch, int secretNumber)
-        {
-            foreach (var item in ch.Items)
-            {
-                if(item is SecretItem && ((SecretItem)item).SecretNumber == secretNumber)
-                {
-                    
-                }
-            }
         }
     }
 }

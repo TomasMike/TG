@@ -47,17 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Locations\LocationAction.cs" />
     <Compile Include="CustomControls\LocationSelectionButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Exploration\ExplorationEventArgs.cs" />
     <Compile Include="Exploration\ParagraphOption.cs" />
     <Compile Include="Exploration\ScenarioParagraph.cs" />
+    <Compile Include="HelpersUtils\CharacterHelper.cs" />
     <Compile Include="HelpersUtils\Extensions.cs" />
     <Compile Include="Exploration\ExplorationScenario.cs" />
+    <Compile Include="HelpersUtils\MenhirHelper.cs" />
     <Compile Include="Libs\ExplorationScenariosLib.cs" />
+    <Compile Include="Locations\LocationActionArgs.cs" />
+    <Compile Include="Locations\OnEnterActionsArgs.cs" />
     <Compile Include="Managers\ActionManager.cs" />
     <Compile Include="Managers\ExplorationManager.cs" />
+    <Compile Include="Menhirs\MenhirActivationRequirement.cs" />
     <Compile Include="PlayerCharacterItems\Item.cs" />
     <Compile Include="PlayerCharacterItems\SecretItem.cs" />
     <Compile Include="PlayerDecisionIO\Asker.cs" />

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TG.Enums;
+using TG.Locations;
+using TG.Menhirs;
 using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
@@ -15,10 +18,43 @@ namespace TG.CustomControls
         public Label SLabel = new Label();
         public Label WLabel = new Label();
 
+        public int NorthDirectionKey;
+        public int EastDirectionKey;
+        public int SouthDirectionKey;
+        public int WestDirectionKey;
+
         public TableLayoutPanel LocationDescriptionControlsArea = new TableLayoutPanel();
         public TableLayoutPanel LocationPlayersGuardiansArea = new TableLayoutPanel();
         public Label LocationNameNumber = new Label();
         public LocationSelectionButton LocationActionBtn = new LocationSelectionButton();
+
+
+        public string LocationName;
+        public int LocationNumber;
+        public int LegacyLocationNumber;
+
+       
+
+        /// <summary>
+        /// If the location doesnt have a menhir its -1
+        /// </summary>
+        public int MenhirValue;
+        public bool LocationCanHaveMenhir;
+        public Func<bool> CanActivateMenhir;
+        public MenhirActivationRequirement MenhirActivationRequirement;
+        public string MenhirActivationRequirementsDescription;
+        public Action<string> ActivateMenhir;
+
+        public LocationSetlementTypeEnum LocationSetlementType;
+        public bool Dreams;
+
+        public Func<LocationActionArgs, bool> CanDoLocationAction;
+        public LocationAction LocationAction;
+        public Action<OnEnterActionsArgs> OnEnterEvent;
+        public string ShortDescription;
+        
+
+
 
         public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.CurrentLocation == LocationNumber);
         public List<Button> ButtonsToDisplay = new List<Button>();
@@ -123,29 +159,8 @@ namespace TG.CustomControls
                 LocationPlayersGuardiansArea.Controls.Add(l);
             }
         }
-
-
-
-
-
-        public int NorthDirectionKey;
-        public int EastDirectionKey;
-        public int SouthDirectionKey;
-        public int WestDirectionKey;
-
-        public string LocationName;
-        public int LocationNumber;
-        public string LegacyLocationNumber;
-
-        public bool CanHaveMenhir;
-
-        /// <summary>
-        /// If the location doesnt have a menhir its -1
-        /// </summary>
-        public int MenhirValue;
-
-        public LocationSetlementTypeEnum LocationSetlementType;
-        public bool Dreams;
-        public object LocationAction;//TODO
     }
+
+
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TG.Enums;
 using TG.Forms;
@@ -29,7 +30,14 @@ namespace TG.PlayerDecisionIO
 
         public static T Ask<T>(string question,Dictionary<int,T> options, bool canCancel)
         {
+            var optionsList = new List<Option<T>>();
 
+            foreach (var item in options)
+            {
+                optionsList.Add(new Option<T> { });
+            }
+            
+            throw new NotImplementedException();
         }
     }
 

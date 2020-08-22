@@ -15,7 +15,7 @@ namespace TG.Managers
 
         public static void StartExploration(ExplorationScenario scenario)
         {
-            Asker.Ask(scenario.ExplorationIntroText,scenario.Options.)
+            Asker.Ask(scenario.ExplorationIntroText, scenario.Options, false);
         }
     }
 }
