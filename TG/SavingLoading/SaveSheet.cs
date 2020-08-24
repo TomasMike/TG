@@ -2,6 +2,7 @@
 using TG.Forms;
 using System.Linq;
 using TG.PlayerCharacterItems;
+using TG.HelpersUtils;
 
 namespace TG.SavingLoading
 {
@@ -10,15 +11,16 @@ namespace TG.SavingLoading
         public string fileName;
         public List<Player> Players;
         public List<LocationSaveObject> Locations;
-        public Dictionary<string, string> Statuses;
+        public SerializableDictionary<string, string> Statuses;
 
         public SaveSheet()
         {
             Players = new List<Player>();
             Locations = new List<LocationSaveObject>();
+            Statuses = new SerializableDictionary<string, string>();
         }
 
-        public void Save()
+        public void SaveGameDataToSaveSheet()
         {
             Locations = _MainForm.Instance.Mp.LocationCards
                 .Select(

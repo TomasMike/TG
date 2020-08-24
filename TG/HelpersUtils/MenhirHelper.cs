@@ -10,7 +10,7 @@ namespace TG.HelpersUtils
             var sb = new StringBuilder();
             sb.Append("Requires all Characters");
             
-            if
+            //TODO
             return "Requires all Characters, the [Menhir Rites] secret card and the [Stoneshaper's Tools] Secret card. Pay 2 Energy, 2 Health and 2 Magic (per player): put a ";
         }
     }

@@ -26,6 +26,11 @@ namespace TG.HelpersUtils
             return _MainForm.Instance.Mp.LocationCards.First(_ => _.LocationNumber == number);
         }
 
+        public static LocationCardControl GetLCControlFromLocationNumberOrNull(int number)
+        {
+            return _MainForm.Instance.Mp.LocationCards.FirstOrDefault(_ => _.LocationNumber == number);
+        }
+
         public static bool IsLocationNearActiveMenhir(int locationNumber)
         {
             foreach (var item in GetLocationsWithActiveMenhir())
@@ -88,22 +93,6 @@ namespace TG.HelpersUtils
         public static IEnumerable<LocationCardControl> GetSurroundingLocations(int locationNumber)
         {
             return GetSurroundingLocationsNumbers(locationNumber).Select(_ => GetLCControlFromLocationNumber(_));
-        }
-    }
-
-    public static class CharacterHelper
-    {
-        public static bool HasCharacterSecret(this Character ch, int secretNumber)
-        {
-            foreach (var item in ch.Items)
-            {
-                if(item is SecretItem && ((SecretItem)item).SecretNumber == secretNumber)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

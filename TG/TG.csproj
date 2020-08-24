@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelpersUtils\SerializableDictionary.cs" />
     <Compile Include="Locations\LocationAction.cs" />
     <Compile Include="CustomControls\LocationSelectionButton.cs">
       <SubType>Component</SubType>

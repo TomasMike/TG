@@ -36,6 +36,7 @@ namespace TG.Forms
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContentPanel = new System.Windows.Forms.Panel();
             this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.endDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +54,8 @@ namespace TG.Forms
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.niecoToolStripMenuItem});
+            this.niecoToolStripMenuItem,
+            this.endDayToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "menu";
@@ -75,7 +77,14 @@ namespace TG.Forms
             // 
             // questionFormBindingSource
             // 
-            this.questionFormBindingSource.DataSource = typeof(Character);
+            this.questionFormBindingSource.DataSource = typeof(TG.PlayerCharacterItems.Character);
+            // 
+            // endDayToolStripMenuItem
+            // 
+            this.endDayToolStripMenuItem.Name = "endDayToolStripMenuItem";
+            this.endDayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.endDayToolStripMenuItem.Text = "End Day";
+            this.endDayToolStripMenuItem.Click += new System.EventHandler(this.endDayToolStripMenuItem_Click);
             // 
             // _MainForm
             // 
@@ -104,6 +113,7 @@ namespace TG.Forms
         private System.Windows.Forms.ToolStripMenuItem niecoToolStripMenuItem;
         private System.Windows.Forms.Panel mainContentPanel;
         private System.Windows.Forms.BindingSource questionFormBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem endDayToolStripMenuItem;
     }
 }
 

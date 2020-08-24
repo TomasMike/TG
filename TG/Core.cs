@@ -61,8 +61,18 @@ namespace TG
                 var playersWhoDidntActThisRound = SaveManager.CurrentSaveSheet.Players.Select(_ => _.PlayerNumber).ToList();
                 playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
 
-                var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
-                Game.Instance.ActivePlayerNumber = reply;
+                if(playersWhoActedThisRound.Count == 0)
+                {
+                    //next round
+                    playersWhoActedThisRound.Clear();
+
+                }
+                else
+                {
+                    var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
+                    Game.Instance.ActivePlayerNumber = reply;
+
+                }
             }
             else
             {

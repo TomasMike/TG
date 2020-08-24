@@ -34,7 +34,7 @@ namespace TG.PlayerDecisionIO
 
             foreach (var item in options)
             {
-                optionsList.Add(new Option<T> { });
+                //optionsList.Add(new Option<T> { });
             }
             
             throw new NotImplementedException();

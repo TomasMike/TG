@@ -35,30 +35,30 @@ namespace TG.Libs
                             }
                         },
                         LocationCanHaveMenhir = true,
-                        MenhirActivationRequirementsDescription = 
-                        CanActivateMenhir = 
+                        //MenhirActivationRequirementsDescription = 
+                        CanActivateMenhir = () => true
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Hunters' Grove",
                         LocationNumber = 102,
-                        //NorthDirectionKey = 113,
+                        NorthDirectionKey = 113,
                         WestDirectionKey = 106,
                         SouthDirectionKey = 101,
                         EastDirectionKey = 107,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()//2e -> 2food + green encounter
+                        LocationAction = null//2e -> 2food + green encounter
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Warrior Fair",
                         LocationNumber = 103,
-                        //WestDirectionKey = 118,
+                        WestDirectionKey = 118,
                         SouthDirectionKey = 108,
                         EastDirectionKey = 101,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        LocationAction = new object()//4e -> -1hp +1exp(1 per day)
+                        LocationAction = null//4e -> -1hp +1exp(1 per day)
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -69,7 +69,7 @@ namespace TG.Libs
                         SouthDirectionKey = 109,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()//none //on enter gray enc
+                        LocationAction = null//none //on enter gray enc
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -79,39 +79,39 @@ namespace TG.Libs
                         WestDirectionKey = 108,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()//1e -> -1 wealth, draw 1 craftable item
+                        LocationAction = null//1e -> -1 wealth, draw 1 craftable item
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Fore-dweller Mounds",
                         LocationNumber = 106,
-                        //NorthDirectionKey = 112,
-                        //WestDirectionKey = 116,
+                        NorthDirectionKey = 112,
+                        WestDirectionKey = 116,
                         EastDirectionKey = 102,
                         LocationCanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()//2e -> +1terror,1wealth...zloztite
+                        LocationAction = null//2e -> +1terror,1wealth...zloztite
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Whitening",
                         LocationNumber = 107,
-                        //NorthDirectionKey = 114,
+                        NorthDirectionKey = 114,
                         WestDirectionKey = 102,
                         SouthDirectionKey = 104,
-                        //EastDirectionKey = 117,
+                        EastDirectionKey = 117,
                         LocationCanHaveMenhir = true,
                         LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
                         Dreams = true,
-                        LocationAction = new object()//1e -> -1 food, +1 wealth
+                        LocationAction = null//1e -> -1 food, +1 wealth
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationName = "Grubwood",
                         LocationNumber = 108,
                         NorthDirectionKey = 103,
-                        //WestDirectionKey = 120,
+                        WestDirectionKey = 120,
                         EastDirectionKey = 105,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                     }.Init(),
@@ -122,7 +122,7 @@ namespace TG.Libs
                         NorthDirectionKey = 104,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object()//1e -> -1w, +3hp
+                        LocationAction = null//1e -> -1w, +3hp
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -130,11 +130,11 @@ namespace TG.Libs
                         LocationNumber = 110,
                         LegacyLocationNumber = 108,
                         NorthDirectionKey = 103,
-                        //WestDirectionKey = 120,
+                        WestDirectionKey = 120,
                         EastDirectionKey = 105,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object(),//1e -> +1 terror +1 food
+                        LocationAction = null,//1e -> +1 terror +1 food
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -143,8 +143,9 @@ namespace TG.Libs
                         LocationNumber = 111,
                         NorthDirectionKey = 131,
                         EastDirectionKey = 112,
+                        SouthDirectionKey = 116,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        LocationAction = new object(),//2e -> +2 food, green encounter
+                        LocationAction = null,//2e -> +2 food, green encounter
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -154,7 +155,7 @@ namespace TG.Libs
                         WestDirectionKey = 111,
                         SouthDirectionKey = 106,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        LocationAction = new object(),//1e -> -1 rep or +1 terror, +1 wealth
+                        LocationAction = null,//1e -> -1 rep or +1 terror, +1 wealth
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -163,7 +164,7 @@ namespace TG.Libs
                         SouthDirectionKey = 102,
                         EastDirectionKey= 114,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
-                        LocationAction = new object(),//0e -> +1 energy +1hp -1 terror 1perday
+                        LocationAction = null,//0e -> +1 energy +1hp -1 terror 1perday
 
                     }.Init(),
                     new LocationCardControl()
@@ -175,7 +176,7 @@ namespace TG.Libs
                         SouthDirectionKey = 107,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
-                        LocationAction = new object(),//2e -> +2 food, green enc
+                        LocationAction = null,//2e -> +2 food, green enc
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -197,7 +198,7 @@ namespace TG.Libs
                         EastDirectionKey= 106,
                         LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
                         Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationAction = null,//0e -> -1wealth,+1 magic
                     }.Init(),
                     new LocationCardControl()
                     {
@@ -212,291 +213,147 @@ namespace TG.Libs
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 118,
+                        NorthDirectionKey = 116,
+                        WestDirectionKey = 141,
+                        SouthDirectionKey = 120,
+                        EastDirectionKey = 103
+                    }.Init(),
+                    new LocationCardControl()
+                    { 
+                        LocationNumber = 120,
+                        NorthDirectionKey = 118,
+                        EastDirectionKey = 108,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 141,
+                        EastDirectionKey = 118,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 119,
+                        NorthDirectionKey = 117,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 156,
+                        EastDirectionKey = 139,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 139,
+                        WestDirectionKey = 156,
+                        EastDirectionKey = 116,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 140,
+                        NorthDirectionKey = 138,
+                        WestDirectionKey = 117,
+                        EastDirectionKey = 157,
+                        
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 157,
+                        WestDirectionKey = 140,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 138,
+                        NorthDirectionKey = 136,
+                        WestDirectionKey = 115,
+                        SouthDirectionKey = 140,
+                        EastDirectionKey = 190,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 190,
+                        WestDirectionKey = 138,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 131,
+                        SouthDirectionKey = 111,
+                        EastDirectionKey = 132,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 132,
+                        NorthDirectionKey = 151,
+                        WestDirectionKey = 131,
+                        SouthDirectionKey = 112,
+                        EastDirectionKey = 133,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 133,
+                        NorthDirectionKey = 152,
+                        WestDirectionKey = 132,
+                        EastDirectionKey = 134,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 134,
+                        NorthDirectionKey = 153,
+                        WestDirectionKey = 133,
+                        EastDirectionKey = 135,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 135,
+                        NorthDirectionKey = 154,
+                        WestDirectionKey = 134,
+                        EastDirectionKey = 136,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 136,
+                        NorthDirectionKey =  155,
+                        WestDirectionKey = 135,
+                        SouthDirectionKey = 138,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 150,
+                        EastDirectionKey = 151,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 151,
+                        WestDirectionKey = 150,
+                        SouthDirectionKey = 132,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 152,
+                        NorthDirectionKey = 160,
+                        SouthDirectionKey = 133,
+                        EastDirectionKey = 153,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
-                         }.Init(),
-                    new LocationCardControl()
-                    {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 153,
+                        WestDirectionKey = 152,
+                        SouthDirectionKey = 134,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
-                         }.Init(),
-                    new LocationCardControl()
-                    {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 154,
+                        NorthDirectionKey = 161,
+                        SouthDirectionKey = 135,
+                        EastDirectionKey = 155,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 160,
+                        SouthDirectionKey = 152,
                     }.Init(),
                     new LocationCardControl()
                     {
-                        LocationName = "",
-                        LocationNumber = 116,
-                        NorthDirectionKey = 111,
-                        WestDirectionKey = 139,
-                        SouthDirectionKey = 118,
-                        EastDirectionKey= 106,
-                        LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        Dreams = true,
-                        LocationAction = new object(),//0e -> -1wealth,+1 magic
+                        LocationNumber = 161,
+                        SouthDirectionKey = 154
                     }.Init(),
                 });
             private set => _locations = value;

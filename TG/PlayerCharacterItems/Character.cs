@@ -126,7 +126,7 @@ namespace TG.PlayerCharacterItems
             get => _currentHealth;
             set
             {
-                if (value > 0)
+                if (value < 0)
                     throw new Exception("health nemoze byt menej ako 0 ?");
                 if (value == _currentHealth) return;
                 if (value > _maxHealth)
@@ -153,7 +153,7 @@ namespace TG.PlayerCharacterItems
             get => _currentEnergy;
             set
             {
-                if (value > 0)
+                if (value < 0)
                     throw new Exception("energy nemoze byt menej ako 0 ?");
                 if (value == _currentEnergy) return;
                 if (value > _maxEnergy)
@@ -181,7 +181,7 @@ namespace TG.PlayerCharacterItems
             get => _currentTerror;
             set
             {
-                if (value > 0)
+                if (value < 0)
                     throw new Exception("terror nemoze byt menej ako 0 ?");
                 if (value == _currentTerror) return;
                 if (value > _maxTerror)

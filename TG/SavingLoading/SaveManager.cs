@@ -17,12 +17,13 @@ namespace TG.SavingLoading
                 throw new Exception("muset setup savefolder in appsettings");
         }
 
-        public static void Save()
+        public static void Save(bool firstTimeSaveToFile = false)
         {
             if (CurrentSaveSheet == null)
                 throw new Exception("current save sheet is empty, wft?");
 
-            CurrentSaveSheet.Save();
+            if(!firstTimeSaveToFile)
+                CurrentSaveSheet.SaveGameDataToSaveSheet();
 
             XmlSerializer writer = new XmlSerializer(typeof(SaveSheet));
             var path = Path.Combine(SaveFolder, CurrentSaveSheet.fileName + ".xml");
@@ -44,4 +45,6 @@ namespace TG.SavingLoading
             }
         }
     }
+
+
 }

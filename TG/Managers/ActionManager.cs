@@ -50,12 +50,20 @@ namespace TG.Managers
             SaveManager.Save();
         }
 
+
+
+        #region Travel Action
         private static void TravelActionClick(object sender, EventArgs e)
         {
             if (IsTravelModeEnabled)
                 DisableMoveMode();
             else
-                EnableMoveMode();
+            {
+                if (Game.Instance.ActivePlayer.Character.CurrentEnergy > 0)
+                    EnableMoveMode();
+                else
+                    MessageBox.Show("Mas malo energie!");
+            }
 
         }
 
@@ -70,10 +78,13 @@ namespace TG.Managers
 
             foreach (var item in LocationsHelper.GetNeighbourLocationNumbers(Game.Instance.ActivePlayer.CurrentLocationCard))
             {
-                var l = LocationsHelper.GetLCControlFromLocationNumber(item);
-                l.LocationActionBtn.Show();
-                l.LocationActionBtn.Text = "Move Here";
-                l.LocationActionBtn.Click += MoveClick;
+                var l = LocationsHelper.GetLCControlFromLocationNumberOrNull(item);
+                if(l != null)
+                {
+                    l.LocationActionBtn.Show();
+                    l.LocationActionBtn.Text = "Move Here";
+                    l.LocationActionBtn.Click += MoveClick;
+                }
             }
             _MainForm.Instance.Refresh();
         }
@@ -100,7 +111,7 @@ namespace TG.Managers
             foreach (var item in _MainForm.Instance.Mp.LocationCards)
             {
                 var l = LocationsHelper.GetLCControlFromLocationNumber(item.LocationNumber);
-                if(l.LocationActionBtn.Visible)
+                if (l.LocationActionBtn.Visible)
                 {
                     l.LocationActionBtn.Hide();
                     l.LocationActionBtn.Click -= MoveClick;
@@ -109,5 +120,10 @@ namespace TG.Managers
 
             _MainForm.Instance.Refresh();
         }
+        #endregion
+
+        #region Activate Menhir
+
+        #endregion
     }
 }

@@ -33,7 +33,7 @@ namespace TG.CustomControls
         public int LocationNumber;
         public int LegacyLocationNumber;
 
-       
+        public Label MenhirValueLbl = new Label();
 
         /// <summary>
         /// If the location doesnt have a menhir its -1
@@ -52,7 +52,7 @@ namespace TG.CustomControls
         public LocationAction LocationAction;
         public Action<OnEnterActionsArgs> OnEnterEvent;
         public string ShortDescription;
-        
+
 
 
 
@@ -85,7 +85,7 @@ namespace TG.CustomControls
             LocationNameNumber.Text = $"{LocationNumber} - {LocationName}";
             LocationNameNumber.TextAlign = ContentAlignment.TopCenter;
             LocationNameNumber.Dock = DockStyle.Fill;
-            //LocationNameNumber.BackColor = Color.Yellow;
+            LocationNameNumber.BackColor = Color.Yellow;
             LocationNameNumber.AutoSize = true;
 
             LocationDescriptionControlsArea.Location = new Point(directionLabelSize.Width, directionLabelSize.Height);
@@ -96,17 +96,23 @@ namespace TG.CustomControls
             LocationPlayersGuardiansArea.Size = new Size(Width - directionLabelSize.Width * 2, Height - directionLabelSize.Height * 2);
             LocationPlayersGuardiansArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
 
+            MenhirValueLbl.BackColor = Color.Aqua;
+
             LocationDescriptionControlsArea.Controls.Add(LocationNameNumber, 0, 0);
-            LocationDescriptionControlsArea.Controls.Add(LocationActionBtn, 0, 1);
+            LocationDescriptionControlsArea.Controls.Add(MenhirValueLbl, 0, 1);
+            LocationDescriptionControlsArea.Controls.Add(LocationActionBtn, 0, 2);
 
-            LocationDescriptionControlsArea.Controls.Add(LocationPlayersGuardiansArea, 0, 2);
+            LocationDescriptionControlsArea.Controls.Add(LocationPlayersGuardiansArea, 0, 3);
 
+            LocationDescriptionControlsArea.CellPaint += LocationDescriptionControlsArea_CellPaint;
             LocationActionBtn.Hide();
             LocationActionBtn.LocationNumber = LocationNumber;
+
 
             RefreshLocationDescriptionArea();
 
             Paint += (sender, e) => { RefreshLocationDescriptionArea(); };
+
 
             if (NorthDirectionKey != 0)
             {
@@ -139,6 +145,13 @@ namespace TG.CustomControls
             return this;
         }
 
+        private void LocationDescriptionControlsArea_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            var rectangle = e.CellBounds;
+            //ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Red, ButtonBorderStyle.Solid);
+            e.Graphics.FillRectangle(new SolidBrush(Color.Red), e.CellBounds);
+        }
+
         private void RefreshLocationDescriptionArea()
         {
             LocationPlayersGuardiansArea.Controls.Clear();
@@ -158,6 +171,14 @@ namespace TG.CustomControls
                     l.BackColor = Color.Orange;
                 LocationPlayersGuardiansArea.Controls.Add(l);
             }
+
+            if (MenhirValue >= 0)
+            {
+                MenhirValueLbl.Visible = true;
+                MenhirValueLbl.Text = $"Menhir:[{MenhirValue}]";
+            }
+            else
+                MenhirValueLbl.Visible = false;
         }
     }
 

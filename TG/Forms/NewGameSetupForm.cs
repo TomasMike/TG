@@ -105,7 +105,7 @@ namespace TG.Forms
             }
 
             SaveManager.CurrentSaveSheet = saveSheet;
-            SaveManager.Save();
+            SaveManager.Save(true);
             this.Close();
         }
 

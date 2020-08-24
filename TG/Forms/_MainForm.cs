@@ -37,10 +37,13 @@ namespace TG.Forms
             _characterPanelFlPanel.BackColor = Color.Aqua;
             mainContentPanel.Controls.Add(_characterPanelFlPanel);
 
+
             _actionButtonFlPanel.Dock = DockStyle.Bottom;
             _actionButtonFlPanel.AutoSize = true;
             _actionButtonFlPanel.BackColor = Color.DarkViolet;
             mainContentPanel.Controls.Add(_actionButtonFlPanel);
+
+
 
             var startMenu = new StartMenuForm();
             var result = startMenu.ShowDialog();
@@ -81,6 +84,11 @@ namespace TG.Forms
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveManager.Save();
+        }
+
+        private void endDayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
