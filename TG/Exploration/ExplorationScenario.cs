@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TG.Exploration
 {
+    /// <summary>
+    /// represents the whole text structure for each location
+    /// </summary>
     public class ExplorationScenario
     {
         public string ExplorationIntroText;

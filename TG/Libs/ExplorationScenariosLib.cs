@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using TG.Exploration;
 using TG.SavingLoading;
-using TG.HelpersUtils;
 
 namespace TG.Libs
 {
@@ -26,10 +25,13 @@ namespace TG.Libs
                                     retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
                                     retVal.ReturnValue = 121;
                                 }
-                                else if(Game.Instance.ActivePlayer.Character.HasCharacterSecret(66))
-                                {
+                                //else if(Game.Instance.ActivePlayer)
+                                //{//TODO
 
-                                }
+                                //}
+                                return retVal;
+
+
                             },
                             Options = new Dictionary<int, ScenarioParagraph>
                             {
