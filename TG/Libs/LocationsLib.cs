@@ -35,6 +35,8 @@ namespace TG.Libs
                             }
                         },
                         LocationCanHaveMenhir = true,
+                        MenhirActivationRequirementsDescription = null,
+                        MenhirActivationRequirement=null,
                         //MenhirActivationRequirementsDescription = 
                         CanActivateMenhir = () => true
                     }.Init(),
@@ -142,8 +144,8 @@ namespace TG.Libs
                         LocationCanHaveMenhir = true,
                         LocationNumber = 111,
                         NorthDirectionKey = 131,
-                        EastDirectionKey = 112,
                         SouthDirectionKey = 116,
+                        EastDirectionKey = 112,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         LocationAction = null,//2e -> +2 food, green encounter
                     }.Init(),
@@ -171,9 +173,9 @@ namespace TG.Libs
                     {
                         LocationName = "Tangleroot",
                         LocationNumber = 114,
-                        EastDirectionKey= 115,
                         WestDirectionKey = 113,
                         SouthDirectionKey = 107,
+                        EastDirectionKey= 115,
                         LocationSetlementType = LocationSetlementTypeEnum.None,
                         Dreams = true,
                         LocationAction = null,//2e -> +2 food, green enc
@@ -213,27 +215,70 @@ namespace TG.Libs
                     }.Init(),
                     new LocationCardControl()
                     {
+                        LocationName = "Stampede",
                         LocationNumber = 118,
                         NorthDirectionKey = 116,
                         WestDirectionKey = 141,
                         SouthDirectionKey = 120,
-                        EastDirectionKey = 103
+                        EastDirectionKey = 103,
+                        LocationCanHaveMenhir = true,
+                        Dreams = true,
+                    }.Init(),
+                    new LocationCardControl()
+                    {
+                        LocationName = "Derelict Fleet",
+                        LocationNumber = 119,
+                        NorthDirectionKey = 117,
+                        Dreams = true,
                     }.Init(),
                     new LocationCardControl()
                     { 
+                        LocationName = "Horns of South",
                         LocationNumber = 120,
                         NorthDirectionKey = 118,
                         EastDirectionKey = 108,
+                        Dreams = true,
+                    }.Init(),
+                    new LocationCardControl()
+                    {
+                        LocationName = "Broken Cuanacht",
+                        LocationNumber = 121,
+                        LegacyLocationNumber = 101,
+                        NorthDirectionKey = 102,
+                        WestDirectionKey = 103,
+                        SouthDirectionKey = 105,
+                        EastDirectionKey = 104,
+                        Dreams = true,
+                        LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
+                        LocationCanHaveMenhir = true,
+                    }.Init(),
+                     new LocationCardControl()
+                    {
+                        LocationName = "Drained Lake",
+                        LocationNumber = 122,
+                        LegacyLocationNumber = 113,
+                        SouthDirectionKey = 102,
+                        EastDirectionKey = 114,
+                        Dreams = true
+                    }.Init(),
+                    new LocationCardControl()
+                    {
+                        LocationName = "Sunken Mounds",
+                        LocationNumber = 123,
+                        LegacyLocationNumber = 106,
+                        NorthDirectionKey = 112,
+                        WestDirectionKey = 116,
+                        EastDirectionKey = 102,
+                    }.Init(),
+                    new LocationCardControl()
+                    {
+                        LocationName = "Titans' Steps",
+
                     }.Init(),
                     new LocationCardControl()
                     {
                         LocationNumber = 141,
                         EastDirectionKey = 118,
-                    }.Init(),
-                    new LocationCardControl()
-                    {
-                        LocationNumber = 119,
-                        NorthDirectionKey = 117,
                     }.Init(),
                     new LocationCardControl()
                     {
