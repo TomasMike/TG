@@ -5,8 +5,17 @@ namespace TG.Menhirs
 {
     public class MenhirActivationRequirement
     {
-        public Dictionary<string, int> PerCharacterCosts;
-        public List<string> RequiredItems;
-        public List<int> RequiredSecrets;
+        public Dictionary<MenhirActivationRequirementsResourceEnum, int> PerCharacterCosts;
+        public List<string> RequiredItems = new List<string>();
+        public List<string> RequiredSecrets = new List<string>();
+    }
+
+    public enum MenhirActivationRequirementsResourceEnum
+    {
+        Energy,
+        Health,
+        Wealth,
+        Magic,
+        Food,
     }
 }

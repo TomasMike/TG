@@ -39,11 +39,10 @@ namespace TG.CustomControls
         /// If the location doesnt have a menhir its -1
         /// </summary>
         public int MenhirValue;
-        public bool LocationCanHaveMenhir;
-        public Func<bool> CanActivateMenhir;
         public MenhirActivationRequirement MenhirActivationRequirement;
         public string MenhirActivationRequirementsDescription;
         public Action<string> ActivateMenhir;
+
 
         public LocationSetlementTypeEnum LocationSetlementType;
         public bool Dreams;
@@ -53,7 +52,7 @@ namespace TG.CustomControls
         public Action<OnEnterActionsArgs> OnEnterEvent;
         public string ShortDescription;
 
-
+        public OnEnterLocationForcedEffect OnEnterEffect;
 
 
         public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.CurrentLocation == LocationNumber);
@@ -152,6 +151,8 @@ namespace TG.CustomControls
             e.Graphics.FillRectangle(new SolidBrush(Color.Red), e.CellBounds);
         }
 
+        public bool LocationCanHaveMenhir() { return ActivateMenhir == null; }
+
         private void RefreshLocationDescriptionArea()
         {
             LocationPlayersGuardiansArea.Controls.Clear();
@@ -180,6 +181,11 @@ namespace TG.CustomControls
             else
                 MenhirValueLbl.Visible = false;
         }
+    }
+
+    public class OnEnterLocationForcedEffect
+    {
+        
     }
 
 
