@@ -15,16 +15,8 @@ namespace TG
         [STAThread]
         private static void Main()
         {
-            //SerializableDictionary<string, string> q = new SerializableDictionary<string, string>();
-            //q.Add("bq", "QWE");
-
-            //XmlSerializer writer = new XmlSerializer(q.GetType());
-            //var s = new System.IO.StringWriter();
-            //writer.Serialize(s, q);
-            //var qq = s.ToString();
-
-
-            
+       
+ 
 
 
 
@@ -33,6 +25,16 @@ namespace TG
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(_MainForm.Instance);
             //Application.Run(new MainForm());
+        }
+
+        private static void q(Int32? i)
+        {
+            i +=2;
+        }
+
+        private static void q(ref Int32 i)
+        {
+            i += 2;
         }
     }
 }

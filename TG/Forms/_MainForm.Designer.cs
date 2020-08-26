@@ -34,9 +34,12 @@ namespace TG.Forms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainContentPanel = new System.Windows.Forms.Panel();
-            this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.endDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainContentPanel = new System.Windows.Forms.Panel();
+            this.cheatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreEnergyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.foodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +47,8 @@ namespace TG.Forms
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem});
+            this.menuToolStripMenuItem,
+            this.cheatsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(956, 24);
@@ -63,9 +67,16 @@ namespace TG.Forms
             // niecoToolStripMenuItem
             // 
             this.niecoToolStripMenuItem.Name = "niecoToolStripMenuItem";
-            this.niecoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.niecoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.niecoToolStripMenuItem.Text = "Save";
             this.niecoToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            // 
+            // endDayToolStripMenuItem
+            // 
+            this.endDayToolStripMenuItem.Name = "endDayToolStripMenuItem";
+            this.endDayToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.endDayToolStripMenuItem.Text = "End Day";
+            this.endDayToolStripMenuItem.Click += new System.EventHandler(this.endDayToolStripMenuItem_Click);
             // 
             // mainContentPanel
             // 
@@ -75,16 +86,32 @@ namespace TG.Forms
             this.mainContentPanel.Size = new System.Drawing.Size(956, 654);
             this.mainContentPanel.TabIndex = 1;
             // 
+            // cheatsToolStripMenuItem
+            // 
+            this.cheatsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreEnergyToolStripMenuItem,
+            this.foodToolStripMenuItem});
+            this.cheatsToolStripMenuItem.Name = "cheatsToolStripMenuItem";
+            this.cheatsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.cheatsToolStripMenuItem.Text = "Cheats";
+            // 
+            // restoreEnergyToolStripMenuItem
+            // 
+            this.restoreEnergyToolStripMenuItem.Name = "restoreEnergyToolStripMenuItem";
+            this.restoreEnergyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restoreEnergyToolStripMenuItem.Text = "Restore Energy";
+            this.restoreEnergyToolStripMenuItem.Click += new System.EventHandler(this.restoreEnergyToolStripMenuItem_Click);
+            // 
             // questionFormBindingSource
             // 
             this.questionFormBindingSource.DataSource = typeof(TG.PlayerCharacterItems.Character);
             // 
-            // endDayToolStripMenuItem
+            // foodToolStripMenuItem
             // 
-            this.endDayToolStripMenuItem.Name = "endDayToolStripMenuItem";
-            this.endDayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.endDayToolStripMenuItem.Text = "End Day";
-            this.endDayToolStripMenuItem.Click += new System.EventHandler(this.endDayToolStripMenuItem_Click);
+            this.foodToolStripMenuItem.Name = "foodToolStripMenuItem";
+            this.foodToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.foodToolStripMenuItem.Text = "+10 Food";
+            this.foodToolStripMenuItem.Click += new System.EventHandler(this.foodToolStripMenuItem_Click);
             // 
             // _MainForm
             // 
@@ -114,6 +141,9 @@ namespace TG.Forms
         private System.Windows.Forms.Panel mainContentPanel;
         private System.Windows.Forms.BindingSource questionFormBindingSource;
         private System.Windows.Forms.ToolStripMenuItem endDayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cheatsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreEnergyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem foodToolStripMenuItem;
     }
 }
 

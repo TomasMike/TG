@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <fileName>2020_08_24_14_16_54</fileName>
+  <fileName>2020_08_26_09_31_22</fileName>
   <Players>
     <Player>
       <PlayerNumber>Player1</PlayerNumber>
@@ -18,7 +18,7 @@
         <MaxHealth>9</MaxHealth>
         <CurrentHealth>0</CurrentHealth>
         <MaxEnergy>6</MaxEnergy>
-        <CurrentEnergy>6</CurrentEnergy>
+        <CurrentEnergy>5</CurrentEnergy>
         <MaxTerror>6</MaxTerror>
         <CurrentTerror>0</CurrentTerror>
         <Food>0</Food>
@@ -27,9 +27,34 @@
         <Experience>0</Experience>
         <Magic>0</Magic>
       </Character>
-      <CurrentLocation>101</CurrentLocation>
+      <CurrentLocation>103</CurrentLocation>
     </Player>
   </Players>
-  <Locations />
+  <Locations>
+    <LocationSaveObject>
+      <MenhirValue>8</MenhirValue>
+      <LocationNumber>101</LocationNumber>
+    </LocationSaveObject>
+    <LocationSaveObject>
+      <MenhirValue>-1</MenhirValue>
+      <LocationNumber>102</LocationNumber>
+    </LocationSaveObject>
+    <LocationSaveObject>
+      <MenhirValue>-1</MenhirValue>
+      <LocationNumber>104</LocationNumber>
+    </LocationSaveObject>
+    <LocationSaveObject>
+      <MenhirValue>-1</MenhirValue>
+      <LocationNumber>105</LocationNumber>
+    </LocationSaveObject>
+    <LocationSaveObject>
+      <MenhirValue>-1</MenhirValue>
+      <LocationNumber>103</LocationNumber>
+    </LocationSaveObject>
+    <LocationSaveObject>
+      <MenhirValue>-1</MenhirValue>
+      <LocationNumber>108</LocationNumber>
+    </LocationSaveObject>
+  </Locations>
   <Statuses />
 </SaveSheet>

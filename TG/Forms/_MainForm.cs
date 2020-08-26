@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TG.CoreStuff;
 using TG.CustomControls;
 using TG.Managers;
 using TG.SavingLoading;
@@ -25,6 +26,9 @@ namespace TG.Forms
         public MapPanel Mp = new MapPanel();
         public FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
         public FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
+        public Panel _bottomFlPanel = new Panel();
+
+        public Button _endTurnBtn = new Button();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -38,10 +42,19 @@ namespace TG.Forms
             mainContentPanel.Controls.Add(_characterPanelFlPanel);
 
 
-            _actionButtonFlPanel.Dock = DockStyle.Bottom;
-            _actionButtonFlPanel.AutoSize = true;
+            _bottomFlPanel.Dock = DockStyle.Bottom;
+            _bottomFlPanel.AutoSize = true;
+            _bottomFlPanel.BackColor = Color.DarkViolet;
+            mainContentPanel.Controls.Add(_bottomFlPanel);
+
+            _endTurnBtn.Text = "End Turn";
+            _endTurnBtn.Dock = DockStyle.Right;
+            _bottomFlPanel.Controls.Add(_endTurnBtn);
+
+            _actionButtonFlPanel.Dock = DockStyle.Fill;
             _actionButtonFlPanel.BackColor = Color.DarkViolet;
-            mainContentPanel.Controls.Add(_actionButtonFlPanel);
+            _actionButtonFlPanel.AutoSize = true;
+            _bottomFlPanel.Controls.Add(_actionButtonFlPanel);
 
 
 
@@ -89,6 +102,16 @@ namespace TG.Forms
         private void endDayToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void restoreEnergyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DebugCheats.RestoreEnergyToActivePlayer();
+        }
+
+        private void foodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DebugCheats.Add10FoodToActivePlayer();
         }
     }
 }

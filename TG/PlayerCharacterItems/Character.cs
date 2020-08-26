@@ -9,8 +9,40 @@ namespace TG.PlayerCharacterItems
 
     public class Character : INotifyPropertyChanged
     {
-        public Character()
+        public Character(
+            CharacterName cn,
+            CharacterArchetype ca,
+            int agg,
+            int cou,
+            int pra,
+            int emp,
+            int cau,
+            int spi,
+            int mhp,
+            int men,
+            int mte,
+            int fod,
+            int rep,
+            int wea,
+            int exp,
+            int mag)
         {
+            CharacterName = cn;
+            Archetype = ca;
+            Aggression = agg;
+            Courage = cou;
+            Practicality = pra;
+            Empathy = emp;
+            Caution = cau;
+            Spirituality = spi;
+            MaxHealth = CurrentHealth = mhp;
+            MaxEnergy = CurrentEnergy = men;
+            MaxTerror = mte; CurrentTerror = 0;
+            Food = fod;
+            Reputation = rep;
+            Wealth = wea;
+            Experience = exp;
+            Magic = mag;
         }
 
         public object Skills;
@@ -41,11 +73,12 @@ namespace TG.PlayerCharacterItems
         private int _wealth;
         private int _experience;
         private int _magic;
+        private object pointer;
 
         public int Aggression
         {
             get => _aggression;
-            set
+            private set
             {
                 if (value == _aggression) return;
                 _aggression = value;
@@ -56,7 +89,7 @@ namespace TG.PlayerCharacterItems
         public int Courage
         {
             get => _courage;
-            set
+            private set
             {
                 if (value == _courage) return;
                 _courage = value;
@@ -67,7 +100,7 @@ namespace TG.PlayerCharacterItems
         public int Practicality
         {
             get => _practicality;
-            set
+            private set
             {
                 if (value == _practicality) return;
                 _practicality = value;
@@ -80,7 +113,7 @@ namespace TG.PlayerCharacterItems
 
         {
             get => _empathy;
-            set
+            private set
             {
                 if (value == _empathy) return;
                 _empathy = value;
@@ -91,7 +124,7 @@ namespace TG.PlayerCharacterItems
         public int Caution
         {
             get => _caution;
-            set
+            private set
             {
                 if (value == _caution) return;
                 _caution = value;
@@ -102,7 +135,7 @@ namespace TG.PlayerCharacterItems
         public int Spirituality
         {
             get => _spirituality;
-            set
+            private set
             {
                 if (value == _spirituality) return;
                 _spirituality = value;
@@ -113,7 +146,7 @@ namespace TG.PlayerCharacterItems
         public int MaxHealth
         {
             get => _maxHealth;
-            set
+            private set
             {
                 if (value == _maxHealth) return;
                 _maxHealth = value;
@@ -124,7 +157,7 @@ namespace TG.PlayerCharacterItems
         public int CurrentHealth
         {
             get => _currentHealth;
-            set
+            private set
             {
                 if (value < 0)
                     throw new Exception("health nemoze byt menej ako 0 ?");
@@ -140,7 +173,7 @@ namespace TG.PlayerCharacterItems
         public int MaxEnergy
         {
             get => _maxEnergy;
-            set
+            private set
             {
                 if (value == _maxEnergy) return;
                 _maxEnergy = value;
@@ -151,7 +184,7 @@ namespace TG.PlayerCharacterItems
         public int CurrentEnergy
         {
             get => _currentEnergy;
-            set
+            private set
             {
                 if (value < 0)
                     throw new Exception("energy nemoze byt menej ako 0 ?");
@@ -168,7 +201,7 @@ namespace TG.PlayerCharacterItems
         public int MaxTerror
         {
             get => _maxTerror;
-            set
+            private set
             {
                 if (value == _maxTerror) return;
                 _maxTerror = value;
@@ -179,7 +212,7 @@ namespace TG.PlayerCharacterItems
         public int CurrentTerror
         {
             get => _currentTerror;
-            set
+            private set
             {
                 if (value < 0)
                     throw new Exception("terror nemoze byt menej ako 0 ?");
@@ -195,7 +228,7 @@ namespace TG.PlayerCharacterItems
         public int Food
         {
             get => _food;
-            set
+            private set
             {
                 if (value == _food) return;
                 _food = value;
@@ -206,7 +239,7 @@ namespace TG.PlayerCharacterItems
         public int Reputation
         {
             get => _reputation;
-            set
+            private set
             {
                 if (value == _reputation) return;
                 _reputation = value;
@@ -217,7 +250,7 @@ namespace TG.PlayerCharacterItems
         public int Wealth
         {
             get => _wealth;
-            set
+            private set
             {
                 if (value == _wealth) return;
                 _wealth = value;
@@ -228,7 +261,7 @@ namespace TG.PlayerCharacterItems
         public int Experience
         {
             get => _experience;
-            set
+            private set
             {
                 if (value == _experience) return;
                 _experience = value;
@@ -239,7 +272,7 @@ namespace TG.PlayerCharacterItems
         public int Magic
         {
             get => _magic;
-            set
+            private set
             {
                 if (value == _magic) return;
                 _magic = value;
@@ -255,5 +288,166 @@ namespace TG.PlayerCharacterItems
         }
 
         #endregion Atributes,propertyChanged events...
+
+
+        public void EditCharProperty(CharacterAttribute attr, EditCharPropertyChangeType type = 0, int value = 0)
+        {
+            CheckInvalidAtributeChange(attr, type, value);
+            
+            switch (attr)
+            {
+                case CharacterAttribute.Aggression:
+                    ++Aggression;
+                    break;
+                case CharacterAttribute.Courage:
+                    ++Courage;
+                    break;
+                case CharacterAttribute.Practicality:
+                    ++Practicality;
+                    break;
+                case CharacterAttribute.Empathy:
+                    ++Empathy;
+                    break;
+                case CharacterAttribute.Caution:
+                    ++Caution;
+                    break;
+                case CharacterAttribute.Spirituality:
+                    ++Spirituality;
+                    break;
+                case CharacterAttribute.CurrentHealth:
+                    break;
+                case CharacterAttribute.CurrentEnergy:
+                    break;
+                case CharacterAttribute.CurrentTerror:
+                    break;
+                case CharacterAttribute.MaxHealth:
+                case CharacterAttribute.MaxEnergy:
+                case CharacterAttribute.MaxTerror:
+                    throw new NotImplementedException();
+                case CharacterAttribute.Food:
+                    Food = EditFRWEM(Food, type, value);
+                    break;
+                case CharacterAttribute.Reputation:
+                    Reputation = EditFRWEM(Reputation, type, value);
+                    break;
+                case CharacterAttribute.Wealth:
+                    Wealth = EditFRWEM(Wealth, type, value);
+                    break;
+                case CharacterAttribute.Experience:
+                    Experience = EditFRWEM(Experience, type, value);
+                    break;
+                case CharacterAttribute.Magic:
+                    Magic = EditFRWEM(Magic, type, value);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private int EditFRWEM(int i, EditCharPropertyChangeType t, int value)
+        {
+            //cant call max on this one
+            if (t == EditCharPropertyChangeType.ToMax)
+                throw new Exception();
+
+            if (t == EditCharPropertyChangeType.Add)
+               return i += value;
+            else if (t == EditCharPropertyChangeType.Subtract)
+                return i -= value;
+            else
+                return 0;
+        }
+
+        private int EditHET(int i, EditCharPropertyChangeType t, int value)
+        {
+
+            if (t == EditCharPropertyChangeType.Add)
+                return i += value;
+            else if (t == EditCharPropertyChangeType.Subtract)
+                return i -= value;
+            else if (t == EditCharPropertyChangeType.ToZero)
+                return 0;
+            else
+                return int.MaxValue;
+        }
+
+        private void CheckInvalidAtributeChange(CharacterAttribute attr, EditCharPropertyChangeType type, int value = 0)
+        {
+            var exceptAdd = new List<EditCharPropertyChangeType>(new[] { 
+                EditCharPropertyChangeType.Subtract, 
+                EditCharPropertyChangeType.ToMax, 
+                EditCharPropertyChangeType.ToZero });
+
+            var exceptMax = new List<EditCharPropertyChangeType>(new[] {
+                EditCharPropertyChangeType.Subtract,
+                EditCharPropertyChangeType.ToMax,
+                EditCharPropertyChangeType.ToZero });
+
+            switch (attr)
+            {
+                case CharacterAttribute.Aggression:
+                case CharacterAttribute.Courage:
+                case CharacterAttribute.Practicality:
+                case CharacterAttribute.Empathy:
+                case CharacterAttribute.Caution:
+                case CharacterAttribute.Spirituality:
+                    if (exceptAdd.Contains(type) || value <= 0)
+                        throw new Exception();
+                    break;
+                case CharacterAttribute.CurrentHealth:
+                    
+                    break;
+                case CharacterAttribute.CurrentEnergy:
+                    break;
+                case CharacterAttribute.CurrentTerror:
+                    break;
+                case CharacterAttribute.MaxHealth:
+                    break;
+                case CharacterAttribute.MaxEnergy:
+                    break;
+                case CharacterAttribute.MaxTerror:
+                    break;
+                case CharacterAttribute.Food:
+                case CharacterAttribute.Reputation:
+                case CharacterAttribute.Wealth:
+                case CharacterAttribute.Experience:
+                case CharacterAttribute.Magic:
+                    if (exceptMax.Contains(type) || value <= 0) throw new Exception();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
+    public enum CharacterAttribute
+    {
+        Aggression,
+        Courage,
+        Practicality,
+        Empathy,
+        Caution,
+        Spirituality,
+        CurrentHealth,
+        CurrentEnergy,
+        CurrentTerror,
+        MaxHealth,
+        MaxEnergy,
+        MaxTerror,
+        Food,
+        Reputation,
+        Wealth,
+        Experience,
+        Magic,
+    }
+
+    public enum EditCharPropertyChangeType
+    {
+        None,
+        Add,
+        Subtract,
+        ToZero,
+        ToMax,
+    }
+
 }

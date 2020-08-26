@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TG.CoreStuff;
 using TG.CustomControls;
+using TG.Enums;
 using TG.Forms;
 using TG.HelpersUtils;
+using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
 namespace TG.Managers
@@ -42,6 +45,7 @@ namespace TG.Managers
 
             //
             ActionFinished += ActionManager_ActionFinished;
+            ActionFinished += Game.Instance.StartNextPlayerTurn;
             //
         }
 
@@ -92,7 +96,7 @@ namespace TG.Managers
         static void MoveClick(object sender, EventArgs e)
         {
             var p = Game.Instance.ActivePlayer;
-            p.Character.CurrentEnergy--;
+            p.Character.EditCharProperty(CharacterAttribute.CurrentEnergy,EditCharPropertyChangeType.Subtract,1);
             p.CurrentLocation = ((LocationSelectionButton)sender).LocationNumber;
             _MainForm.Instance.Mp.AddMissingLocationsAfterTravel(p.CurrentLocation);
             DisableMoveMode();
@@ -124,6 +128,14 @@ namespace TG.Managers
 
         #region Activate Menhir
 
+        #endregion
+
+        #region Pass
+        static void PassClick(object sender, EventArgs e)
+        {
+            Game.Instance.PlayerPassed();
+           ActionFinished.Invoke();
+        }
         #endregion
     }
 }

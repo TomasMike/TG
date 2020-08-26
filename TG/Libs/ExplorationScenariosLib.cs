@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using TG.CoreStuff;
 using TG.Exploration;
+using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
 namespace TG.Libs
@@ -47,10 +49,16 @@ namespace TG.Libs
                                                     Text = "Kupit si izbu a vyspat sa",
                                                     ActionEffectDescription = "-1 Wealth, +2 Energy",
                                                     ActionCondition = e => Game.Instance.ActivePlayer.Character.Wealth >= 1,
-                                                    ParagraphAction  = e => 
+                                                    ParagraphAction = e => 
                                                     {
-                                                        Game.Instance.ActivePlayer.Character.Wealth--;
-                                                        Game.Instance.ActivePlayer.Character.CurrentEnergy +=2;
+                                                         Game.Instance.ActivePlayer.Character.EditCharProperty(
+                                                             CharacterAttribute.Wealth,
+                                                             EditCharPropertyChangeType.Subtract,
+                                                             1);
+                                                         Game.Instance.ActivePlayer.Character.EditCharProperty(
+                                                             CharacterAttribute.CurrentEnergy,
+                                                             EditCharPropertyChangeType.Add,
+                                                             2);
                                                     }
                                                 }
                                             },

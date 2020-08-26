@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using TG.CoreStuff;
 using TG.CustomControls;
 using TG.Enums;
 using TG.Locations;
 using TG.Menhirs;
+using TG.PlayerCharacterItems;
 
 namespace TG.Libs
 {
@@ -32,8 +34,14 @@ namespace TG.Libs
                             Description = "(1 Energy) Chores for the townsfolk: Gain 1 Rep (once per day)",
                             Action = a =>
                             {
-                                Game.Instance.ActivePlayer.Character.CurrentEnergy--;
-                                Game.Instance.ActivePlayer.Character.Reputation++;
+                                Game.Instance.ActivePlayer.Character.EditCharProperty(
+                                    CharacterAttribute.CurrentEnergy,
+                                    EditCharPropertyChangeType.Subtract,
+                                    1);
+                                 Game.Instance.ActivePlayer.Character.EditCharProperty(
+                                    CharacterAttribute.Reputation,
+                                    EditCharPropertyChangeType.Add,
+                                    1);
                             }
                         },
                         MenhirActivationRequirementsDescription = null,

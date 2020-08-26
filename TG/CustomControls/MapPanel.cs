@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TG.CoreStuff;
 using TG.HelpersUtils;
 using TG.Libs;
 
@@ -129,7 +130,7 @@ namespace TG.CustomControls
         {
             foreach (var s in LocationsHelper.GetNeighbourLocationNumbers(destinationLocationNum))
             {
-                if(LocationsHelper.IsLocationNearActiveMenhir(s))
+                if(LocationsHelper.IsLocationNearActiveMenhir(s) || DebugCheats.IgnoreMenhirVicinityWhenShowNewLocationAfterTravel)
                 {
                     AddLocationCardToMap(s);
                 }

@@ -6,7 +6,7 @@ using TG.PlayerCharacterItems;
 using TG.PlayerDecisionIO;
 using TG.SavingLoading;
 
-namespace TG
+namespace TG.CoreStuff
 {
     public sealed class Game
     {
@@ -38,6 +38,7 @@ namespace TG
         }
 
         private List<PlayerNumber> playersWhoActedThisRound = new List<PlayerNumber>();
+        private List<PlayerNumber> playersWhoPassedThisDay = new List<PlayerNumber>();
 
         /// <summary>
         /// StartOfTheDay
@@ -56,52 +57,52 @@ namespace TG
 
         public void DuringDay()
         {
-            if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+            if (playersWhoPassedThisDay.Count == SaveManager.CurrentSaveSheet.Players.Count())
+                EndOfDay();
+            else
             {
-                var playersWhoDidntActThisRound = SaveManager.CurrentSaveSheet.Players.Select(_ => _.PlayerNumber).ToList();
-                playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
-
-                if(playersWhoActedThisRound.Count == 0)
+                if (SaveManager.CurrentSaveSheet.Players.Count > 1)
                 {
-                    //next round
-                    playersWhoActedThisRound.Clear();
+                    var playersWhoDidntActThisRound = SaveManager.CurrentSaveSheet.Players.Select(_ => _.PlayerNumber).ToList();
+                    playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
+                    playersWhoDidntActThisRound.RemoveAll(_ => playersWhoPassedThisDay.Contains(_));
 
+                    if (playersWhoPassedThisDay.Count == 0)
+                    {
+                        //next round
+                        playersWhoDidntActThisRound.Clear();
+                        DuringDay();
+                    }
+                    else
+                    {
+                        var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
+                        Instance.ActivePlayerNumber = reply;
+                        _MainForm.Instance.Text = $"Active Player:{Instance.ActivePlayer.Name}";
+                    }
                 }
                 else
                 {
-                    var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
-                    Game.Instance.ActivePlayerNumber = reply;
-
+                    //singleplayer
+                    Instance.ActivePlayerNumber = PlayerNumber.Player1;
                 }
             }
-            else
-            {
-                //singleplayer
-                Game.Instance.ActivePlayerNumber = PlayerNumber.Player1;
-            }
-
-            StartNextPlayerTurn();
         }
 
         public void StartNextPlayerTurn()
         {
+            playersWhoActedThisRound.Add(Instance.ActivePlayerNumber);
+            DuringDay();
             //enable/disable available action buttons
         }
+        public void PlayerPassed()
+        {
+            playersWhoPassedThisDay.Add(Instance.ActivePlayerNumber);
+        }
+
 
         public void EndOfDay()
         {
-        }
-    }
 
-    public enum ActionType
-    {
-        Explore,
-        Travel,
-        LocationAction,
-        CharacterAction,
-        InspectMenhir,
-        Pass,
-        Other
-        //Items,Skills,Secrets
+        }
     }
 }

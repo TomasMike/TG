@@ -74,4 +74,16 @@
         Player3,
         Player4
     }
+
+    public enum ActionType
+    {
+        Explore,
+        Travel,
+        LocationAction,
+        CharacterAction,
+        InspectMenhir,
+        Pass,
+        Other
+        //Items,Skills,Secrets
+    }
 }
