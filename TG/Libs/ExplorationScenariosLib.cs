@@ -22,7 +22,7 @@ namespace TG.Libs
                             {
                                 var retVal = new CheckForcedOptionResult();
 
-                                if(SaveManager.CurrentSaveSheet.Statuses.ContainsKey("Winds of Wyrdness"))
+                                if(SaveManager.SaveSheetStatuses.ContainsKey("Winds of Wyrdness"))
                                 {
                                     retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
                                     retVal.ReturnValue = 121;

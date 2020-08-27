@@ -19,6 +19,7 @@ namespace TG.CustomControls
             Size = new Size(50, 50);
             BackColor = Color.CadetBlue;
             TabIndex = 1;
+            AutoScroll = true;
         }
 
         public void RefreshMapLayout()

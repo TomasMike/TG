@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TG.CoreStuff;
 using TG.Enums;
 using TG.HelpersUtils;
 using TG.Libs;
@@ -68,15 +69,13 @@ namespace TG.Forms
                 return;
             }
 
-            var saveSheet = new SaveSheet { fileName = saveFilenameTextBox.Text };
-
             #region
 
             Action<ComboBox, ComboBox, PlayerNumber, TextBox> initPlayer = (charCmb, archCmb, pNum, nameTxb) =>
               {
                   if (charCmb.Visible && !string.IsNullOrEmpty(nameTxb.Text))
                   {
-                      saveSheet.Players.Add(new Player()
+                      Game.Instance.Players.Add(new Player()
                       {
                           Character = NewGameDataLib
                          .GetStartingCharacter(
@@ -97,14 +96,11 @@ namespace TG.Forms
 
             #endregion
 
-            saveSheet.Locations.Add(new LocationSaveObject { LocationNumber = 101, MenhirValue = 9 - saveSheet.Players.Count });
 
-            if (SaveManager.CurrentSaveSheet != null)
-            {
-                throw new Exception("current save sheet isnt empty, wft?");
-            }
+             _MainForm.Instance.Mp.AddLocationCardToMap(101,9 - Game.Instance.Players.Count );
 
-            SaveManager.CurrentSaveSheet = saveSheet;
+            SaveManager.SaveAs(saveFilenameTextBox.Text);
+
             SaveManager.Save(true);
             this.Close();
         }

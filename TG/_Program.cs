@@ -15,12 +15,6 @@ namespace TG
         [STAThread]
         private static void Main()
         {
-       
- 
-
-
-
-            //return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(_MainForm.Instance);

@@ -9,6 +9,8 @@ namespace TG.PlayerCharacterItems
 
     public class Character : INotifyPropertyChanged
     {
+        public Character() { }
+
         public Character(
             CharacterName cn,
             CharacterArchetype ca,
@@ -19,8 +21,11 @@ namespace TG.PlayerCharacterItems
             int cau,
             int spi,
             int mhp,
+            int chp,
             int men,
+            int cen,
             int mte,
+            int cte,
             int fod,
             int rep,
             int wea,
@@ -35,9 +40,12 @@ namespace TG.PlayerCharacterItems
             Empathy = emp;
             Caution = cau;
             Spirituality = spi;
-            MaxHealth = CurrentHealth = mhp;
-            MaxEnergy = CurrentEnergy = men;
-            MaxTerror = mte; CurrentTerror = 0;
+            MaxHealth = mhp;
+            CurrentHealth = chp;
+            MaxEnergy  = men;
+            CurrentEnergy = cen;
+            MaxTerror = mte; 
+            CurrentTerror = cte;
             Food = fod;
             Reputation = rep;
             Wealth = wea;
@@ -73,7 +81,6 @@ namespace TG.PlayerCharacterItems
         private int _wealth;
         private int _experience;
         private int _magic;
-        private object pointer;
 
         public int Aggression
         {
@@ -315,10 +322,13 @@ namespace TG.PlayerCharacterItems
                     ++Spirituality;
                     break;
                 case CharacterAttribute.CurrentHealth:
+                    CurrentHealth = EditHET(CurrentHealth, type, value);
                     break;
                 case CharacterAttribute.CurrentEnergy:
+                    CurrentEnergy = EditHET(CurrentEnergy, type, value);
                     break;
                 case CharacterAttribute.CurrentTerror:
+                    CurrentTerror = EditHET(CurrentTerror, type, value);
                     break;
                 case CharacterAttribute.MaxHealth:
                 case CharacterAttribute.MaxEnergy:

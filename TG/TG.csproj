@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="PlayerCharacterItems\Player.cs" />
     <Compile Include="HelpersUtils\LocationsHelper.cs" />
+    <Compile Include="SavingLoading\SaveModels\PlayerSaveModel.cs" />
     <Compile Include="_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\QuestionForm.cs">

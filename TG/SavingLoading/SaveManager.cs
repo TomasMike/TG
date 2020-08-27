@@ -2,19 +2,35 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using TG.CoreStuff;
+using TG.Forms;
+using TG.HelpersUtils;
+using TG.PlayerCharacterItems;
 
 namespace TG.SavingLoading
 {
     public static class SaveManager
     {
         public static string SaveFolder;
-        public static SaveSheet CurrentSaveSheet;
+        private static SaveSheet CurrentSaveSheet;
+
+        public static SerializableDictionary<string, string> SaveSheetStatuses => CurrentSaveSheet.Statuses;
 
         static SaveManager()
         {
             SaveFolder = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\SaveFiles"));
             if (string.IsNullOrEmpty(SaveFolder))
                 throw new Exception("muset setup savefolder in appsettings");
+        }
+
+
+        /// <summary>
+        /// creates new save file and sets current save sheet to it
+        /// </summary>
+        /// <param name="fileName"></param>
+        public static void SaveAs(string fileName)
+        {
+            CurrentSaveSheet = new SaveSheet { fileName = fileName };
         }
 
         public static void Save(bool firstTimeSaveToFile = false)
@@ -42,6 +58,21 @@ namespace TG.SavingLoading
             {
                 TextReader reader = new StreamReader(fs);
                 CurrentSaveSheet = (SaveSheet)serializer.Deserialize(reader);
+            }
+        }
+
+        public static void LoadGameDataFromSaveFile()
+        {
+            //TODO init ine herne komponenty
+            foreach (var l in CurrentSaveSheet.Locations)
+            {
+                _MainForm.Instance.Mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
+            }
+
+            //_characterPanelFlPanel.SuspendLayout();
+            foreach (var p in CurrentSaveSheet.Players)
+            {
+                Game.Instance.Players.Add(new Player(p));
             }
         }
     }

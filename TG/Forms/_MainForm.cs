@@ -14,14 +14,14 @@ namespace TG.Forms
 
         public static _MainForm Instance => _instance ?? (_instance = new _MainForm());
 
-        public _MainForm()
+        private _MainForm()
         {
             InitializeComponent();
         }
 
+        private static _MainForm _instance = null;
         #endregion Singleton logic
 
-        private static _MainForm _instance = null;
         private BindingSource _bs;
         public MapPanel Mp = new MapPanel();
         public FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
@@ -69,14 +69,9 @@ namespace TG.Forms
 
         public void InitGameFromSaveSheet()
         {
-            //TODO init ine herne komponenty
-            foreach (var l in SaveManager.CurrentSaveSheet.Locations)
-            {
-                Mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
-            }
+            SaveManager.LoadGameDataFromSaveFile();
 
-            _characterPanelFlPanel.SuspendLayout();
-            foreach (var p in SaveManager.CurrentSaveSheet.Players)
+            foreach (var p in Game.Instance.Players)
             {
                 CharacterBoard chb = new CharacterBoard(p);
                 _characterPanelFlPanel.Controls.Add(chb);

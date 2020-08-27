@@ -56,7 +56,7 @@ namespace TG.CustomControls
         public OnEnterLocationForcedEffect OnEnterEffect;
 
 
-        public IEnumerable<Player> PlayersInLocation => SaveManager.CurrentSaveSheet.Players.Where(_ => _.CurrentLocation == LocationNumber);
+        public IEnumerable<Player> PlayersInLocation => Game.Instance.Players.Where(_ => _.CurrentLocation == LocationNumber);
         public List<Button> ButtonsToDisplay = new List<Button>();
 
         private Size directionLabelSize = TextRenderer.MeasureText("000", DefaultFont);

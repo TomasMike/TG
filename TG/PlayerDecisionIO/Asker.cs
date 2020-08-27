@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TG.CoreStuff;
 using TG.Enums;
 using TG.Forms;
 using TG.SavingLoading;
@@ -20,7 +21,7 @@ namespace TG.PlayerDecisionIO
         {
             var options = new List<Option<PlayerNumber>>();
 
-            for (int i = 0; i < SaveManager.CurrentSaveSheet.Players.Count; i++)
+            for (int i = 0; i < Game.Instance.Players.Count; i++)
             {
                 options.Add(new Option<PlayerNumber>((PlayerNumber)i));
             }

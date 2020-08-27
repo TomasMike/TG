@@ -3,19 +3,21 @@ using TG.Forms;
 using System.Linq;
 using TG.PlayerCharacterItems;
 using TG.HelpersUtils;
+using TG.SavingLoading.SaveModels;
+using TG.CoreStuff;
 
 namespace TG.SavingLoading
 {
     public class SaveSheet
     {
         public string fileName;
-        public List<Player> Players;
+        public List<PlayerSaveModel> Players;
         public List<LocationSaveObject> Locations;
         public SerializableDictionary<string, string> Statuses;
 
         public SaveSheet()
         {
-            Players = new List<Player>();
+            Players = new List<PlayerSaveModel>();
             Locations = new List<LocationSaveObject>();
             Statuses = new SerializableDictionary<string, string>();
         }
@@ -30,6 +32,8 @@ namespace TG.SavingLoading
                         LocationNumber = _.LocationNumber
                     })
                 .ToList();
+
+            Players = Game.Instance.Players.Select(_ => _.GetAsSaveSheetObject()).ToList();
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using TG.Enums;
 using TG.Forms;
 using TG.PlayerCharacterItems;
@@ -25,8 +26,8 @@ namespace TG.CoreStuff
 
         private static PlayerNumber _activePlayerNumber;
 
-        public Player ActivePlayer => SaveManager.CurrentSaveSheet.Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
-
+        public Player ActivePlayer => Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
+        public List<Player> Players = new List<Player>();
         public PlayerNumber ActivePlayerNumber
         {
             get { return _activePlayerNumber; }
@@ -57,13 +58,13 @@ namespace TG.CoreStuff
 
         public void DuringDay()
         {
-            if (playersWhoPassedThisDay.Count == SaveManager.CurrentSaveSheet.Players.Count())
+            if (playersWhoPassedThisDay.Count == Players.Count())
                 EndOfDay();
             else
             {
-                if (SaveManager.CurrentSaveSheet.Players.Count > 1)
+                if (Players.Count > 1)
                 {
-                    var playersWhoDidntActThisRound = SaveManager.CurrentSaveSheet.Players.Select(_ => _.PlayerNumber).ToList();
+                    var playersWhoDidntActThisRound = Players.Select(_ => _.PlayerNumber).ToList();
                     playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
                     playersWhoDidntActThisRound.RemoveAll(_ => playersWhoPassedThisDay.Contains(_));
 
@@ -102,7 +103,33 @@ namespace TG.CoreStuff
 
         public void EndOfDay()
         {
+            #region Rest Step
 
+            foreach (var player in Players)
+            {
+                var playerHasEaten = player.Character.Food >= 1 && MessageBox.Show($"{player.Name} eats?", "Rest", MessageBoxButtons.YesNo) == DialogResult.Yes;
+                if(playerHasEaten)
+                {
+                    player.Character.EditCharProperty(CharacterAttribute.Food, EditCharPropertyChangeType.Subtract, 1);
+                    player.Character.EditCharProperty(CharacterAttribute.CurrentHealth, EditCharPropertyChangeType.Add, 1);
+                    player.Character.EditCharProperty(CharacterAttribute.CurrentTerror, EditCharPropertyChangeType.Subtract, 1);
+                }
+                else
+                {
+                    if(player.Character.CurrentEnergy == 0)
+                    {
+                        player.Character.EditCharProperty(CharacterAttribute.CurrentHealth, EditCharPropertyChangeType.Subtract, 1);
+                    }
+                    else
+                        player.Character.EditCharProperty(CharacterAttribute.CurrentEnergy, EditCharPropertyChangeType.ToZero);
+                }
+            }
+            #endregion
+
+            #region Restore Energy
+
+            #endregion
+            ProcessMorningStuff();
         }
     }
 }

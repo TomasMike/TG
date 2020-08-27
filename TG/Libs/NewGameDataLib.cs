@@ -66,7 +66,7 @@ namespace TG.Libs
                     break;
                 default: throw new Exception("archetype not setupped.");
             }
-            var retVal = new Character(cn,ca,agg,cou,pra,emp,cau,spi,mhp,men,mte,fod,rep,wea,exp,mag);
+            var retVal = new Character(cn,ca,agg,cou,pra,emp,cau,spi,mhp,mhp,men,men,mte,0,fod,rep,wea,exp,mag);
 
             return retVal;
         }
