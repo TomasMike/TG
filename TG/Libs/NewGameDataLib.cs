@@ -63,7 +63,6 @@ namespace TG.Libs
                     mhp = 9;
                     mte = 6;
                     break;
-                    break;
                 default: throw new Exception("archetype not setupped.");
             }
             var retVal = new Character(cn,ca,agg,cou,pra,emp,cau,spi,mhp,mhp,men,men,mte,0,fod,rep,wea,exp,mag);

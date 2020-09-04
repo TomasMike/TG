@@ -103,12 +103,12 @@ namespace TG.CoreStuff
 
         public void EndOfDay()
         {
-            #region Rest Step
 
             foreach (var player in Players)
             {
-                var playerHasEaten = player.Character.Food >= 1 && MessageBox.Show($"{player.Name} eats?", "Rest", MessageBoxButtons.YesNo) == DialogResult.Yes;
-                if(playerHasEaten)
+                #region Rest Step
+
+                if (player.Character.Food >= 1 && MessageBox.Show($"{player.Name} eats?", "Rest", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     player.Character.EditCharProperty(CharacterAttribute.Food, EditCharPropertyChangeType.Subtract, 1);
                     player.Character.EditCharProperty(CharacterAttribute.CurrentHealth, EditCharPropertyChangeType.Add, 1);
@@ -116,19 +116,45 @@ namespace TG.CoreStuff
                 }
                 else
                 {
-                    if(player.Character.CurrentEnergy == 0)
+                    var message = "You didn't eat, therefore you loose ";
+                    if (player.Character.CurrentEnergy == 0)
                     {
                         player.Character.EditCharProperty(CharacterAttribute.CurrentHealth, EditCharPropertyChangeType.Subtract, 1);
+                        message += "1 Health.";
                     }
                     else
+                    {
                         player.Character.EditCharProperty(CharacterAttribute.CurrentEnergy, EditCharPropertyChangeType.ToZero);
+                        message += "all Energy.";
+                    }
+                    MessageBox.Show(message);
                 }
+                #endregion
+
+                #region Restore Energy
+
+                if (player.Character.CurrentEnergy <= 1)
+                {
+                    //exhausted
+                    player.Character.EditCharProperty(CharacterAttribute.CurrentEnergy, EditCharPropertyChangeType.Add,4);
+                }
+                else
+                {
+                    player.Character.EditCharProperty(CharacterAttribute.CurrentEnergy, EditCharPropertyChangeType.ToMax);
+                }
+                #endregion
+
+                #region Advance Character
+                //TODO
+                #endregion
+                #region Build Character Decks
+                //TODO
+                #endregion
+                #region Experience Dreams
+                //TODO
+                #endregion
             }
-            #endregion
 
-            #region Restore Energy
-
-            #endregion
             ProcessMorningStuff();
         }
     }
