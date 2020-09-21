@@ -1,7 +1,32 @@
 <?xml version="1.0"?>
 <SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <fileName>2020_08_26_09_31_22</fileName>
-  <Players />
+  <fileName>2020_09_17_08_32_01</fileName>
+  <Players>
+    <PlayerSaveModel>
+      <PlayerNumber>Player1</PlayerNumber>
+      <Name>Tomo</Name>
+      <CurrentLocation>101</CurrentLocation>
+      <CharacterName>Beor</CharacterName>
+      <Archetype>Blue</Archetype>
+      <Aggression>2</Aggression>
+      <Courage>1</Courage>
+      <Practicality>1</Practicality>
+      <Empathy>0</Empathy>
+      <Caution>1</Caution>
+      <Spirituality>0</Spirituality>
+      <MaxHealth>9</MaxHealth>
+      <CurrentHealth>9</CurrentHealth>
+      <MaxEnergy>6</MaxEnergy>
+      <CurrentEnergy>6</CurrentEnergy>
+      <MaxTerror>6</MaxTerror>
+      <CurrentTerror>0</CurrentTerror>
+      <Food>2</Food>
+      <Reputation>0</Reputation>
+      <Wealth>0</Wealth>
+      <Experience>0</Experience>
+      <Magic>0</Magic>
+    </PlayerSaveModel>
+  </Players>
   <Locations>
     <LocationSaveObject>
       <MenhirValue>8</MenhirValue>
@@ -22,10 +47,6 @@
     <LocationSaveObject>
       <MenhirValue>-1</MenhirValue>
       <LocationNumber>103</LocationNumber>
-    </LocationSaveObject>
-    <LocationSaveObject>
-      <MenhirValue>-1</MenhirValue>
-      <LocationNumber>108</LocationNumber>
     </LocationSaveObject>
   </Locations>
   <Statuses />

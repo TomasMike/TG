@@ -8,9 +8,12 @@ namespace TG.Exploration
     /// </summary>
     public class ExplorationScenario
     {
-        public string ExplorationIntroText;
+        public ScenarioParagraph IntroParagrapth;
+
+        /// <summary>
+        /// represents all paragraphs in the exploration section of one location, key is the number of the paragraph 
+        /// </summary>
         public Dictionary<int, ScenarioParagraph> Options;
-        public Func<object, CheckForcedOptionResult> CheckForcedOption;
     }
 
     public class CheckForcedOptionResult

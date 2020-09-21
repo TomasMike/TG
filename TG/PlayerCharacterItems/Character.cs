@@ -200,7 +200,6 @@ namespace TG.PlayerCharacterItems
                     _currentEnergy = _maxEnergy;
                 else
                     _currentEnergy = value;
-                _currentEnergy = value;
                 NotifyPropertyChanged();
             }
         }
@@ -222,7 +221,11 @@ namespace TG.PlayerCharacterItems
             private set
             {
                 if (value < 0)
-                    throw new Exception("terror nemoze byt menej ako 0 ?");
+                {
+                    _currentTerror = 0;
+                    return;
+                    // LOG throw new Exception("terror nemoze byt menej ako 0 ?");
+                }
                 if (value == _currentTerror) return;
                 if (value > _maxTerror)
                     _currentTerror = _maxTerror;
@@ -422,7 +425,7 @@ namespace TG.PlayerCharacterItems
                 case CharacterAttribute.Wealth:
                 case CharacterAttribute.Experience:
                 case CharacterAttribute.Magic:
-                    if (exceptMax.Contains(type) || value <= 0) throw new Exception();
+                    if (!exceptMax.Contains(type) || value <= 0) throw new Exception();
                     break;
                 default:
                     break;

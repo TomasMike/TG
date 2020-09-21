@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TG.CoreStuff;
 using TG.Exploration;
+using TG.HelpersUtils;
 using TG.PlayerCharacterItems;
 using TG.SavingLoading;
 
@@ -8,67 +10,85 @@ namespace TG.Libs
 {
     public static class ExplorationScenariosLib
     {
+        /// <summary>
+        /// key is the location number
+        /// </summary>
         private static Dictionary<int, ExplorationScenario> _explorationScenarios;
         public static Dictionary<int, ExplorationScenario> ExplorationScenarios
         {
             get =>
                 _explorationScenarios ?? (_explorationScenarios = new Dictionary<int, ExplorationScenario>
                 {
-                    {101, 
+                    {
+                        101,
                         new ExplorationScenario
                         {
-                            ExplorationIntroText = "A deep feeling of loss fills everyhing in Cuanacht - from dilapidated farms to the sunken eyes of those who remain in town. The menhir in the market is all but extinguished and everyone brave or resourceful enough has left to find a solution.",
-                            CheckForcedOption = o => 
+                            IntroParagrapth = new ScenarioParagraph
                             {
-                                var retVal = new CheckForcedOptionResult();
-
-                                if(SaveManager.SaveSheetStatuses.ContainsKey("Winds of Wyrdness"))
+                                Text = "A deep feeling of loss fills everyhing in Cuanacht - from dilapidated farms to the sunken eyes of those who remain in town. The menhir in the market is all but extinguished and everyone brave or resourceful enough has left to find a solution.",
+                                CheckForcedOption = o =>
                                 {
-                                    retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
-                                    retVal.ReturnValue = 121;
+                                    var retVal = new CheckForcedOptionResult();
+
+                                    if(SaveManager.CurrentSaveSheet.CheckStatus("Winds of Wyrdness"))
+                                    {
+                                        retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
+                                        retVal.ReturnValue = 121;
+                                    }
+                                    else if(Game.Instance.ActivePlayer.Character.HasCharacterSecret(66))
+                                    {
+                                        retVal.Action = CheckForcedOptionResultAction.ForceScenarioParagraph;
+                                        retVal.ReturnValue = 4;
+                                    }
+                                    else if(SaveManager.CurrentSaveSheet.CheckStatus("Hunter's Mark"))
+                                    {
+                                        retVal.Action = CheckForcedOptionResultAction.ForceScenarioParagraph;
+                                        retVal.ReturnValue = 6;
+                                    }
+                                    return retVal;
+                                },
+                                ParagraphOptions = new List<ParagraphOption>
+                                {
+                                    new ParagraphOption
+                                    {
+                                        Text = "Visit the families of the champions from the first expedition - If you're to find them, knowing more about them might help.",
+                                        AfterParagraphOptionAction = AfterParagraphOptionAction.RedirectToDifferentParagraph,
+                                        ParagraphNumToRedirectTo = 1,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        Text = "Ask the townsfolk to help you prepare",
+                                        AfterParagraphOptionAction = AfterParagraphOptionAction.RedirectToDifferentParagraph,
+                                        ParagraphNumToRedirectTo = 3,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        Text = "Rest for the day in your own home",
+                                        AfterParagraphOptionAction = AfterParagraphOptionAction.RedirectToDifferentParagraph,
+                                        ParagraphNumToRedirectTo = 5,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        Text = "Wander the alleys twisted by the wyrdness",
+                                        ActionCondition = (e) =>  e.LocationOfExploration.MenhirValue == -1 ,
+                                        AfterParagraphOptionAction = AfterParagraphOptionAction.RedirectToDifferentParagraph,
+                                        ParagraphNumToRedirectTo = 9,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        Text = "Leave",
+                                        AfterParagraphOptionAction = AfterParagraphOptionAction.EndExploration,
+                                    }
+                                
                                 }
-                                //else if(Game.Instance.ActivePlayer)
-                                //{//TODO
-
-                                //}
-                                return retVal;
-
-
                             },
                             Options = new Dictionary<int, ScenarioParagraph>
                             {
-                                {1,
-                                    new ScenarioParagraph
+                                {
+                                    1,
+                                    new  ScenarioParagraph
                                     {
-                                        Text = "Ist do pajzlu",
-                                        ParagraphOptions = new Dictionary<int, ParagraphOption>
-                                        {
-                                            {1,
-                                                new ParagraphOption
-                                                {
-                                                    Text = "Kupit si izbu a vyspat sa",
-                                                    ActionEffectDescription = "-1 Wealth, +2 Energy",
-                                                    ActionCondition = e => Game.Instance.ActivePlayer.Character.Wealth >= 1,
-                                                    ParagraphAction = e => 
-                                                    {
-                                                         Game.Instance.ActivePlayer.Character.EditCharProperty(
-                                                             CharacterAttribute.Wealth,
-                                                             EditCharPropertyChangeType.Subtract,
-                                                             1);
-                                                         Game.Instance.ActivePlayer.Character.EditCharProperty(
-                                                             CharacterAttribute.CurrentEnergy,
-                                                             EditCharPropertyChangeType.Add,
-                                                             2);
-                                                    }
-                                                }
-                                            },
-                                            {2,
-                                                new ParagraphOption
-                                                {
-                                                    Text = "Ist von na ulicu.",
-                                                }
-                                            }
-                                        }
+                                        Text = "This long winter, nearly everyone here lost a friend or a family member. First, to hunger. Then, to disease. Finally, the five remaining pillars of the community, the only heroes this land had ever known, suddenly left. Now, when you look into the distant eyes of the last remaining residents, you realize they want to forget"
                                     }
                                 }
                             }

@@ -39,8 +39,24 @@
 
     public enum CardSet
     {
-        G15,
-        G25,
+        BlueBaseCombat,
+        GrayBaseCombat,
+        GreenBaseCombat,
+        BrownBaseCombat,
+        BeorCombat,
+        AileiCombat,
+        MaggotCombat,
+        ArevCombat,
+        NiamhCombat,
+        BlueBaseDiplomacy,
+        GrayBaseDiplomacy,
+        GreenBaseDiplomacy,
+        BrownBaseDiplomacy,
+        BeorDiplomacy,
+        AileiDiplomacy,
+        MaggotDiplomacy,
+        ArevDiplomacy,
+        NiamhDiplomacy,
     }
 
     public enum CharacterName

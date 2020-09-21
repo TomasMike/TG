@@ -32,6 +32,7 @@ namespace TG.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
             Mp.Dock = DockStyle.Left;
             Mp.AutoSize = true;
             mainContentPanel.Controls.Add(Mp);
@@ -107,6 +108,12 @@ namespace TG.Forms
         private void foodToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DebugCheats.Add10FoodToActivePlayer();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            this.Text = $"Active Player:[{Game.Instance.ActivePlayer.Name}],Round:[{Game.Instance.Round}],Day:[{Game.Instance.Day}]";
         }
     }
 }

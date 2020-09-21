@@ -12,9 +12,8 @@ namespace TG.SavingLoading
     public static class SaveManager
     {
         public static string SaveFolder;
-        private static SaveSheet CurrentSaveSheet;
+        public static SaveSheet CurrentSaveSheet;
 
-        public static SerializableDictionary<string, string> SaveSheetStatuses => CurrentSaveSheet.Statuses;
 
         static SaveManager()
         {
@@ -38,8 +37,7 @@ namespace TG.SavingLoading
             if (CurrentSaveSheet == null)
                 throw new Exception("current save sheet is empty, wft?");
 
-            if(!firstTimeSaveToFile)
-                CurrentSaveSheet.SaveGameDataToSaveSheet();
+            CurrentSaveSheet.SaveGameDataToSaveSheet();
 
             XmlSerializer writer = new XmlSerializer(typeof(SaveSheet));
             var path = Path.Combine(SaveFolder, CurrentSaveSheet.fileName + ".xml");
@@ -63,12 +61,14 @@ namespace TG.SavingLoading
 
         public static void LoadGameDataFromSaveFile()
         {
+
             //TODO init ine herne komponenty
             foreach (var l in CurrentSaveSheet.Locations)
             {
                 _MainForm.Instance.Mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
             }
 
+            Game.Instance.Players.Clear();
             //_characterPanelFlPanel.SuspendLayout();
             foreach (var p in CurrentSaveSheet.Players)
             {
@@ -76,6 +76,4 @@ namespace TG.SavingLoading
             }
         }
     }
-
-
 }

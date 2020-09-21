@@ -24,7 +24,12 @@ namespace TG.CoreStuff
 
         public static SaveSheet CurrentSaveSheet;
 
+        public int Round = 1;
+        public int Day = 1;
+
+
         private static PlayerNumber _activePlayerNumber;
+
 
         public Player ActivePlayer => Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
         public List<Player> Players = new List<Player>();
@@ -52,58 +57,70 @@ namespace TG.CoreStuff
             //reveal and read new event card
             //move guardians
             //change equip
-
+            playersWhoPassedThisDay.Clear();
+            playersWhoActedThisRound.Clear();
             DuringDay();
         }
 
         public void DuringDay()
         {
             if (playersWhoPassedThisDay.Count == Players.Count())
+            {
+                MessageBox.Show("All players passed. Jumping to end of day phase.");
                 EndOfDay();
+            }
             else
             {
                 if (Players.Count > 1)
                 {
-                    var playersWhoDidntActThisRound = Players.Select(_ => _.PlayerNumber).ToList();
-                    playersWhoDidntActThisRound.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
-                    playersWhoDidntActThisRound.RemoveAll(_ => playersWhoPassedThisDay.Contains(_));
+                    // ries kto bol toto kolo, ked vsetci zacni dalsie kolo a kto passol uz
+                    var possiblePlayersToBeActivePlayer = Players.Select(_ => _.PlayerNumber).ToList();
+                    possiblePlayersToBeActivePlayer.RemoveAll(_ => playersWhoActedThisRound.Contains(_));
+                    possiblePlayersToBeActivePlayer.RemoveAll(_ => playersWhoPassedThisDay.Contains(_));
 
-                    if (playersWhoPassedThisDay.Count == 0)
+                    if (possiblePlayersToBeActivePlayer.Count == 0)
                     {
                         //next round
-                        playersWhoDidntActThisRound.Clear();
+                        Round++;
+                        playersWhoActedThisRound.Clear();
+                        //MessageBox.Show("All players who didnt pass, acted this round. Next round starts.");
                         DuringDay();
+                        return;
+                    }
+                    else if (possiblePlayersToBeActivePlayer.Count == 1)
+                    {
+                        Instance.ActivePlayerNumber = possiblePlayersToBeActivePlayer[0];
+                        MessageBox.Show($"{Instance.ActivePlayerNumber} is the last player who didnt act this round, hes the active player now.");
                     }
                     else
                     {
-                        var reply = Asker.Ask("Who will be next active player?", playersWhoDidntActThisRound.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
-                        Instance.ActivePlayerNumber = reply;
-                        _MainForm.Instance.Text = $"Active Player:{Instance.ActivePlayer.Name}";
+                        Instance.ActivePlayerNumber = Asker.Ask("Who will be next active player?", possiblePlayersToBeActivePlayer.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
                     }
+                    //
                 }
                 else
                 {
                     //singleplayer
                     Instance.ActivePlayerNumber = PlayerNumber.Player1;
+                    //MessageBox.Show("SinglePlayer");
                 }
+                _MainForm.Instance.Text = $"Active Player:{Instance.ActivePlayer.Name}";
+                StartNextPlayerTurn();
             }
         }
 
         public void StartNextPlayerTurn()
         {
+            //MessageBox.Show($"ACTIVE PLAYER:{Instance.ActivePlayerNumber}");
             playersWhoActedThisRound.Add(Instance.ActivePlayerNumber);
-            DuringDay();
-            //enable/disable available action buttons
         }
         public void PlayerPassed()
         {
             playersWhoPassedThisDay.Add(Instance.ActivePlayerNumber);
         }
 
-
         public void EndOfDay()
         {
-
             foreach (var player in Players)
             {
                 #region Rest Step

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TG.Enums;
 
-namespace TG
+namespace TG.Combat
 {
     public class Card
     {

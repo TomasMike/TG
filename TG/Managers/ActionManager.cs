@@ -42,10 +42,12 @@ namespace TG.Managers
             }
 
             mainActionButtons.First(_ => _.ActionType == ActionType.Travel).Click += TravelActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.Pass).Click += PassClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.LocationAction).Click += LocationActionClick;
 
             //
             ActionFinished += ActionManager_ActionFinished;
-            ActionFinished += Game.Instance.StartNextPlayerTurn;
+            ActionFinished += Game.Instance.DuringDay;
             //
         }
 
@@ -128,6 +130,14 @@ namespace TG.Managers
 
         #region Activate Menhir
 
+        #endregion
+
+        #region Location Action
+        static void LocationActionClick(object sender, EventArgs e)
+        {
+            CombatManager.Start();
+            ActionFinished.Invoke();
+        }
         #endregion
 
         #region Pass

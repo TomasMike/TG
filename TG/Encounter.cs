@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TG.Combat;
 using TG.PlayerCharacterItems;
 
 namespace TG

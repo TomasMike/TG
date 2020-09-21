@@ -1,8 +1,9 @@
 ﻿using System;
+using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
 {
-    public class ParagraphOption
+    public class ParagraphOption :IAskerOption<ParagraphOption>
     {
         
         public string Text;
@@ -18,5 +19,25 @@ namespace TG.Exploration
         /// if null, return to location intro
         /// </summary>
         public Action<ExplorationEventArgs> ParagraphAction;
+
+        public AfterParagraphOptionAction AfterParagraphOptionAction;
+        public int? ParagraphNumToRedirectTo;
+
+        public string GetOptionDescription()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ParagraphOption GetOptionObject()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public enum AfterParagraphOptionAction
+    {
+        GoToIntroParagraph,
+        EndExploration,
+        RedirectToDifferentParagraph,
     }
 }

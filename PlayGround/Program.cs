@@ -15,14 +15,10 @@ namespace PlayGround
     {
         static void Main(string[] args)
         {
-            var qq = q();
-           var q1= qq.Cast<XmlNode>();
-
-            var e = qq.GetEnumerator();
-            while(e.MoveNext())
-            {
-                Console.Write($"{e.Current}");
-            }
+            int[] x = new int[3];
+            x[0] = 2;
+            var q = x.Length;
+            var qq = x[2];
 
         }
 

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using TG.Enums;
 
-namespace TG
+namespace TG.Combat
 {
-    public static class CardLib
+    public static class CombatCardLib
     {
-        public static List<Card> GetCards()
+        public static List<Card> GetCombatCards()
         {
             return new List<Card>
             {
                 new Card
                 {
                     Name = "Careful Attack",
-                    CardSet = CardSet.G25,
+                    CardSet = CardSet.GreenBaseCombat,
                     CardNumberInSet = 1,
                     LeftSide = new CombatCardSide
                     {
@@ -38,7 +38,7 @@ namespace TG
                         retVal.ForEach(_ =>
                         {
                             if(_.AttackType == AttackType.LooseRedCube)
-                                _.Amount = Math.Max(0, _.Amount -1);
+                                _.Amount = Math.Max(0, _.Amount - 1);
 
                             if (_.AttackType == AttackType.Wound)
                                 _.Amount = Math.Max(0, _.Amount -1);
@@ -50,7 +50,7 @@ namespace TG
                 new Card
                 {
                     Name = "Cripling Strike",
-                    CardSet = CardSet.G25,
+                    CardSet = CardSet.GreenBaseCombat,
                     CardNumberInSet = 2,
                     isPassive = true,
                     LeftSide = new CombatCardSide
@@ -103,7 +103,7 @@ namespace TG
                 new Card
                 {
                     Name = "Defend",
-                    CardSet = CardSet.G25,
+                    CardSet = CardSet.GreenBaseCombat,
                     CardNumberInSet = 3,
                     LeftSide = new CombatCardSide
                     {

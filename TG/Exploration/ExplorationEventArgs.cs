@@ -1,7 +1,9 @@
-﻿namespace TG.Exploration
+﻿using TG.CustomControls;
+
+namespace TG.Exploration
 {
     public class ExplorationEventArgs
     {
-
+        public LocationCardControl LocationOfExploration;
     }
 }
