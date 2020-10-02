@@ -13,7 +13,7 @@ namespace TG.Exploration
         /// <summary>
         /// represents all paragraphs in the exploration section of one location, key is the number of the paragraph 
         /// </summary>
-        public Dictionary<int, ScenarioParagraph> Options;
+        public List<ScenarioParagraph> Options;
     }
 
     public class CheckForcedOptionResult

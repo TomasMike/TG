@@ -59,6 +59,8 @@
     <Compile Include="CustomControls\Combat\ComDipCard.Designer.cs">
       <DependentUpon>ComDipCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exploration\ParagraphAction.cs" />
+    <Compile Include="HelpersUtils\PartyHelper.cs" />
     <Compile Include="Libs\CombatCardLib.cs" />
     <Compile Include="CoreStuff\DebugCheats.cs" />
     <Compile Include="CoreStuff\Game.cs" />

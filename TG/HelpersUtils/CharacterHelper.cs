@@ -1,4 +1,6 @@
-﻿using TG.PlayerCharacterItems;
+﻿using System.Security.AccessControl;
+using TG.Enums;
+using TG.PlayerCharacterItems;
 
 namespace TG.HelpersUtils
 {
@@ -15,6 +17,11 @@ namespace TG.HelpersUtils
             }
 
             return false;
+        }
+
+        public static int GetCharactersResourceAmount(this Character ch, CharacterResourceType res)
+        {
+            
         }
     }
 }

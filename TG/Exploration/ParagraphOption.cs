@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using TG.Enums;
 using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
@@ -6,22 +8,18 @@ namespace TG.Exploration
     public class ParagraphOption :IAskerOption<ParagraphOption>
     {
         
-        public string Text;
+        public string MainText;
+        public string OtherText;
         
         public string ActionEffectDescription;
         
-        /// <summary>
-        /// if null, this action is allways available
-        /// </summary>
-        public Func<ExplorationEventArgs, bool> ActionCondition;
-        
+ 
         /// <summary>
         /// if null, return to location intro
         /// </summary>
-        public Action<ExplorationEventArgs> ParagraphAction;
+        public ParagraphAction ParagraphAction;
 
-        public AfterParagraphOptionAction AfterParagraphOptionAction;
-        public int? ParagraphNumToRedirectTo;
+
 
         public string GetOptionDescription()
         {
@@ -34,10 +32,24 @@ namespace TG.Exploration
         }
     }
 
-    public enum AfterParagraphOptionAction
+    public class BackToIntroParagraphOption: ParagraphOption
     {
-        GoToIntroParagraph,
-        EndExploration,
-        RedirectToDifferentParagraph,
+        public BackToIntroParagraphOption()
+        {
+            MainText = "Leave";
+            ParagraphAction = new ParagraphAction { ParagraphNumToRedirectToAfter = 0 };
+        }
     }
+    public class ExplorationEndsParagraphOption : ParagraphOption
+    {
+        public ExplorationEndsParagraphOption()
+        {
+            MainText = "Leave";
+            ParagraphAction = new ParagraphAction { ParagraphNumToRedirectToAfter = -1 };
+        }
+    }
+
+    
+    
+    
 }

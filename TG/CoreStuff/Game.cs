@@ -32,6 +32,8 @@ namespace TG.CoreStuff
 
 
         public Player ActivePlayer => Players.First(_ => _.PlayerNumber == ActivePlayerNumber);
+        public List<Player> ActiveParty => Players;
+
         public List<Player> Players = new List<Player>();
         public PlayerNumber ActivePlayerNumber
         {

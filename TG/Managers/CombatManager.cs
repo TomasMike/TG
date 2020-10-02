@@ -15,7 +15,6 @@ namespace TG.Managers
 
             CombatForm cf = new CombatForm(encounterCard);
             cf.ShowDialog();
-
         }
     }
 }

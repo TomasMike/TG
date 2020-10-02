@@ -41,6 +41,11 @@ namespace TG.SavingLoading
             return Statuses[name].IsStatusObtained(statusPart);
         }
 
+        public void GainStatus(string name, int statusPart = 1)
+        {
+            Statuses[name].ObtainedParts[statusPart] = 1;
+        }
+
         private void InitNewSaveSheetStatuses()
         {
             this.Statuses = new SerializableDictionary<string, SaveSheetStatus>

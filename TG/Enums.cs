@@ -102,4 +102,15 @@
         Other
         //Items,Skills,Secrets
     }
+
+    public enum CharacterResourceType
+    {
+        Wealth,
+        Reputation,
+        Food,
+        Experience,
+        Magic
+    }
+
+    //public enum AfterParagrap
 }
