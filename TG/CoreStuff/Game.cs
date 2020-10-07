@@ -116,10 +116,12 @@ namespace TG.CoreStuff
             //MessageBox.Show($"ACTIVE PLAYER:{Instance.ActivePlayerNumber}");
             playersWhoActedThisRound.Add(Instance.ActivePlayerNumber);
         }
-        public void PlayerPassed()
+        public void PlayerPassed(Player p = null)
         {
-            playersWhoPassedThisDay.Add(Instance.ActivePlayerNumber);
+            playersWhoPassedThisDay.Add(p?.PlayerNumber ?? Instance.ActivePlayerNumber);
         }
+
+
 
         public void EndOfDay()
         {

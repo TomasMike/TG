@@ -235,10 +235,39 @@ namespace TG.Libs
                                         {
                                             ParagraphAction = new EffectParagraphAction
                                             {
-                                                Action = { }
+                                                Action = e =>
+                                                {
+                                                    if(e.LocationOfExploration.MenhirValue >= 0)
+                                                    {
+                                                        MessageBox.Show("You rest. Each Party member gains 2 [Health] and loose 2 [Terror]. You pass for the rest of the day.");
+                                                        e.ActiveParty.ForEach(p =>
+                                                        {
+                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
+                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("You rest. Each Party member gains 1 [Health] and loose 1 [Terror]. You pass for the rest of the day.");
+                                                        e.ActiveParty.ForEach(p =>
+                                                        {
+                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
+                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
+                                                        });
+                                                    }
+
+                                                    e.ActiveParty.ForEach(p => Game.Instance.PlayerPassed(p));
+                                                }
                                             }
                                         }
                                     }
+                                },
+                                new ScenarioParagraph
+                                {
+                                    VerseNumber = 6,
+                                    Text = "Three women mourn in front of the long hall. One of them has lost her child, a girl of eight recently butchered like an animal in the hills outside Cuanacht. You feel your legs giving way. The faint memories of the night hunt now burn your mind like hot iron. You stumble away, trying not to look at the mourners' faces.",
+                                    
+
                                 }
                             }
                         }
