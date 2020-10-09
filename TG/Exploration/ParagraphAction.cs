@@ -8,19 +8,9 @@ namespace TG.Exploration
     public class ParagraphAction
     {
         /// <summary>
-        /// -1 means exploration ends, 0 is location intro
+        /// -1 means exploration ends, 0 is location intro, null is when redirect paragraph is not set
         /// </summary>
-        public int ParagraphNumToRedirectToAfter;
-    }
-
-    public class ConditionalParagrapthAction : ParagraphAction, IConditionalParagraphAction
-    {
-        public bool ActionCondition(ExplorationEventArgs args)
-        {
-            return Condition(args);
-        }
-
-        public Func<ExplorationEventArgs, bool> Condition;
+        public int? ParagraphNumToRedirectToAfter;
     }
 
     public class PayResourcesParagrapthAction : ParagraphAction
@@ -34,10 +24,6 @@ namespace TG.Exploration
     }
 
     #region other
-    public interface IConditionalParagraphAction
-    {
-        bool ActionCondition(ExplorationEventArgs args);
-    }
 
     public enum AfterParagraphOptionAction
     {
@@ -45,6 +31,5 @@ namespace TG.Exploration
         EndExploration,
         RedirectToDifferentParagraph,
     }
-
     #endregion
 }

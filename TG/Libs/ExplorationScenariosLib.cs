@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using TG.CoreStuff;
 using TG.Enums;
 using TG.Exploration;
 using TG.HelpersUtils;
 using TG.PlayerCharacterItems;
-using TG.PlayerDecisionIO;
 using TG.SavingLoading;
 
 namespace TG.Libs
@@ -24,39 +22,41 @@ namespace TG.Libs
             get =>
                 _explorationScenarios ?? (_explorationScenarios = new Dictionary<int, ExplorationScenario>
                 {
+                    // 101 Cuanacht
                     {
                         101,
                         new ExplorationScenario
                         {
-                            IntroParagrapth = new ScenarioParagraph
+                            IntroParagraph = new ScenarioParagraph
                             {
                                 Text = "A deep feeling of loss fills everyhing in Cuanacht - from dilapidated farms to the sunken eyes of those who remain in town. The menhir in the market is all but extinguished and everyone brave or resourceful enough has left to find a solution.",
-                                CheckForcedOption = _ =>
+                                ForcedOptions = new List<ForcedOption>
                                 {
-                                    var retVal = new CheckForcedOptionResult();
-
-                                    if(SaveManager.CurrentSaveSheet.CheckStatus("Winds of Wyrdness"))
+                                    new ChangeLocationStateForcedOption
                                     {
-                                        retVal.Action = CheckForcedOptionResultAction.ChangeLocationStateAndForceNewLocationExporationAction;
-                                        retVal.ReturnValue = 121;
-                                    }
-                                    else if(Game.Instance.ActivePlayer.Character.HasCharacterSecret(66))
+                                        OldLocationNumber = 101,
+                                        NewLocationNumber = 121,
+                                        PossesionReason = "status [Winds of Wyrdness]",
+                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus("Winds of Wyrdness")
+                                    },
+                                    new ForceScenarioParagraphForcedOption
                                     {
-                                        retVal.Action = CheckForcedOptionResultAction.ForceScenarioParagraph;
-                                        retVal.ReturnValue = 4;
-                                    }
-                                    else if(SaveManager.CurrentSaveSheet.CheckStatus("Hunter's Mark"))
+                                        RedirectToParagraphNum = 4,
+                                        PossesionReason = "secret card [66]",
+                                        Check = _ => Game.Instance.ActivePlayer.Character.HasCharacterSecret(66),
+                                    },
+                                    new ForceScenarioParagraphForcedOption
                                     {
-                                        retVal.Action = CheckForcedOptionResultAction.ForceScenarioParagraph;
-                                        retVal.ReturnValue = 6;
+                                        RedirectToParagraphNum = 6,
+                                        PossesionReason = "status [Hunter's Mark]",
+                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus("Hunter's Mark"),
                                     }
-                                    return retVal;
                                 },
                                 ParagraphOptions = new List<ParagraphOption>
                                 {
                                     new ParagraphOption
                                     {
-                                        MainText = "Visit the families of the champions from the first expedition",
+                                        MainText = "Visit the families of the champions from the first expedition.",
                                         OtherText = "If you're to find them, knowing more about them might help.",
                                         ParagraphAction = new ParagraphAction
                                         {
@@ -65,7 +65,7 @@ namespace TG.Libs
                                     },
                                     new ParagraphOption
                                     {
-                                        MainText = "Ask the townsfolk to help you prepare",
+                                        MainText = "Ask the townsfolk to help you prepare.",
                                         ParagraphAction = new ParagraphAction
                                         {
                                             ParagraphNumToRedirectToAfter = 3
@@ -73,7 +73,7 @@ namespace TG.Libs
                                     },
                                     new ParagraphOption
                                     {
-                                        MainText = "Rest for the day in your own home",
+                                        MainText = "Rest for the day in your own home.",
                                          ParagraphAction = new ParagraphAction
                                         {
                                             ParagraphNumToRedirectToAfter = 5
@@ -81,11 +81,11 @@ namespace TG.Libs
                                     },
                                     new ParagraphOption
                                     {
-                                        MainText = "Wander the alleys twisted by the wyrdness",
-                                        ParagraphAction = new ConditionalParagrapthAction
+                                        OptionCondition = e => e.LocationOfExploration.MenhirValue == -1,
+                                        MainText = "Wander the alleys twisted by the wyrdness.",
+                                        ParagraphAction = new ParagraphAction
                                         {
                                             ParagraphNumToRedirectToAfter = 9,
-                                            Condition = e =>  e.LocationOfExploration.MenhirValue == -1
                                         },
                                     },
                                     new ExplorationEndsParagraphOption()
@@ -96,14 +96,14 @@ namespace TG.Libs
                                 new ScenarioParagraph
                                 {
                                     VerseNumber = 1,
-                                    Text = "This long winter, nearly everyone here lost a friend or a family member. First, to hunger. Then, to disease. Finally, the five remaining pillars of the community, the only heroes this land had ever known, suddenly left. Now, when you look into the distant eyes of the last remaining residents, you realize they want to forget",
+                                    Text = "This long winter, nearly everyone here lost a friend or a family member. First, to hunger. Then, to disease. Finally, the five remaining pillars of the community, the only heroes this land had ever known, suddenly left. Now, when you look into the distant eyes of the last remaining residents, you realize they want to forget.",
                                     ParagraphOptions = new List<ParagraphOption>
                                     {
                                         new ParagraphOption
                                         {
-                                            MainText = "Loosen their tongues with mead",
+                                            MainText = "Loosen their tongues with mead.",
                                             OtherText = "There is an old custom: a late-night wake for those who wandered far from their home. Holding it for everyone who left with the expedition won't be cheap, though.",
-                                            ActionEffectDescription = "Pay 1 Wealth or 1 Food to go to Verse 2",
+                                            ActionEffectDescription = "Pay 1 Wealth or 1 Food to go to Verse 2.",
                                             ParagraphAction = new PayResourcesParagrapthAction
                                             {
                                                 PaymentOptions = new IEnumerable<Tuple<CharacterResourceType, int>>[]
@@ -120,9 +120,9 @@ namespace TG.Libs
                                         new ParagraphOption
                                         {
                                             MainText = "Ask them to share their burdens.",
-                                            ParagraphAction = new ConditionalParagrapthAction
+                                            OptionCondition = _ => Game.Instance.ActiveParty.Any(p => p.Character.Empathy >= 1),
+                                            ParagraphAction = new ParagraphAction
                                             {
-                                                Condition = _ => Game.Instance.ActiveParty.Any(p => p.Character.Empathy >= 1),
                                                 ParagraphNumToRedirectToAfter = 2,
                                             }
                                         },
@@ -133,46 +133,37 @@ namespace TG.Libs
                                 {
                                     VerseNumber = 2,
                                     Text = "It takes a while to break the silence of the grief-stricken people, but when you do, stories of separations and departures flood you like torrential rain. You try to remember every detail. The color of a palfrey horse the village priestess, Neante, rode. The ornament on the hauberk that young Lord Yvain wore. The strange drinking horn Erfyr, the smith, used to lug around. The birthmark of Fael, the master huntsman. The embroidered cape of Aubert, the seasoned traveler who'd seen all parts of the island. Who knows what detail can help you down the road?",
-                                    ParagraphOptions = new List<ParagraphOption>
+                                    PreParagraphChoiceEffect = new EffectParagraphAction
                                     {
-                                        new ParagraphOption
+                                        ParagraphNumToRedirectToAfter = -1,
+                                        Action = _ => 
                                         {
-                                            MainText = "Gain 1 of the \"Fate of the Expedition\" ",
-                                            ParagraphAction = new EffectParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = -1,
-                                                Action = _ => SaveManager.CurrentSaveSheet.GainStatus("Fate of the Expedition", 1)
-                                            }
+                                            SaveManager.CurrentSaveSheet.GainStatus("Fate of the Expedition", 1);
                                         }
-                                    }
+                                    },
                                 },
                                 new ScenarioParagraph
                                 {
                                     VerseNumber = 3,
                                     Text = "Though they have little left, they share with you their last remaining supplies. Somehow, this seems unworthy of a hero, but since all the true heroes where lost, who will dare to question your methods?",
-                                    ParagraphOptions = new List<ParagraphOption>
+                                    PreParagraphChoiceEffect = new EffectParagraphAction
                                     {
-                                        new ParagraphOption
+                                        Action = e =>
                                         {
-                                            ParagraphAction = new EffectParagraphAction
+                                            if(
+                                                e.ActiveParty.Any(p => p.Character.Reputation >= 1) &&
+                                                !SaveManager.CurrentSaveSheet.CheckStatus("Scrounger")
+                                                )
                                             {
-                                                Action = e =>
-                                                {
-                                                    if(
-                                                        e.ActiveParty.Any(p => p.Character.Reputation >= 1) &&
-                                                        !SaveManager.CurrentSaveSheet.CheckStatus("Scrounger")
-                                                        )
-                                                    {
-                                                        e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.Food,EditCharPropertyChangeType.Add,2));
-                                                    }
-
-                                                    //TODO gain 1 random item
-                                                    SaveManager.CurrentSaveSheet.GainStatus("Scrounger");
-                                                },
-                                                ParagraphNumToRedirectToAfter = -1
+                                                //TODO napisat dovod, posielat dovod do metody?
+                                                e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.Food,EditCharPropertyChangeType.Add,2));
                                             }
-                                        }
-                                    }
+
+                                            //TODO gain 1 random item
+                                            SaveManager.CurrentSaveSheet.GainStatus("Scrounger");
+                                        },
+                                        ParagraphNumToRedirectToAfter = -1
+                                    },
                                 },
                                 new ScenarioParagraph
                                 {
@@ -186,6 +177,7 @@ namespace TG.Libs
                                             {
                                                 Action = e =>
                                                 {
+                                                    //TODO viac popisat, spravit zvlast manazer na taketo asi
                                                     MessageBox.Show("Roll a die and add +2 for each point of your [Aggression]. Check the total result:");
                                                     
                                                     var dieRoll = new Random().Next(1,7);
@@ -229,47 +221,118 @@ namespace TG.Libs
                                 {
                                     VerseNumber = 5,
                                     Text = "Many would refuse to call this place a 'home', but the familiar setting brings you some much needed serenity. As you lay to rest in your bed, you can't help but wonder whether it is the last night you will ever spend under this roof.",
-                                    ParagraphOptions = new List<ParagraphOption>
+                                    PreParagraphChoiceEffect = new EffectParagraphAction
                                     {
-                                        new ParagraphOption
+                                        Action = e =>
                                         {
-                                            ParagraphAction = new EffectParagraphAction
+                                            if(e.LocationOfExploration.MenhirValue >= 0)
                                             {
-                                                Action = e =>
+                                                MessageBox.Show("You rest. Each Party member gains 2 [Health] and loose 2 [Terror]. You pass for the rest of the day.");
+                                                e.ActiveParty.ForEach(p =>
                                                 {
-                                                    if(e.LocationOfExploration.MenhirValue >= 0)
-                                                    {
-                                                        MessageBox.Show("You rest. Each Party member gains 2 [Health] and loose 2 [Terror]. You pass for the rest of the day.");
-                                                        e.ActiveParty.ForEach(p =>
-                                                        {
-                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
-                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
-                                                        });
-                                                    }
-                                                    else
-                                                    {
-                                                        MessageBox.Show("You rest. Each Party member gains 1 [Health] and loose 1 [Terror]. You pass for the rest of the day.");
-                                                        e.ActiveParty.ForEach(p =>
-                                                        {
-                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
-                                                            p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
-                                                        });
-                                                    }
-
-                                                    e.ActiveParty.ForEach(p => Game.Instance.PlayerPassed(p));
-                                                }
+                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
+                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,2);
+                                                });
                                             }
+                                            else
+                                            {
+                                                MessageBox.Show("You rest. Each Party member gains 1 [Health] and loose 1 [Terror]. You pass for the rest of the day.");
+                                                e.ActiveParty.ForEach(p =>
+                                                {
+                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
+                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentHealth,EditCharPropertyChangeType.Add,1);
+                                                });
+                                            }
+
+                                            e.ActiveParty.ForEach(p => Game.Instance.PlayerPassed(p));
                                         }
                                     }
                                 },
                                 new ScenarioParagraph
                                 {
                                     VerseNumber = 6,
-                                    Text = "Three women mourn in front of the long hall. One of them has lost her child, a girl of eight recently butchered like an animal in the hills outside Cuanacht. You feel your legs giving way. The faint memories of the night hunt now burn your mind like hot iron. You stumble away, trying not to look at the mourners' faces.",
-                                    
+                                    Text = "Three women mourn in front of the long hall. One of them has lost her child, a girl of eight recently butchered like an animal in the hills outside Cuanacht.\r\nYou feel your legs giving way. The faint memories of the night hunt now burn your mind like hot iron. You stumble away, trying not to look at the mourners' faces.",
+                                    PreParagraphChoiceEffect = new EffectParagraphAction
+                                    {
+                                        ParagraphNumToRedirectToAfter = null,
+                                        Action  = e =>
+                                        {
+                                            if(!SaveManager.CurrentSaveSheet.CheckStatus("Mourning Song",1))
+                                            {
+                                                 e.ActiveParty.ForEach(p =>
+                                                {
+                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,2);
+                                                });
+                                            }
 
+                                            SaveManager.CurrentSaveSheet.GainStatus("Mourning Song",1);
+                                        }
+                                    },
+                                    ParagraphOptions = new List<ParagraphOption>
+                                    {
+                                        new ParagraphOption
+                                        {
+                                            ActionEffectDescription = "Visit the families of the champions from the first expedition.",
+                                            ParagraphAction = new ParagraphAction
+                                            {
+                                                ParagraphNumToRedirectToAfter = 1
+                                            }
+                                        },
+                                        new ParagraphOption
+                                        {
+                                            ActionEffectDescription = "Ask the townsfolk to help you prepare.",
+                                            ParagraphAction = new ParagraphAction
+                                            {
+                                                ParagraphNumToRedirectToAfter = 3
+                                            }
+                                        },
+                                        new ParagraphOption
+                                        {
+                                            ActionEffectDescription = "Rest for the day in your own home.",
+                                            ParagraphAction = new ParagraphAction
+                                            {
+                                                ParagraphNumToRedirectToAfter = 5
+                                            }
+                                        },
+                                        new ParagraphOption
+                                        {
+                                            ActionEffectDescription = "Wander the aleys twisted by the wyrdness.",
+                                            OptionCondition = e => e.LocationOfExploration.MenhirValue >= 0,
+                                            ParagraphAction = new ParagraphAction
+                                            {
+                                                ParagraphNumToRedirectToAfter = 9
+                                            }
+                                        },
+                                        new ExplorationEndsParagraphOption()
+                                    }
+                                },
+                                new ScenarioParagraph
+                                {
+                                    VerseNumber = 9,
+                                    Text = "The statue in the market has gone dark. The streets slowly change their positions. Houses you remember since you were a child disappear or move away. Strange fingures roam in the dark. Days and nights blur together. \r\nAfter six centuries, this land finally returns to the wyrdness - taking everyone with it. Some townsfolk hid as deep as they could, and the rest left in a panic, looking for another menhir. You don't have much time until the madness and supernatural horrors claim you.",
+                                    ParagraphOptions = new List<ParagraphOption>
+                                    {
+                                        new ExplorationEndsParagraphOption(){ MainText = "Leave the farmhold."},
+                                        new ParagraphOption
+                                        {
+                                            MainText = "Wander the streets.",
+                                            ParagraphAction = new ParagraphAction{ParagraphNumToRedirectToAfter = 999}//TODO
+                                        }
+                                    }
                                 }
+                            },
+                            Dream = new DreamNightmareParagraph
+                            {
+                                Text = "In your restless dream, a pale lady rises from the water, her eyes milky and her skin spoiled with rot. She whispers something into your ear. Her breath smells of sea-salt, kelp and rotten fish. You barely remember the words. There was something about three enigmas, one hidden under the isle of the dead, one clutched in the grasp of burned hands and arms, and one buried in a mist-covered mound. But what could it mean?",
+                                AdditionalText = "Hint: The dream refers to three out of the eight Locations surronding Cuanacht. It's possible some of them are not yet revealed."
+                            },
+                            Nightmare = new DreamNightmareParagraph
+                            {
+                                Text = "In your dream, a Wyrm the size of a mountain rises from the west - his skin shimmering with all colors of the rainbow. He draws close, opening his jaws as if ready to swallow the entire farmhold. Strangely, most people on the streets of Cuanacht aren't even looking toward the creature. They are looking at YOU, with sadness and disappointment.\r\n\"You told us it would be alright...\" A small girl breaks into tears.\r\nYou wake up and can't fall asleep again until the dawn.",
+                                Effect = e => e.Player.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,1)
+
                             }
+                            //TODO menhir activation
                         }
                     },
                 });

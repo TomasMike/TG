@@ -10,4 +10,10 @@ namespace TG.Exploration
         public List<Player> ActiveParty;
     }
 
+    public class DreamNightmareEventArgs
+    {
+        public Player Player;
+    }
+
+
 }

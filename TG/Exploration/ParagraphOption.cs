@@ -5,28 +5,20 @@ using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
 {
-    public class ParagraphOption :IAskerOption<ParagraphOption>
+    public class ParagraphOption :IAskerOption
     {
-        
         public string MainText;
         public string OtherText;
-        
         public string ActionEffectDescription;
-        
  
         /// <summary>
         /// if null, return to location intro
         /// </summary>
         public ParagraphAction ParagraphAction;
 
-
+        public Func<ExplorationEventArgs, bool> OptionCondition;
 
         public string GetOptionDescription()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ParagraphOption GetOptionObject()
         {
             throw new NotImplementedException();
         }
@@ -48,8 +40,4 @@ namespace TG.Exploration
             ParagraphAction = new ParagraphAction { ParagraphNumToRedirectToAfter = -1 };
         }
     }
-
-    
-    
-    
 }

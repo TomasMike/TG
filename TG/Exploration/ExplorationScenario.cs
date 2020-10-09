@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TG.PlayerCharacterItems;
 
 namespace TG.Exploration
 {
@@ -8,26 +9,17 @@ namespace TG.Exploration
     /// </summary>
     public class ExplorationScenario
     {
-        public ScenarioParagraph IntroParagrapth;
+        /// <summary>
+        /// the intro paragrapth that the exploration starts in
+        /// </summary>
+        public ScenarioParagraph IntroParagraph;
 
         /// <summary>
         /// represents all paragraphs in the exploration section of one location, key is the number of the paragraph 
         /// </summary>
         public List<ScenarioParagraph> Options;
-    }
 
-    public class CheckForcedOptionResult
-    {
-        public int ReturnValue;
-        public CheckForcedOptionResultAction Action;
-
-    }
-
-    public enum CheckForcedOptionResultAction
-    {
-        None,
-        ChangeLocationStateAndForceNewLocationExporationAction,
-        //ForceNewLocationExporationAction,
-        ForceScenarioParagraph
+        public DreamNightmareParagraph Dream;
+        public DreamNightmareParagraph Nightmare;
     }
 }

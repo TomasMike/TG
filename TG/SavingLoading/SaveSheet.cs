@@ -5,6 +5,8 @@ using TG.PlayerCharacterItems;
 using TG.HelpersUtils;
 using TG.SavingLoading.SaveModels;
 using TG.CoreStuff;
+using System.Windows.Forms;
+using System;
 
 namespace TG.SavingLoading
 {
@@ -38,11 +40,25 @@ namespace TG.SavingLoading
 
         public bool CheckStatus(string name, int statusPart = 1)
         {
-            return Statuses[name].IsStatusObtained(statusPart);
+            try
+            {
+                return Statuses[name].IsStatusObtained(statusPart);
+            }
+            catch (KeyNotFoundException e)
+            {
+                MessageBox.Show("that status doesnt exist");
+                throw e;
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
 
         public void GainStatus(string name, int statusPart = 1)
         {
+            //TODO tu zobrazit aky status bol ziskany
+            //                         MessageBox.Show("Gain 1 of the \"Fate of the Expedition\".");
             Statuses[name].ObtainedParts[statusPart] = 1;
         }
 

@@ -96,7 +96,10 @@ namespace TG.CoreStuff
                     }
                     else
                     {
-                        Instance.ActivePlayerNumber = Asker.Ask("Who will be next active player?", possiblePlayersToBeActivePlayer.Select(_ => new Option<PlayerNumber>(_)), false).GetOptionObject();
+                        Instance.ActivePlayerNumber =
+                            Asker.Ask(
+                                "Who will be next active player?",
+                                possiblePlayersToBeActivePlayer.Select(_ => new Option<PlayerNumber>(_))).InnerOption;
                     }
                     //
                 }

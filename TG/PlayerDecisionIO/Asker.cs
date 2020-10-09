@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TG.CoreStuff;
@@ -10,24 +11,13 @@ namespace TG.PlayerDecisionIO
 {
     public static class Asker
     {
-        public static IAskerOption<T> Ask<T>(string question, IEnumerable<IAskerOption<T>> options, bool canCancel)
+        public static T Ask<T>(string question, IEnumerable<T> options, bool canCancel = false) where T : IAskerOption
         {
             var f = new AskerForm<T>(question, options, canCancel);
             f.ShowDialog();
             return f.PickedAskerOptions.FirstOrDefault();
         }
-
-        public static PlayerNumber PickOnePlayer(string question, bool canCancel)
-        {
-            var options = new List<Option<PlayerNumber>>();
-
-            for (int i = 0; i < Game.Instance.Players.Count; i++)
-            {
-                options.Add(new Option<PlayerNumber>((PlayerNumber)i));
-            }
-
-            return Ask(question, options, canCancel).GetOptionObject();
-        }
+      
 
         public static T Ask<T>(string question,Dictionary<int,T> options, bool canCancel)
         {
@@ -40,6 +30,8 @@ namespace TG.PlayerDecisionIO
             
             throw new NotImplementedException();
         }
+
+
     }
 
     public static class OldAsker
@@ -67,31 +59,24 @@ namespace TG.PlayerDecisionIO
         }
     }
 
-    public interface IAskerOption<T>
+    public interface IAskerOption
     {
         string GetOptionDescription();
-
-        T GetOptionObject();
     }
 
-    public class Option<T> : IAskerOption<T>
+    public class Option<T> : IAskerOption
     {
         public Option(T item)
         {
-            option = item;
+            InnerOption = item;
         }
 
-        public T option;
+        public T InnerOption;
         public string TextDescription;
 
         public string GetOptionDescription()
         {
-            return typeof(T).IsEnum ? option.ToString() : TextDescription;
-        }
-
-        public T GetOptionObject()
-        {
-            return option;
+            return typeof(T).IsEnum ? InnerOption.ToString() : TextDescription;
         }
     }
 }

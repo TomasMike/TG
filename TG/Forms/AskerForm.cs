@@ -5,16 +5,16 @@ using TG.PlayerDecisionIO;
 
 namespace TG.Forms
 {
-    public partial class AskerForm<T> : Form
+    public partial class AskerForm<T> : Form where T : IAskerOption
     {
         public AskerForm()
         {
             InitializeComponent();
         }
 
-        public List<IAskerOption<T>> PickedAskerOptions = new List<IAskerOption<T>>();
+        public List<T> PickedAskerOptions = new List<T>();
 
-        public AskerForm(string question, IEnumerable<IAskerOption<T>> list, bool canCancel)
+        public AskerForm(string question, IEnumerable<T> list, bool canCancel)
             : this()
         {
             this.AutoSize = true;
@@ -57,6 +57,6 @@ namespace TG.Forms
 
     public class AskerButton<T> : Button
     {
-        public IAskerOption<T> AttachedOption;
+        public T AttachedOption;
     }
 }

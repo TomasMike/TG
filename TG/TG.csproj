@@ -59,6 +59,7 @@
     <Compile Include="CustomControls\Combat\ComDipCard.Designer.cs">
       <DependentUpon>ComDipCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exploration\DreamNightmareParagraph.cs" />
     <Compile Include="Exploration\ParagraphAction.cs" />
     <Compile Include="HelpersUtils\PartyHelper.cs" />
     <Compile Include="Libs\CombatCardLib.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="CustomControls\LocationSelectionButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Exploration\ExplorationEventArgs.cs" />
+    <Compile Include="Exploration\EventArgs\ExplorationEventArgs.cs" />
     <Compile Include="Exploration\ParagraphOption.cs" />
     <Compile Include="Exploration\ScenarioParagraph.cs" />
     <Compile Include="HelpersUtils\CharacterHelper.cs" />
@@ -234,6 +235,9 @@
     <Content Include="SaveFiles\2020_09_16_13_16_09.xml" />
     <Content Include="SaveFiles\2020_09_16_13_19_21.xml" />
     <Content Include="SaveFiles\2020_09_16_13_21_17.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exploration\ForcedOptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -83,7 +83,7 @@
         HostileSettlement,
     }
 
-    public enum PlayerNumber
+    public enum PlayerNumber 
     {
         Player1,
         Player2,
