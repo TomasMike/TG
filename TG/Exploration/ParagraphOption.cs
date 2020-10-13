@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using TG.Enums;
 using TG.PlayerDecisionIO;
 
@@ -20,7 +21,9 @@ namespace TG.Exploration
 
         public string GetOptionDescription()
         {
-            throw new NotImplementedException();
+            return MainText +
+                (string.IsNullOrEmpty(OtherText) ? string.Empty : "\r\n" + OtherText) +
+                (string.IsNullOrEmpty(ActionEffectDescription) ? string.Empty : "\r\n" + ActionEffectDescription);
         }
     }
 

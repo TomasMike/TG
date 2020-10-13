@@ -66,7 +66,7 @@ namespace TG.CoreStuff
 
         public void DuringDay()
         {
-            if (playersWhoPassedThisDay.Count == Players.Count())
+            if (playersWhoPassedThisDay.Count == Players.Count)
             {
                 MessageBox.Show("All players passed. Jumping to end of day phase.");
                 EndOfDay();
@@ -123,8 +123,6 @@ namespace TG.CoreStuff
         {
             playersWhoPassedThisDay.Add(p?.PlayerNumber ?? Instance.ActivePlayerNumber);
         }
-
-
 
         public void EndOfDay()
         {

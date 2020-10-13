@@ -44,6 +44,7 @@ namespace TG.Managers
             mainActionButtons.First(_ => _.ActionType == ActionType.Travel).Click += TravelActionClick;
             mainActionButtons.First(_ => _.ActionType == ActionType.Pass).Click += PassClick;
             mainActionButtons.First(_ => _.ActionType == ActionType.LocationAction).Click += LocationActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.Explore).Click += ExplorationActionClick;
 
             //
             ActionFinished += ActionManager_ActionFinished;
@@ -138,6 +139,15 @@ namespace TG.Managers
             CombatManager.Start();
             ActionFinished.Invoke();
         }
+        #endregion
+
+        #region Exploration
+        static void ExplorationActionClick(object sender, EventArgs e)
+        {
+            ExplorationManager.StartExploration(Game.Instance.ActivePlayer.CurrentLocation);
+            ActionFinished.Invoke();
+        }
+
         #endregion
 
         #region Pass

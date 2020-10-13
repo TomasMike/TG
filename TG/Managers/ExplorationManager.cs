@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using TG.CoreStuff;
@@ -19,30 +20,49 @@ namespace TG.Managers
 
         public static void StartExploration(ExplorationScenario scenario)
         {
-            var q = scenario.IntroParagraph.Text;
-            int chosenPar;
-            if (scenario.IntroParagraph.ForcedOptions.Any(a => a.Check(null)))
+            Action<ScenarioParagraph> loop = null;
+            loop = (par) =>
             {
-                //player is forced to some option
-                var fo = Asker.Ask(q, new[] { scenario.IntroParagraph.ForcedOptions.First(a => a.Check(null)) }.ToList());
-                if (fo is ChangeLocationStateForcedOption)
+                ParagraphOption pickedParagraphOption;
+
+                if (par.ForcedOptions?.Any(_ => _.Check(null)) ?? false)
                 {
-                    //TODO
+                    MessageBox.Show(par.Text + (string.IsNullOrEmpty(par.AdditionalText) ? "" : "\r\n" + par.AdditionalText));
+
+                    var fo = par.ForcedOptions.First(_ => _.Check(null));
+                    if (fo is ForceScenarioParagraphForcedOption)
+                    {
+                        pickedParagraphOption = par.ParagraphOptions
+                           .First(_ => _.ParagraphAction.ParagraphNumToRedirectToAfter == ((ForceScenarioParagraphForcedOption)fo).RedirectToParagraphNum);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
                 }
-                else if(fo is ForceScenarioParagraphForcedOption)
+                else
                 {
-                    chosenPar = ((ForceScenarioParagraphForcedOption)fo).RedirectToParagraphNum;
+                    par.PreParagraphChoiceEffect?.
+                    
+                    if ()
+                    pickedParagraphOption = Asker.Ask(par.Text, par.ParagraphOptions
+                        .Where(po => po.OptionCondition == null ? true : po.OptionCondition(GetEventArgs)));
                 }
-            }
-            else
-            {
-                Asker.Ask(q, scenario.IntroParagraph.ParagraphOptions.Where(po => po.OptionCondition(GetEventArgs)));
-            }
 
+                var nextParagraph = pickedParagraphOption.ParagraphAction.ParagraphNumToRedirectToAfter;
 
+                if (nextParagraph == -1)
+                {
+                    //end
+                }
+                else
+                {
+                    loop(nextParagraph == 0 ? scenario.IntroParagraph : scenario.Options.First(_ => _.VerseNumber == nextParagraph));
+                }
+            };
 
+            loop(scenario.IntroParagraph);
 
-            //Asker.Ask(scenario.ExplorationIntroText, scenario.Options, false); //TODO
         }
 
         private static ExplorationEventArgs GetEventArgs = new ExplorationEventArgs

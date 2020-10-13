@@ -32,7 +32,9 @@ namespace TG.Forms
                 b.Text = o.GetOptionDescription();
                 b.AttachedOption = o;
                 b.Click += pickOptionClick;
+                b.MaximumSize = flowLayoutPanel1.Size;
                 flowLayoutPanel1.Controls.Add(b);
+                flowLayoutPanel1.SetFlowBreak(b, true);
             }
 
             if (canCancel)
@@ -53,10 +55,28 @@ namespace TG.Forms
             PickedAskerOptions.Add(b.AttachedOption);
             this.Close();
         }
+
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
     }
 
     public class AskerButton<T> : Button
     {
         public T AttachedOption;
+
+        public AskerButton()
+        {
+            AutoSize = true;
+            
+            AutoSizeMode = AutoSizeMode.GrowOnly;
+        }
     }
 }

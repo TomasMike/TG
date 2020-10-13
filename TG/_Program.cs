@@ -16,15 +16,7 @@ namespace TG
         [STAThread]
         private static void Main()
         {
-            using(SqlConnection c = new SqlConnection("server=localhost;TRUSTED_CONNECTION=yes;database=ShirtShop;"))
-            {
-                var x = "312";
-                c.Open();
-
-            }
-            string[] q = new string[] {"Dominik","Casper","Archi" };
-
-            var koote = q[0];
+     
 
 
 

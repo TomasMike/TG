@@ -14,6 +14,8 @@ namespace TG.SavingLoading
     {
         public int[] ObtainedParts;
 
+        public SaveSheetStatus() { }
+
         public SaveSheetStatus(int statusParts)
         {
             ObtainedParts = new int[statusParts];
