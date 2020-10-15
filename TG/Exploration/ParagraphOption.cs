@@ -15,9 +15,11 @@ namespace TG.Exploration
         /// <summary>
         /// if null, return to location intro
         /// </summary>
-        public ParagraphAction ParagraphAction;
+        public EffectParagraphAction ParagraphAction;
 
         public Func<ExplorationEventArgs, bool> OptionCondition;
+
+        public int? ParagraphNumToRedirectToAfter;
 
         public string GetOptionDescription()
         {
@@ -32,7 +34,7 @@ namespace TG.Exploration
         public BackToIntroParagraphOption()
         {
             MainText = "Leave";
-            ParagraphAction = new ParagraphAction { ParagraphNumToRedirectToAfter = 0 };
+            ParagraphNumToRedirectToAfter = 0;
         }
     }
     public class ExplorationEndsParagraphOption : ParagraphOption
@@ -40,7 +42,7 @@ namespace TG.Exploration
         public ExplorationEndsParagraphOption()
         {
             MainText = "Leave";
-            ParagraphAction = new ParagraphAction { ParagraphNumToRedirectToAfter = -1 };
+            ParagraphNumToRedirectToAfter = -1;
         }
     }
 }

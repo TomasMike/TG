@@ -58,35 +58,23 @@ namespace TG.Libs
                                     {
                                         MainText = "Visit the families of the champions from the first expedition.",
                                         OtherText = "If you're to find them, knowing more about them might help.",
-                                        ParagraphAction = new ParagraphAction
-                                        {
-                                            ParagraphNumToRedirectToAfter = 1
-                                        }
+                                        ParagraphNumToRedirectToAfter = 1
                                     },
                                     new ParagraphOption
                                     {
                                         MainText = "Ask the townsfolk to help you prepare.",
-                                        ParagraphAction = new ParagraphAction
-                                        {
-                                            ParagraphNumToRedirectToAfter = 3
-                                        }
+                                        ParagraphNumToRedirectToAfter = 3
                                     },
                                     new ParagraphOption
                                     {
                                         MainText = "Rest for the day in your own home.",
-                                         ParagraphAction = new ParagraphAction
-                                        {
-                                            ParagraphNumToRedirectToAfter = 5
-                                        }
+                                        ParagraphNumToRedirectToAfter = 5
                                     },
                                     new ParagraphOption
                                     {
                                         OptionCondition = e => e.LocationOfExploration.MenhirValue == -1,
                                         MainText = "Wander the alleys twisted by the wyrdness.",
-                                        ParagraphAction = new ParagraphAction
-                                        {
-                                            ParagraphNumToRedirectToAfter = 9,
-                                        },
+                                        ParagraphNumToRedirectToAfter = 9,
                                     },
                                     new ExplorationEndsParagraphOption()
                                 }
@@ -104,7 +92,8 @@ namespace TG.Libs
                                             MainText = "Loosen their tongues with mead.",
                                             OtherText = "There is an old custom: a late-night wake for those who wandered far from their home. Holding it for everyone who left with the expedition won't be cheap, though.",
                                             ActionEffectDescription = "Pay 1 Wealth or 1 Food to go to Verse 2.",
-                                            ParagraphAction = new PayResourcesParagrapthAction
+                                            ParagraphNumToRedirectToAfter = 2,
+                                            ParagraphAction = new PayResourcesEffectParagraphAction
                                             {
                                                 PaymentOptions = new IEnumerable<Tuple<CharacterResourceType, int>>[]
                                                 {
@@ -114,17 +103,13 @@ namespace TG.Libs
                                                         new Tuple<CharacterResourceType, int>(CharacterResourceType.Food,1),
                                                     },
                                                 },
-                                                ParagraphNumToRedirectToAfter = 2
                                             },
                                         },
                                         new ParagraphOption
                                         {
                                             MainText = "Ask them to share their burdens.",
                                             OptionCondition = _ => Game.Instance.ActiveParty.Any(p => p.Character.Empathy >= 1),
-                                            ParagraphAction = new ParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = 2,
-                                            }
+                                            ParagraphNumToRedirectToAfter = 2,
                                         },
                                         new BackToIntroParagraphOption()
                                     }
@@ -133,37 +118,50 @@ namespace TG.Libs
                                 {
                                     VerseNumber = 2,
                                     Text = "It takes a while to break the silence of the grief-stricken people, but when you do, stories of separations and departures flood you like torrential rain. You try to remember every detail. The color of a palfrey horse the village priestess, Neante, rode. The ornament on the hauberk that young Lord Yvain wore. The strange drinking horn Erfyr, the smith, used to lug around. The birthmark of Fael, the master huntsman. The embroidered cape of Aubert, the seasoned traveler who'd seen all parts of the island. Who knows what detail can help you down the road?",
-                                    PreParagraphChoiceEffect = new EffectParagraphAction
+                                    ParagraphOptions = new List<ParagraphOption>
                                     {
-                                        ParagraphNumToRedirectToAfter = -1,
-                                        Action = _ => 
+                                        new ParagraphOption
                                         {
-                                            SaveManager.CurrentSaveSheet.GainStatus("Fate of the Expedition", 1);
+                                            ParagraphNumToRedirectToAfter = -1,
+                                            ParagraphAction = new EffectParagraphAction
+                                            {
+                                                Action = _ =>
+                                                {
+                                                    SaveManager.CurrentSaveSheet.GainStatus("Fate of the Expedition", 1);
+                                                }
+                                            },
                                         }
-                                    },
+                                    }
                                 },
                                 new ScenarioParagraph
                                 {
                                     VerseNumber = 3,
                                     Text = "Though they have little left, they share with you their last remaining supplies. Somehow, this seems unworthy of a hero, but since all the true heroes where lost, who will dare to question your methods?",
-                                    PreParagraphChoiceEffect = new EffectParagraphAction
+                                    ParagraphOptions = new List<ParagraphOption>
                                     {
-                                        Action = e =>
+                                        new ParagraphOption
                                         {
-                                            if(
-                                                e.ActiveParty.Any(p => p.Character.Reputation >= 1) &&
-                                                !SaveManager.CurrentSaveSheet.CheckStatus("Scrounger")
-                                                )
+                                            ParagraphNumToRedirectToAfter = -1,
+                                            ParagraphAction= new EffectParagraphAction
                                             {
-                                                //TODO napisat dovod, posielat dovod do metody?
-                                                e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.Food,EditCharPropertyChangeType.Add,2));
+                                                Action = e =>
+                                                {
+                                                    if(
+                                                        e.ActiveParty.Any(p => p.Character.Reputation >= 1) &&
+                                                        !SaveManager.CurrentSaveSheet.CheckStatus("Scrounger")
+                                                        )
+                                                    {
+                                                        //TODO napisat dovod, posielat dovod do metody?
+                                                        e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.Food,EditCharPropertyChangeType.Add,2));
+                                                    }
+
+                                                    //TODO gain 1 random item
+                                                    SaveManager.CurrentSaveSheet.GainStatus("Scrounger");
+                                                },
                                             }
 
-                                            //TODO gain 1 random item
-                                            SaveManager.CurrentSaveSheet.GainStatus("Scrounger");
-                                        },
-                                        ParagraphNumToRedirectToAfter = -1
-                                    },
+                                        }
+                                    }
                                 },
                                 new ScenarioParagraph
                                 {
@@ -173,6 +171,7 @@ namespace TG.Libs
                                     {
                                         new ParagraphOption
                                         {
+                                            ParagraphNumToRedirectToAfter = -1,
                                             ParagraphAction = new EffectParagraphAction
                                             {
                                                 Action = e =>
@@ -212,7 +211,6 @@ namespace TG.Libs
                                                         e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,2));
                                                     }
                                                 },
-                                                ParagraphNumToRedirectToAfter = -1
                                             },
                                         }
                                     }
@@ -252,9 +250,9 @@ namespace TG.Libs
                                 {
                                     VerseNumber = 6,
                                     Text = "Three women mourn in front of the long hall. One of them has lost her child, a girl of eight recently butchered like an animal in the hills outside Cuanacht.\r\nYou feel your legs giving way. The faint memories of the night hunt now burn your mind like hot iron. You stumble away, trying not to look at the mourners' faces.",
+                                    
                                     PreParagraphChoiceEffect = new EffectParagraphAction
                                     {
-                                        ParagraphNumToRedirectToAfter = null,
                                         Action  = e =>
                                         {
                                             if(!SaveManager.CurrentSaveSheet.CheckStatus("Mourning Song",1))
@@ -272,36 +270,24 @@ namespace TG.Libs
                                     {
                                         new ParagraphOption
                                         {
+                                            ParagraphNumToRedirectToAfter = 1,
                                             ActionEffectDescription = "Visit the families of the champions from the first expedition.",
-                                            ParagraphAction = new ParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = 1
-                                            }
                                         },
                                         new ParagraphOption
                                         {
+                                            ParagraphNumToRedirectToAfter = 3,
                                             ActionEffectDescription = "Ask the townsfolk to help you prepare.",
-                                            ParagraphAction = new ParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = 3
-                                            }
                                         },
                                         new ParagraphOption
                                         {
+                                            ParagraphNumToRedirectToAfter = 5,
                                             ActionEffectDescription = "Rest for the day in your own home.",
-                                            ParagraphAction = new ParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = 5
-                                            }
                                         },
                                         new ParagraphOption
                                         {
                                             ActionEffectDescription = "Wander the aleys twisted by the wyrdness.",
                                             OptionCondition = e => e.LocationOfExploration.MenhirValue >= 0,
-                                            ParagraphAction = new ParagraphAction
-                                            {
-                                                ParagraphNumToRedirectToAfter = 9
-                                            }
+                                            ParagraphNumToRedirectToAfter = 9,
                                         },
                                         new ExplorationEndsParagraphOption()
                                     }
@@ -315,8 +301,8 @@ namespace TG.Libs
                                         new ExplorationEndsParagraphOption(){ MainText = "Leave the farmhold."},
                                         new ParagraphOption
                                         {
+                                            ParagraphNumToRedirectToAfter = 999,//TODO
                                             MainText = "Wander the streets.",
-                                            ParagraphAction = new ParagraphAction{ParagraphNumToRedirectToAfter = 999}//TODO
                                         }
                                     }
                                 }

@@ -14,9 +14,9 @@ namespace TG.Exploration
         public string AdditionalText;
 
         /// <summary>
-        /// each options in this paragraph, they contain logic for their availability, if null there are no choices, the effects are applied and then the party is redirected forward
+        /// possible effect that is applied always and before the paragraph choice is available
         /// </summary>
-        public List<ParagraphOption> ParagraphOptions;
+        public EffectParagraphAction PreParagraphChoiceEffect;
 
         /// <summary>
         /// checks for if the party is forced to pick certain option
@@ -24,10 +24,9 @@ namespace TG.Exploration
         public List<ForcedOption> ForcedOptions;
 
         /// <summary>
-        /// possible effect that is applied always and before the paragraph choice is available
+        /// each options in this paragraph, they contain logic for their availability, if null there are no choices, the effects are applied and then the party is redirected forward
         /// </summary>
-        public ParagraphAction PreParagraphChoiceEffect;
-
+        public List<ParagraphOption> ParagraphOptions;
 
         public int VerseNumber;
 

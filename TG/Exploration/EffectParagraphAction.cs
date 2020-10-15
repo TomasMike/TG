@@ -5,22 +5,18 @@ using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
 {
-    public class ParagraphAction
+    public class EffectParagraphAction
     {
         /// <summary>
         /// -1 means exploration ends, 0 is location intro, null is when redirect paragraph is not set
         /// </summary>
-        public int? ParagraphNumToRedirectToAfter;
+        public Action<ExplorationEventArgs> Action;
+
     }
 
-    public class PayResourcesParagrapthAction : ParagraphAction
+    public class PayResourcesEffectParagraphAction : EffectParagraphAction
     {
         public IEnumerable<Tuple<CharacterResourceType, int>>[] PaymentOptions;
-    }
-
-    public class EffectParagraphAction : ParagraphAction
-    {
-        public Action<ExplorationEventArgs> Action;
     }
 
     #region other

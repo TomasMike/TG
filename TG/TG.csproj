@@ -60,7 +60,7 @@
       <DependentUpon>ComDipCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Exploration\DreamNightmareParagraph.cs" />
-    <Compile Include="Exploration\ParagraphAction.cs" />
+    <Compile Include="Exploration\EffectParagraphAction.cs" />
     <Compile Include="HelpersUtils\PartyHelper.cs" />
     <Compile Include="Libs\CombatCardLib.cs" />
     <Compile Include="CoreStuff\DebugCheats.cs" />

@@ -15,16 +15,16 @@ namespace TG.Forms
         public List<T> PickedAskerOptions = new List<T>();
 
         public AskerForm(string question, IEnumerable<T> list, bool canCancel)
+            : this(new Label { Text = question }, list, canCancel)
+        { }
+
+
+        public AskerForm(Label questionLbl, IEnumerable<T> list, bool canCancel)
             : this()
         {
             this.AutoSize = true;
-            flowLayoutPanel1.Controls.Add(
-                new Label()
-                {
-                    Text = question,
-                    AutoSize = true
-                }
-            );
+            questionLbl.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(questionLbl);
 
             foreach (var o in list)
             {
@@ -75,7 +75,7 @@ namespace TG.Forms
         public AskerButton()
         {
             AutoSize = true;
-            
+
             AutoSizeMode = AutoSizeMode.GrowOnly;
         }
     }

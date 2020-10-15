@@ -33,7 +33,7 @@ namespace TG.Managers
                     if (fo is ForceScenarioParagraphForcedOption)
                     {
                         pickedParagraphOption = par.ParagraphOptions
-                           .First(_ => _.ParagraphAction.ParagraphNumToRedirectToAfter == ((ForceScenarioParagraphForcedOption)fo).RedirectToParagraphNum);
+                           .First(_ => _.ParagraphNumToRedirectToAfter == ((ForceScenarioParagraphForcedOption)fo).RedirectToParagraphNum);
                     }
                     else
                     {
@@ -42,14 +42,14 @@ namespace TG.Managers
                 }
                 else
                 {
-                    par.PreParagraphChoiceEffect?.
+                    //par.PreParagraphChoiceEffect?.
                     
-                    if ()
+                    //if ()
                     pickedParagraphOption = Asker.Ask(par.Text, par.ParagraphOptions
                         .Where(po => po.OptionCondition == null ? true : po.OptionCondition(GetEventArgs)));
                 }
 
-                var nextParagraph = pickedParagraphOption.ParagraphAction.ParagraphNumToRedirectToAfter;
+                var nextParagraph = pickedParagraphOption.ParagraphNumToRedirectToAfter;
 
                 if (nextParagraph == -1)
                 {
