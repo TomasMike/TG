@@ -12,6 +12,9 @@ using TG.SavingLoading;
 
 namespace TG.CustomControls
 {
+    /// <summary>
+    /// Abstract version of location card
+    /// </summary>
     public class LocationCardControl : Panel
     {
         public Label NLabel = new Label();
@@ -29,7 +32,6 @@ namespace TG.CustomControls
         public Label LocationNameNumber = new Label();
         public LocationSelectionButton LocationActionBtn = new LocationSelectionButton();
 
-
         public string LocationName;
         public int LocationNumber;
         public int LegacyLocationNumber;
@@ -42,8 +44,11 @@ namespace TG.CustomControls
         public int MenhirValue;
         public MenhirActivationRequirement MenhirActivationRequirement;
         public string MenhirActivationRequirementsDescription;
-        public Action<string> ActivateMenhir;
 
+        /// <summary>
+        /// if null, this location cannot have a menhir
+        /// </summary>
+        public Action<string> ActivateMenhir;
 
         public LocationSetlementTypeEnum LocationSetlementType;
         public bool Dreams;
@@ -54,7 +59,6 @@ namespace TG.CustomControls
         public string ShortDescription;
 
         public OnEnterLocationForcedEffect OnEnterEffect;
-
 
         public IEnumerable<Player> PlayersInLocation => Game.Instance.Players.Where(_ => _.CurrentLocation == LocationNumber);
         public List<Button> ButtonsToDisplay = new List<Button>();
@@ -78,7 +82,6 @@ namespace TG.CustomControls
             SouthDirectionKey = southDirectionKey;
             WestDirectionKey = westDirectionKey;
         }
-
 
         public LocationCardControl Init()
         {
@@ -186,7 +189,7 @@ namespace TG.CustomControls
 
     public class OnEnterLocationForcedEffect
     {
-        
+
     }
 
 

@@ -373,7 +373,6 @@ namespace TG.PlayerCharacterItems
 
         private int EditHET(int i, EditCharPropertyChangeType t, int value)
         {
-
             if (t == EditCharPropertyChangeType.Add)
                 return i += value;
             else if (t == EditCharPropertyChangeType.Subtract)
@@ -386,7 +385,7 @@ namespace TG.PlayerCharacterItems
 
         private void CheckInvalidAtributeChange(CharacterAttribute attr, EditCharPropertyChangeType type, int value = 0)
         {
-            var exceptAdd = new List<EditCharPropertyChangeType>(new[] { 
+            var onlyAdd = new List<EditCharPropertyChangeType>(new[] { 
                 EditCharPropertyChangeType.Subtract, 
                 EditCharPropertyChangeType.ToMax, 
                 EditCharPropertyChangeType.ToZero });
@@ -404,7 +403,7 @@ namespace TG.PlayerCharacterItems
                 case CharacterAttribute.Empathy:
                 case CharacterAttribute.Caution:
                 case CharacterAttribute.Spirituality:
-                    if (exceptAdd.Contains(type) || value <= 0)
+                    if (onlyAdd.Contains(type) || value <= 0)
                         throw new Exception();
                     break;
                 case CharacterAttribute.CurrentHealth:
@@ -425,7 +424,7 @@ namespace TG.PlayerCharacterItems
                 case CharacterAttribute.Wealth:
                 case CharacterAttribute.Experience:
                 case CharacterAttribute.Magic:
-                    if (!exceptMax.Contains(type) || value <= 0) throw new Exception();
+                    if (type == EditCharPropertyChangeType.ToMax || value <= 0) throw new Exception();
                     break;
                 default:
                     break;

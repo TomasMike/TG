@@ -97,7 +97,7 @@ namespace TG.Forms
             #endregion
 
 
-             _MainForm.Instance.Mp.AddLocationCardToMap(101,9 - Game.Instance.Players.Count );
+             _MainForm.Instance.LocationCardsPanel.AddLocationCardToMap(101,9 - Game.Instance.Players.Count );
 
             SaveManager.SaveAs(saveFilenameTextBox.Text);
 

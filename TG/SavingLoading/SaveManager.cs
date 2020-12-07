@@ -65,7 +65,7 @@ namespace TG.SavingLoading
             //TODO init ine herne komponenty
             foreach (var l in CurrentSaveSheet.Locations)
             {
-                _MainForm.Instance.Mp.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
+                _MainForm.Instance.LocationCardsPanel.AddLocationCardToMap(l.LocationNumber, l.MenhirValue);
             }
 
             Game.Instance.Players.Clear();

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SaveSheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <fileName>2020_10_13_14_55_32</fileName>
+  <fileName>2020_12_07_13_43_59</fileName>
   <Players>
     <PlayerSaveModel>
       <PlayerNumber>Player1</PlayerNumber>
@@ -17,10 +17,10 @@
       <MaxHealth>9</MaxHealth>
       <CurrentHealth>9</CurrentHealth>
       <MaxEnergy>6</MaxEnergy>
-      <CurrentEnergy>1</CurrentEnergy>
+      <CurrentEnergy>6</CurrentEnergy>
       <MaxTerror>6</MaxTerror>
       <CurrentTerror>0</CurrentTerror>
-      <Food>1</Food>
+      <Food>2</Food>
       <Reputation>0</Reputation>
       <Wealth>0</Wealth>
       <Experience>0</Experience>
@@ -48,23 +48,11 @@
       <MenhirValue>-1</MenhirValue>
       <LocationNumber>103</LocationNumber>
     </LocationSaveObject>
-    <LocationSaveObject>
-      <MenhirValue>-1</MenhirValue>
-      <LocationNumber>107</LocationNumber>
-    </LocationSaveObject>
-    <LocationSaveObject>
-      <MenhirValue>-1</MenhirValue>
-      <LocationNumber>109</LocationNumber>
-    </LocationSaveObject>
-    <LocationSaveObject>
-      <MenhirValue>-1</MenhirValue>
-      <LocationNumber>106</LocationNumber>
-    </LocationSaveObject>
   </Locations>
   <Statuses>
     <item>
       <key>
-        <string>Allies of Avalon</string>
+        <SaveSheetStatusEnum>AlliesOfAvalon</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -80,7 +68,7 @@
     </item>
     <item>
       <key>
-        <string>Black Cauldron</string>
+        <SaveSheetStatusEnum>BlackCauldron</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -94,7 +82,7 @@
     </item>
     <item>
       <key>
-        <string>Burning Mystery</string>
+        <SaveSheetStatusEnum>BurningMystery</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -113,7 +101,7 @@
     </item>
     <item>
       <key>
-        <string>Call from Beyond</string>
+        <SaveSheetStatusEnum>CallFromBeyond</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -125,7 +113,7 @@
     </item>
     <item>
       <key>
-        <string>Charred Knowledge</string>
+        <SaveSheetStatusEnum>CharredKnowledge</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -137,7 +125,7 @@
     </item>
     <item>
       <key>
-        <string>Cherished Belongings</string>
+        <SaveSheetStatusEnum>CherishedBelongings</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -149,7 +137,7 @@
     </item>
     <item>
       <key>
-        <string>Cold Pyre</string>
+        <SaveSheetStatusEnum>ColdPyre</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -161,7 +149,7 @@
     </item>
     <item>
       <key>
-        <string>Cosuil</string>
+        <SaveSheetStatusEnum>Cosuil</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -177,7 +165,7 @@
     </item>
     <item>
       <key>
-        <string>Deal Breaker</string>
+        <SaveSheetStatusEnum>DealBreaker</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -189,7 +177,7 @@
     </item>
     <item>
       <key>
-        <string>Deep Secret</string>
+        <SaveSheetStatusEnum>DeepSecret</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -201,7 +189,7 @@
     </item>
     <item>
       <key>
-        <string>Diplomat</string>
+        <SaveSheetStatusEnum>Diplomat</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -215,7 +203,7 @@
     </item>
     <item>
       <key>
-        <string>Diplomatic Mission</string>
+        <SaveSheetStatusEnum>DiplomaticMission</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -232,7 +220,7 @@
     </item>
     <item>
       <key>
-        <string>Disturbing Information</string>
+        <SaveSheetStatusEnum>DisturbingInformation</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -246,7 +234,7 @@
     </item>
     <item>
       <key>
-        <string>Dreams and Prophecies</string>
+        <SaveSheetStatusEnum>DreamsAndProphecies</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -265,7 +253,7 @@
     </item>
     <item>
       <key>
-        <string>End of the Road</string>
+        <SaveSheetStatusEnum>EndOfTheRoad</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -277,7 +265,7 @@
     </item>
     <item>
       <key>
-        <string>Enemies of Avalon</string>
+        <SaveSheetStatusEnum>EnemiesOfAvalon</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -291,7 +279,7 @@
     </item>
     <item>
       <key>
-        <string>Escalation</string>
+        <SaveSheetStatusEnum>Escalation</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -305,7 +293,7 @@
     </item>
     <item>
       <key>
-        <string>Fael's Legacy</string>
+        <SaveSheetStatusEnum>FaelsLegacy</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -317,7 +305,7 @@
     </item>
     <item>
       <key>
-        <string>Fall of Chivalry</string>
+        <SaveSheetStatusEnum>FallOfChivalry</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -336,7 +324,7 @@
     </item>
     <item>
       <key>
-        <string>Farpoint Clues</string>
+        <SaveSheetStatusEnum>FarpointClues</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -352,7 +340,7 @@
     </item>
     <item>
       <key>
-        <string>Fate of the Expedition</string>
+        <SaveSheetStatusEnum>FateOfTheExpedition</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -372,7 +360,7 @@
     </item>
     <item>
       <key>
-        <string>Final Confrontations</string>
+        <SaveSheetStatusEnum>FinalConfrontations</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -390,7 +378,7 @@
     </item>
     <item>
       <key>
-        <string>Final Lesson</string>
+        <SaveSheetStatusEnum>FinalLesson</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -406,7 +394,7 @@
     </item>
     <item>
       <key>
-        <string>Fortunate Meetings</string>
+        <SaveSheetStatusEnum>FortunateMeetings</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -422,7 +410,7 @@
     </item>
     <item>
       <key>
-        <string>General Directions</string>
+        <SaveSheetStatusEnum>GeneralDirections</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -434,7 +422,7 @@
     </item>
     <item>
       <key>
-        <string>Gerraint's Successor</string>
+        <SaveSheetStatusEnum>GerraintsSuccessor</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -448,7 +436,7 @@
     </item>
     <item>
       <key>
-        <string>Glen Ritual</string>
+        <SaveSheetStatusEnum>GlenRitual</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -461,7 +449,7 @@
     </item>
     <item>
       <key>
-        <string>Guest of Honor</string>
+        <SaveSheetStatusEnum>GuestOfHonor</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -473,7 +461,7 @@
     </item>
     <item>
       <key>
-        <string>Halfway Intrigue</string>
+        <SaveSheetStatusEnum>HalfwayIntrigue</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -487,7 +475,7 @@
     </item>
     <item>
       <key>
-        <string>Helping Hand</string>
+        <SaveSheetStatusEnum>HelpingHand</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -504,7 +492,7 @@
     </item>
     <item>
       <key>
-        <string>Helping the Knights</string>
+        <SaveSheetStatusEnum>HelpingTheKnights</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -519,7 +507,7 @@
     </item>
     <item>
       <key>
-        <string>Hidden Treasures</string>
+        <SaveSheetStatusEnum>HiddenTreasures</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -538,7 +526,7 @@
     </item>
     <item>
       <key>
-        <string>Hunter's Mark</string>
+        <SaveSheetStatusEnum>HuntersMark</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -550,7 +538,7 @@
     </item>
     <item>
       <key>
-        <string>Lady's Task</string>
+        <SaveSheetStatusEnum>LadysTask</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -562,7 +550,7 @@
     </item>
     <item>
       <key>
-        <string>Last Haven</string>
+        <SaveSheetStatusEnum>LastHaven</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -578,7 +566,7 @@
     </item>
     <item>
       <key>
-        <string>Left Behind</string>
+        <SaveSheetStatusEnum>LeftBehind</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -598,7 +586,7 @@
     </item>
     <item>
       <key>
-        <string>Lost and Fallen</string>
+        <SaveSheetStatusEnum>LostAndFallen</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -616,7 +604,7 @@
     </item>
     <item>
       <key>
-        <string>Maggot's Redemption</string>
+        <SaveSheetStatusEnum>MaggotsRedemption</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -628,7 +616,7 @@
     </item>
     <item>
       <key>
-        <string>Matricide</string>
+        <SaveSheetStatusEnum>Matricide</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -640,7 +628,7 @@
     </item>
     <item>
       <key>
-        <string>Monastery Discovered</string>
+        <SaveSheetStatusEnum>MonasteryDiscovered</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -652,7 +640,7 @@
     </item>
     <item>
       <key>
-        <string>Moonring Mission</string>
+        <SaveSheetStatusEnum>MoonringMission</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -664,7 +652,7 @@
     </item>
     <item>
       <key>
-        <string>Morgaine's Task</string>
+        <SaveSheetStatusEnum>MorgainesTask</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -676,7 +664,7 @@
     </item>
     <item>
       <key>
-        <string>Mourning Song</string>
+        <SaveSheetStatusEnum>MourningSong</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -689,7 +677,7 @@
     </item>
     <item>
       <key>
-        <string>Mystery Solved</string>
+        <SaveSheetStatusEnum>MysterySolved</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -701,7 +689,7 @@
     </item>
     <item>
       <key>
-        <string>Pathfinder</string>
+        <SaveSheetStatusEnum>Pathfinder</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -720,7 +708,7 @@
     </item>
     <item>
       <key>
-        <string>Peace in Borough</string>
+        <SaveSheetStatusEnum>PeaceInBorough</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -732,7 +720,7 @@
     </item>
     <item>
       <key>
-        <string>People's Champion</string>
+        <SaveSheetStatusEnum>PeoplesChampion</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -744,7 +732,7 @@
     </item>
     <item>
       <key>
-        <string>Pillager</string>
+        <SaveSheetStatusEnum>Pillager</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -760,7 +748,7 @@
     </item>
     <item>
       <key>
-        <string>Reclamation</string>
+        <SaveSheetStatusEnum>Reclamation</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -772,7 +760,7 @@
     </item>
     <item>
       <key>
-        <string>Remedy</string>
+        <SaveSheetStatusEnum>Remedy</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -787,7 +775,7 @@
     </item>
     <item>
       <key>
-        <string>Remnants</string>
+        <SaveSheetStatusEnum>Remnants</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -803,7 +791,7 @@
     </item>
     <item>
       <key>
-        <string>Restoring the Order</string>
+        <SaveSheetStatusEnum>RestoringTheOrder</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -822,7 +810,7 @@
     </item>
     <item>
       <key>
-        <string>Riddle of the Oldsteel</string>
+        <SaveSheetStatusEnum>RiddleOfTheOldsteel</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -834,7 +822,7 @@
     </item>
     <item>
       <key>
-        <string>Saved by the Goddess</string>
+        <SaveSheetStatusEnum>SavedByTheGoddess</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -846,7 +834,7 @@
     </item>
     <item>
       <key>
-        <string>Scrounger</string>
+        <SaveSheetStatusEnum>Scrounger</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -858,7 +846,7 @@
     </item>
     <item>
       <key>
-        <string>Secrets of the Forest</string>
+        <SaveSheetStatusEnum>SecretsOfTheForest</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -873,7 +861,7 @@
     </item>
     <item>
       <key>
-        <string>Shelter in the Storm</string>
+        <SaveSheetStatusEnum>ShelterInTheStorm</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -885,7 +873,7 @@
     </item>
     <item>
       <key>
-        <string>Shrine Secure</string>
+        <SaveSheetStatusEnum>ShrineSecure</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -897,7 +885,7 @@
     </item>
     <item>
       <key>
-        <string>Something is Watching</string>
+        <SaveSheetStatusEnum>SomethingIsWatching</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -909,7 +897,7 @@
     </item>
     <item>
       <key>
-        <string>Stonemason's Secret</string>
+        <SaveSheetStatusEnum>StonemasonsSecret</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -921,7 +909,7 @@
     </item>
     <item>
       <key>
-        <string>Strange Encounters</string>
+        <SaveSheetStatusEnum>StrangeEncounters</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -940,7 +928,7 @@
     </item>
     <item>
       <key>
-        <string>Supplying the Revolt</string>
+        <SaveSheetStatusEnum>SupplyingTheRevolt</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -955,7 +943,7 @@
     </item>
     <item>
       <key>
-        <string>Tangleroot Knowledge</string>
+        <SaveSheetStatusEnum>TanglerootKnowledge</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -968,7 +956,7 @@
     </item>
     <item>
       <key>
-        <string>Tracker</string>
+        <SaveSheetStatusEnum>Tracker</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -980,7 +968,7 @@
     </item>
     <item>
       <key>
-        <string>Traveling Menhir</string>
+        <SaveSheetStatusEnum>TravelingMenhir</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -993,7 +981,7 @@
     </item>
     <item>
       <key>
-        <string>Tuathan Exploration</string>
+        <SaveSheetStatusEnum>TuathanExploration</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -1009,7 +997,7 @@
     </item>
     <item>
       <key>
-        <string>Underfern</string>
+        <SaveSheetStatusEnum>Underfern</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -1025,7 +1013,7 @@
     </item>
     <item>
       <key>
-        <string>War for Avalon</string>
+        <SaveSheetStatusEnum>WarForAvalon</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>
@@ -1040,7 +1028,7 @@
     </item>
     <item>
       <key>
-        <string>Winds of Wyrdness</string>
+        <SaveSheetStatusEnum>WindsOfWyrdness</SaveSheetStatusEnum>
       </key>
       <value>
         <SaveSheetStatus>

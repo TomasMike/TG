@@ -6,6 +6,7 @@ using TG.Forms;
 using TG.PlayerCharacterItems;
 using TG.PlayerDecisionIO;
 using TG.SavingLoading;
+using TG.Log;
 
 namespace TG.CoreStuff
 {
@@ -45,7 +46,14 @@ namespace TG.CoreStuff
             }
         }
 
+        /// <summary>
+        /// In each round, one action per player, then next round, until all passed, then next day
+        /// </summary>
         private List<PlayerNumber> playersWhoActedThisRound = new List<PlayerNumber>();
+
+        /// <summary>
+        /// Players who passed cant do action this day
+        /// </summary>
         private List<PlayerNumber> playersWhoPassedThisDay = new List<PlayerNumber>();
 
         /// <summary>
@@ -54,11 +62,16 @@ namespace TG.CoreStuff
         public void ProcessMorningStuff()
         {
             //Remove expired menhirs
+            _MainForm.Instance.LocationCardsPanel.RemoveInactiveMenhirs();
+
             //remove locations out of the menhir range
+            _MainForm.Instance.LocationCardsPanel.RemoveLocationsOutsideMenhirRange();
+
             //reduce menhir dial and remove time tokens
             //reveal and read new event card
             //move guardians
             //change equip
+
             playersWhoPassedThisDay.Clear();
             playersWhoActedThisRound.Clear();
             DuringDay();
@@ -66,13 +79,17 @@ namespace TG.CoreStuff
 
         public void DuringDay()
         {
+
+            // if all passed go to end of day
             if (playersWhoPassedThisDay.Count == Players.Count)
             {
-                MessageBox.Show("All players passed. Jumping to end of day phase.");
+                TGLogger.LogToConsole("All players passed. Jumping to end of day phase.");
                 EndOfDay();
             }
             else
             {
+                Round++;
+
                 if (Players.Count > 1)
                 {
                     // ries kto bol toto kolo, ked vsetci zacni dalsie kolo a kto passol uz
@@ -83,16 +100,15 @@ namespace TG.CoreStuff
                     if (possiblePlayersToBeActivePlayer.Count == 0)
                     {
                         //next round
-                        Round++;
                         playersWhoActedThisRound.Clear();
-                        //MessageBox.Show("All players who didnt pass, acted this round. Next round starts.");
+                        TGLogger.LogToConsole("All players who didnt pass, acted this round. Next round starts.");
                         DuringDay();
                         return;
                     }
                     else if (possiblePlayersToBeActivePlayer.Count == 1)
                     {
                         Instance.ActivePlayerNumber = possiblePlayersToBeActivePlayer[0];
-                        MessageBox.Show($"{Instance.ActivePlayerNumber} is the last player who didnt act this round, hes the active player now.");
+                        TGLogger.LogToConsole($"{Instance.ActivePlayerNumber} is the last player who didnt act this round, hes the active player now.");
                     }
                     else
                     {
@@ -116,9 +132,10 @@ namespace TG.CoreStuff
 
         public void StartNextPlayerTurn()
         {
-            //MessageBox.Show($"ACTIVE PLAYER:{Instance.ActivePlayerNumber}");
+            TGLogger.LogToConsole($"ACTIVE PLAYER:{Instance.ActivePlayerNumber}");
             playersWhoActedThisRound.Add(Instance.ActivePlayerNumber);
         }
+
         public void PlayerPassed(Player p = null)
         {
             playersWhoPassedThisDay.Add(p?.PlayerNumber ?? Instance.ActivePlayerNumber);

@@ -35,11 +35,12 @@ namespace TG.Forms
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niecoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.endDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainContentPanel = new System.Windows.Forms.Panel();
             this.cheatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreEnergyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.foodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainContentPanel = new System.Windows.Forms.Panel();
+            this.ConsoleTB = new System.Windows.Forms.TextBox();
+            this.questionFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.questionFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -78,14 +79,6 @@ namespace TG.Forms
             this.endDayToolStripMenuItem.Text = "End Day";
             this.endDayToolStripMenuItem.Click += new System.EventHandler(this.endDayToolStripMenuItem_Click);
             // 
-            // mainContentPanel
-            // 
-            this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContentPanel.Location = new System.Drawing.Point(0, 24);
-            this.mainContentPanel.Name = "mainContentPanel";
-            this.mainContentPanel.Size = new System.Drawing.Size(956, 654);
-            this.mainContentPanel.TabIndex = 1;
-            // 
             // cheatsToolStripMenuItem
             // 
             this.cheatsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -98,20 +91,39 @@ namespace TG.Forms
             // restoreEnergyToolStripMenuItem
             // 
             this.restoreEnergyToolStripMenuItem.Name = "restoreEnergyToolStripMenuItem";
-            this.restoreEnergyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restoreEnergyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.restoreEnergyToolStripMenuItem.Text = "Restore Energy";
             this.restoreEnergyToolStripMenuItem.Click += new System.EventHandler(this.restoreEnergyToolStripMenuItem_Click);
-            // 
-            // questionFormBindingSource
-            // 
-            this.questionFormBindingSource.DataSource = typeof(TG.PlayerCharacterItems.Character);
             // 
             // foodToolStripMenuItem
             // 
             this.foodToolStripMenuItem.Name = "foodToolStripMenuItem";
-            this.foodToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.foodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.foodToolStripMenuItem.Text = "+10 Food";
             this.foodToolStripMenuItem.Click += new System.EventHandler(this.foodToolStripMenuItem_Click);
+            // 
+            // mainContentPanel
+            // 
+            this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.mainContentPanel.Location = new System.Drawing.Point(0, 24);
+            this.mainContentPanel.Name = "mainContentPanel";
+            this.mainContentPanel.Size = new System.Drawing.Size(956, 654);
+            this.mainContentPanel.TabIndex = 1;
+            // 
+            // ConsoleTB
+            // 
+            this.ConsoleTB.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ConsoleTB.Location = new System.Drawing.Point(0, 591);
+            this.ConsoleTB.Multiline = true;
+            this.ConsoleTB.Name = "ConsoleTB";
+            this.ConsoleTB.ReadOnly = true;
+            this.ConsoleTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ConsoleTB.Size = new System.Drawing.Size(956, 87);
+            this.ConsoleTB.TabIndex = 2;
+            // 
+            // questionFormBindingSource
+            // 
+            this.questionFormBindingSource.DataSource = typeof(TG.PlayerCharacterItems.Character);
             // 
             // _MainForm
             // 
@@ -119,6 +131,7 @@ namespace TG.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(956, 678);
+            this.Controls.Add(this.ConsoleTB);
             this.Controls.Add(this.mainContentPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -144,6 +157,7 @@ namespace TG.Forms
         private System.Windows.Forms.ToolStripMenuItem cheatsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreEnergyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem foodToolStripMenuItem;
+        private System.Windows.Forms.TextBox ConsoleTB;
     }
 }
 

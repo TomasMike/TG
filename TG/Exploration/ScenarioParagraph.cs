@@ -4,6 +4,9 @@ using TG.PlayerDecisionIO;
 
 namespace TG.Exploration
 {
+    /// <summary>
+    /// One paragrapth, with number or into paragraph
+    /// </summary>
     public class ScenarioParagraph : IAskerOption
     {
         /// <summary>
@@ -59,6 +62,7 @@ namespace TG.Exploration
     {
         public Func<object, bool> Check;
         public string PossesionReason;
+        public string MissingPossesionReason;
         public abstract string GetDescription();
 
         public string GetOptionDescription()
@@ -73,7 +77,7 @@ namespace TG.Exploration
 
         public override string GetDescription()
         {
-            return $"You have {PossesionReason}, therefore you are forced to choose paragraph {RedirectToParagraphNum}.";
+            return $"You have or don't have {PossesionReason}, therefore you are forced to choose paragraph {RedirectToParagraphNum}.";
         }
     }
 

@@ -37,7 +37,7 @@ namespace TG.Libs
                                         OldLocationNumber = 101,
                                         NewLocationNumber = 121,
                                         PossesionReason = "status [Winds of Wyrdness]",
-                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus("Winds of Wyrdness")
+                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.WindsOfWyrdness)
                                     },
                                     new ForceScenarioParagraphForcedOption
                                     {
@@ -49,7 +49,7 @@ namespace TG.Libs
                                     {
                                         RedirectToParagraphNum = 6,
                                         PossesionReason = "status [Hunter's Mark]",
-                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus("Hunter's Mark"),
+                                        Check = _ => SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.HuntersMark),
                                     }
                                 },
                                 ParagraphOptions = new List<ParagraphOption>
@@ -127,7 +127,7 @@ namespace TG.Libs
                                             {
                                                 Action = _ =>
                                                 {
-                                                    SaveManager.CurrentSaveSheet.GainStatus("Fate of the Expedition", 1);
+                                                    SaveManager.CurrentSaveSheet.GainStatus(SaveSheetStatusEnum.FateOfTheExpedition, 1);
                                                 }
                                             },
                                         }
@@ -148,7 +148,7 @@ namespace TG.Libs
                                                 {
                                                     if(
                                                         e.ActiveParty.Any(p => p.Character.Reputation >= 1) &&
-                                                        !SaveManager.CurrentSaveSheet.CheckStatus("Scrounger")
+                                                        !SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.Scrounger)
                                                         )
                                                     {
                                                         //TODO napisat dovod, posielat dovod do metody?
@@ -156,7 +156,7 @@ namespace TG.Libs
                                                     }
 
                                                     //TODO gain 1 random item
-                                                    SaveManager.CurrentSaveSheet.GainStatus("Scrounger");
+                                                    SaveManager.CurrentSaveSheet.GainStatus(SaveSheetStatusEnum.Scrounger);
                                                 },
                                             }
 
@@ -255,7 +255,7 @@ namespace TG.Libs
                                     {
                                         Action  = e =>
                                         {
-                                            if(!SaveManager.CurrentSaveSheet.CheckStatus("Mourning Song",1))
+                                            if(!SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.MourningSong,1))
                                             {
                                                  e.ActiveParty.ForEach(p =>
                                                 {
@@ -263,7 +263,7 @@ namespace TG.Libs
                                                 });
                                             }
 
-                                            SaveManager.CurrentSaveSheet.GainStatus("Mourning Song",1);
+                                            SaveManager.CurrentSaveSheet.GainStatus(SaveSheetStatusEnum.MourningSong,1);
                                         }
                                     },
                                     ParagraphOptions = new List<ParagraphOption>
@@ -321,6 +321,78 @@ namespace TG.Libs
                             //TODO menhir activation
                         }
                     },
+                    //102
+                    {
+                        102,
+                        new ExplorationScenario
+                        {
+                            IntroParagraph = new ScenarioParagraph
+                            {
+                                Text = "102Intro",
+                                ForcedOptions = new List<ForcedOption>
+                                {
+                                    new ForceScenarioParagraphForcedOption
+                                    {
+                                        RedirectToParagraphNum = 3,
+                                        MissingPossesionReason= "missing status [Tracker]",
+                                        Check = _ => !SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.Tracker)
+                                    },
+                                },
+                                ParagraphOptions = new List<ParagraphOption>
+                                {
+                                    new ParagraphOption
+                                    {
+                                        MainText = "Sleep in the shrine",
+                                        ParagraphNumToRedirectToAfter = 1,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        MainText = "Dig through the offerings",
+                                        ParagraphNumToRedirectToAfter = 4,
+                                    },
+                                    new ParagraphOption
+                                    {
+                                        MainText = "Deface the shrine and leave a message to other hunters",
+                                        ParagraphNumToRedirectToAfter = 6,
+                                        OptionCondition = _ => SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.MourningSong,1) && !SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.MourningSong,2),
+                                    },
+                                    new ExplorationEndsParagraphOption(),
+                                }
+                            },
+                            Options = new List<ScenarioParagraph>
+                            {
+                                new ScenarioParagraph
+                                {
+                                    VerseNumber =1,
+                                    Text = "102-1text",
+                                    PreParagraphChoiceEffect = new EffectParagraphAction
+                                    {
+                                        Action =  e => e.ActiveParty.ForEach(p => Game.Instance.PlayerPassed(p))
+                                    },
+                                },
+                                new ScenarioParagraph
+                                {
+                                    VerseNumber = 2,
+                                    Text = "102-2text",
+                                    ParagraphOptions = new List<ParagraphOption>
+                                    {
+                                        new ParagraphOption
+                                        {
+                                            ParagraphNumToRedirectToAfter = -1,
+                                            ParagraphAction = new EffectParagraphAction
+                                            {
+                                                Action = e =>
+                                                {
+                                                    e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.Experience,EditCharPropertyChangeType.Add,2));
+                                                    SaveManager.CurrentSaveSheet.GainStatus(SaveSheetStatusEnum.MourningSong);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 });
             private set => _explorationScenarios = value;
         }

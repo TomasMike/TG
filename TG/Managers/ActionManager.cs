@@ -40,11 +40,14 @@ namespace TG.Managers
                 mainActionButtons.Add(b);
                 _MainForm.Instance._actionButtonFlPanel.Controls.Add(b);
             }
-
-            mainActionButtons.First(_ => _.ActionType == ActionType.Travel).Click += TravelActionClick;
-            mainActionButtons.First(_ => _.ActionType == ActionType.Pass).Click += PassClick;
-            mainActionButtons.First(_ => _.ActionType == ActionType.LocationAction).Click += LocationActionClick;
+          
             mainActionButtons.First(_ => _.ActionType == ActionType.Explore).Click += ExplorationActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.Travel).Click += TravelActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.LocationAction).Click += LocationActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.CharacterAction).Click += null;
+            mainActionButtons.First(_ => _.ActionType == ActionType.InspectMenhir).Click += InspectMenhirActionClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.Pass).Click += PassClick;
+            mainActionButtons.First(_ => _.ActionType == ActionType.Other).Click += null;
 
             //
             ActionFinished += ActionManager_ActionFinished;
@@ -56,8 +59,6 @@ namespace TG.Managers
         {
             SaveManager.Save();
         }
-
-
 
         #region Travel Action
         private static void TravelActionClick(object sender, EventArgs e)
@@ -101,7 +102,7 @@ namespace TG.Managers
             var p = Game.Instance.ActivePlayer;
             p.Character.EditCharProperty(CharacterAttribute.CurrentEnergy,EditCharPropertyChangeType.Subtract,1);
             p.CurrentLocation = ((LocationSelectionButton)sender).LocationNumber;
-            _MainForm.Instance.Mp.AddMissingLocationsAfterTravel(p.CurrentLocation);
+            _MainForm.Instance.LocationCardsPanel.AddMissingLocationsAfterTravel(p.CurrentLocation);
             DisableMoveMode();
             ActionFinished.Invoke();
         }
@@ -115,7 +116,7 @@ namespace TG.Managers
 
             b.Text = "Travel";
 
-            foreach (var item in _MainForm.Instance.Mp.LocationCards)
+            foreach (var item in _MainForm.Instance.LocationCardsPanel.LocationCards)
             {
                 var l = LocationsHelper.GetLCControlFromLocationNumber(item.LocationNumber);
                 if (l.LocationActionBtn.Visible)
@@ -129,8 +130,11 @@ namespace TG.Managers
         }
         #endregion
 
-        #region Activate Menhir
+        #region Inspect Menhir
+        private static void InspectMenhirActionClick(object sender, EventArgs e)
+        {
 
+        }
         #endregion
 
         #region Location Action

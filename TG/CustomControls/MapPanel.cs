@@ -72,7 +72,7 @@ namespace TG.CustomControls
 
         public void AddMissingMapTiles()
         {
-            foreach (var locationWithActiveMenhir in LocationsHelper.GetLocationsWithActiveMenhir())
+            foreach (var locationWithActiveMenhir in LocationsHelper.GetSurroundingLocationsInPlay())
             {
                 //lokacie priamo up/down/left/right of lokacie s aktivnym menhirom
                 foreach (var s in LocationsHelper.GetNeighbourLocationNumbers(locationWithActiveMenhir).ToList())
@@ -90,7 +90,9 @@ namespace TG.CustomControls
             var LocsToRemove = new List<LocationCardControl>();
             foreach (LocationCardControl l in LocationCards)
             {
-                if (LocationsHelper.GetSurroundingLocations(l.LocationNumber).All(loc => loc.MenhirValue == -1))
+                var surrLocs = LocationsHelper.GetSurroundingLocationsInPlay(l.LocationNumber);
+                
+                if (l.MenhirValue == -1 && surrLocs.All(loc => loc.MenhirValue == -1))
                     LocsToRemove.Add(l);
             }
 
@@ -134,6 +136,17 @@ namespace TG.CustomControls
                 if(LocationsHelper.IsLocationNearActiveMenhir(s) || DebugCheats.IgnoreMenhirVicinityWhenShowNewLocationAfterTravel)
                 {
                     AddLocationCardToMap(s);
+                }
+            }
+        }
+
+        public void RemoveInactiveMenhirs()
+        {
+            foreach (var loc in LocationCards)
+            {
+                if(loc.MenhirValue == 0)
+                {
+                    loc.MenhirValue = -1;
                 }
             }
         }

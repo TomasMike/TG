@@ -16,8 +16,10 @@ namespace TG
         [STAThread]
         private static void Main()
         {
-     
 
+            DateTime dob;
+            ///var a = DateTime.Parse("1950-24-12 00:00:00.000");
+            var b = DateTime.Parse("1950-12-24 00:00:00.000");
 
 
             Application.EnableVisualStyles();

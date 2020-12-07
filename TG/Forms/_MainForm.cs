@@ -23,7 +23,7 @@ namespace TG.Forms
         #endregion Singleton logic
 
         private BindingSource _bs;
-        public MapPanel Mp = new MapPanel();
+        public MapPanel LocationCardsPanel = new MapPanel();
         public FlowLayoutPanel _characterPanelFlPanel = new FlowLayoutPanel();
         public FlowLayoutPanel _actionButtonFlPanel = new FlowLayoutPanel();
         public Panel _bottomFlPanel = new Panel();
@@ -32,16 +32,14 @@ namespace TG.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
-            Mp.Dock = DockStyle.Left;
-            Mp.AutoSize = true;
-            mainContentPanel.Controls.Add(Mp);
+            LocationCardsPanel.Dock = DockStyle.Left;
+            LocationCardsPanel.AutoSize = true;
+            mainContentPanel.Controls.Add(LocationCardsPanel);
 
             _characterPanelFlPanel.Dock = DockStyle.Right;
             _characterPanelFlPanel.AutoSize = true;
             _characterPanelFlPanel.BackColor = Color.Aqua;
             mainContentPanel.Controls.Add(_characterPanelFlPanel);
-
 
             _bottomFlPanel.Dock = DockStyle.Bottom;
             _bottomFlPanel.AutoSize = true;
@@ -56,8 +54,6 @@ namespace TG.Forms
             _actionButtonFlPanel.BackColor = Color.DarkViolet;
             _actionButtonFlPanel.AutoSize = true;
             _bottomFlPanel.Controls.Add(_actionButtonFlPanel);
-
-
 
             var startMenu = new StartMenuForm();
             var result = startMenu.ShowDialog();
@@ -83,11 +79,16 @@ namespace TG.Forms
             this.ResumeLayout(false);
             this.PerformLayout();
             ActionManager.InitActionButtonPanel();
-            Mp.RefreshMapLayout();
+            LocationCardsPanel.RefreshMapLayout();
             SaveManager.Save();
 
             //start game chain
             Game.Instance.ProcessMorningStuff();
+        }
+
+        public void WriteToConsole(string message)
+        {
+            this.ConsoleTB.Text += $"{(this.ConsoleTB.Text.Length == 0 ? "" : "\r\n")}[{DateTime.Now.ToShortTimeString()}] {message}";
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)

@@ -83,7 +83,7 @@
         HostileSettlement,
     }
 
-    public enum PlayerNumber 
+    public enum PlayerNumber
     {
         Player1,
         Player2,
@@ -112,5 +112,76 @@
         Magic
     }
 
-    //public enum AfterParagrap
+    public enum SaveSheetStatusEnum
+    {
+        AlliesOfAvalon,
+        BlackCauldron,
+        BurningMystery,
+        CallFromBeyond,
+        CharredKnowledge,
+        CherishedBelongings,
+        ColdPyre,
+        Cosuil,
+        DealBreaker,
+        DeepSecret,
+        Diplomat,
+        DiplomaticMission,
+        DisturbingInformation,
+        DreamsAndProphecies,
+        EndOfTheRoad,
+        EnemiesOfAvalon,
+        Escalation,
+        FaelsLegacy,
+        FallOfChivalry,
+        FarpointClues,
+        FateOfTheExpedition,
+        FinalConfrontations,
+        FinalLesson,
+        FortunateMeetings,
+        GeneralDirections,
+        GerraintsSuccessor,
+        GlenRitual,
+        GuestOfHonor,
+        HalfwayIntrigue,
+        HelpingHand,
+        HelpingTheKnights,//nasheetesu4prazdnepolicka
+        HiddenTreasures,
+        HuntersMark,
+        LadysTask,
+        LastHaven,
+        LeftBehind,
+        LostAndFallen,
+        MaggotsRedemption,
+        Matricide,
+        MonasteryDiscovered,
+        MoonringMission,
+        MorgainesTask,
+        MourningSong,
+        MysterySolved,
+        Pathfinder,
+        PeaceInBorough,
+        PeoplesChampion,
+        Pillager,
+        Reclamation,
+        Remedy,
+        Remnants,
+        RestoringTheOrder,
+        RiddleOfTheOldsteel,
+        SavedByTheGoddess,
+        Scrounger,
+        SecretsOfTheForest,
+        ShelterInTheStorm,
+        ShrineSecure,
+        SomethingIsWatching,//vsheetesu4prazdnepolicka
+        StonemasonsSecret,
+        StrangeEncounters,
+        SupplyingTheRevolt,//vsheetesu4prazdnepolicka
+        TanglerootKnowledge,
+        Tracker,
+        TravelingMenhir,
+        TuathanExploration,
+        Underfern,
+        WarForAvalon,
+        WindsOfWyrdness,
+    }
 }
