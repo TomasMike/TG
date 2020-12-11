@@ -43,7 +43,6 @@ namespace TG.CustomControls
         /// </summary>
         public int MenhirValue;
         public MenhirActivationRequirement MenhirActivationRequirement;
-        public string MenhirActivationRequirementsDescription;
 
         /// <summary>
         /// if null, this location cannot have a menhir

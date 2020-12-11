@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using TG.Forms;
@@ -16,10 +18,8 @@ namespace TG
         [STAThread]
         private static void Main()
         {
-
-            DateTime dob;
-            ///var a = DateTime.Parse("1950-24-12 00:00:00.000");
-            var b = DateTime.Parse("1950-12-24 00:00:00.000");
+            var l = new List<int>();
+            var b = l.All(i => i > 5);
 
 
             Application.EnableVisualStyles();

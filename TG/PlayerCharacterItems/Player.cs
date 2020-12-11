@@ -50,7 +50,7 @@ namespace TG.PlayerCharacterItems
         public int CurrentLocation { get; set; }
 
         [XmlIgnore]
-        public LocationCardControl CurrentLocationCard => LocationsHelper.GetLCControlFromLocationNumber(CurrentLocation);
+        public LocationCardControl CurrentLocationCard => LocationsHelper.GetLCControl(CurrentLocation);
 
         //public List<Card> Hand;
         //public List<Card> DrawingDeck;

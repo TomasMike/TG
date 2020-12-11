@@ -44,7 +44,6 @@ namespace TG.Libs
                                     1);
                             }
                         },
-                        MenhirActivationRequirementsDescription = null,
                         MenhirActivationRequirement = new MenhirActivationRequirement
                         {
                             PerCharacterCosts = new Dictionary<MenhirActivationRequirementsResourceEnum, int>
@@ -54,7 +53,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Wealth, 2 },
                                 { MenhirActivationRequirementsResourceEnum.Magic, 2 }
                             },
-                            RequiredSecrets = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
+                            RequiredSecretsByName = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
                         },
                         ActivateMenhir = a => { var menhirValue = 8 - Game.CurrentSaveSheet.Players.Count; },
                     }.Init(),
@@ -133,7 +132,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Wealth, 2 },
                                 { MenhirActivationRequirementsResourceEnum.Food, 1 }
                             },
-                            RequiredSecrets = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
+                            RequiredSecretsByName = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
                         },
                         ActivateMenhir = a => { var menhirValue = 9 - Game.CurrentSaveSheet.Players.Count; },
 
@@ -162,7 +161,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Wealth, 1 },
                                 { MenhirActivationRequirementsResourceEnum.Magic, 1 },
                             },
-                            RequiredSecrets = new List<string>{"Menhir Rites" }
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites" }
                         },
                         ActivateMenhir = a => { var menhirValue = 9 - Game.CurrentSaveSheet.Players.Count; },
                     }.Init(),
@@ -223,7 +222,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Food, 1 },
                                 { MenhirActivationRequirementsResourceEnum.Magic, 2 },
                             },
-                            RequiredSecrets = new List<string>{ "Menhir Rites" },
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites" },
                         },
                         ActivateMenhir = a => { var menhirValue = 7 - Game.CurrentSaveSheet.Players.Count; },
                     }.Init(),
@@ -281,7 +280,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Energy, 2 },
                                 { MenhirActivationRequirementsResourceEnum.Magic, 2 },
                             },
-                            RequiredSecrets = new List<string>{ "Menhir Rites" },
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites" },
                         },
                         ActivateMenhir = a => { var menhirValue = 8 - Game.CurrentSaveSheet.Players.Count; },
                     }.Init(),
@@ -331,7 +330,7 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Food, 2 },
                                 { MenhirActivationRequirementsResourceEnum.Wealth, 1 },
                             },
-                            RequiredSecrets = new List<string>{ "Menhir Rites","7"},
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites","7"},
                         },
                         ActivateMenhir = a =>
                         {

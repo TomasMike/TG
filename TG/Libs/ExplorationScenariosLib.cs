@@ -43,7 +43,7 @@ namespace TG.Libs
                                     {
                                         RedirectToParagraphNum = 4,
                                         PossesionReason = "secret card [66]",
-                                        Check = _ => Game.Instance.ActivePlayer.Character.HasCharacterSecret(66),
+                                        Check = _ => Game.Instance.ActivePlayer.Character.HasCharacterSecretByNumber(66),
                                     },
                                     new ForceScenarioParagraphForcedOption
                                     {
@@ -178,11 +178,11 @@ namespace TG.Libs
                                                 {
                                                     //TODO viac popisat, spravit zvlast manazer na taketo asi
                                                     MessageBox.Show("Roll a die and add +2 for each point of your [Aggression]. Check the total result:");
-                                                    
+
                                                     var dieRoll = new Random().Next(1,7);
                                                     var activePlayerAgg = Game.Instance.ActivePlayer.Character.Aggression;
                                                     var result = dieRoll + (activePlayerAgg*2);
-                                                    
+
                                                     MessageBox.Show($"You rolled : {dieRoll}. Adding {activePlayerAgg*2} for your Aggression. Final result is:[{result}]");
 
                                                     if(1 <= result && result <= 3)
@@ -250,17 +250,14 @@ namespace TG.Libs
                                 {
                                     VerseNumber = 6,
                                     Text = "Three women mourn in front of the long hall. One of them has lost her child, a girl of eight recently butchered like an animal in the hills outside Cuanacht.\r\nYou feel your legs giving way. The faint memories of the night hunt now burn your mind like hot iron. You stumble away, trying not to look at the mourners' faces.",
-                                    
+
                                     PreParagraphChoiceEffect = new EffectParagraphAction
                                     {
                                         Action  = e =>
                                         {
                                             if(!SaveManager.CurrentSaveSheet.CheckStatus(SaveSheetStatusEnum.MourningSong,1))
                                             {
-                                                 e.ActiveParty.ForEach(p =>
-                                                {
-                                                    p.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,2);
-                                                });
+                                                e.ActiveParty.ForEach(p => p.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,2));
                                             }
 
                                             SaveManager.CurrentSaveSheet.GainStatus(SaveSheetStatusEnum.MourningSong,1);
@@ -316,7 +313,6 @@ namespace TG.Libs
                             {
                                 Text = "In your dream, a Wyrm the size of a mountain rises from the west - his skin shimmering with all colors of the rainbow. He draws close, opening his jaws as if ready to swallow the entire farmhold. Strangely, most people on the streets of Cuanacht aren't even looking toward the creature. They are looking at YOU, with sadness and disappointment.\r\n\"You told us it would be alright...\" A small girl breaks into tears.\r\nYou wake up and can't fall asleep again until the dawn.",
                                 Effect = e => e.Player.Character.EditCharProperty(CharacterAttribute.CurrentTerror,EditCharPropertyChangeType.Add,1)
-
                             }
                             //TODO menhir activation
                         }
@@ -396,7 +392,5 @@ namespace TG.Libs
                 });
             private set => _explorationScenarios = value;
         }
-
-
     }
 }

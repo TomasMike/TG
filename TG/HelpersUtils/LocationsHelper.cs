@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TG.CustomControls;
 using TG.Forms;
@@ -10,64 +11,72 @@ namespace TG.HelpersUtils
     public static class LocationsHelper
     {
         #region location int -> location LCC
-        public static LocationCardControl GetLCControlInPlayFromLocationNumber(int number)
+        public static LocationCardControl GetLCControlInPlay(int number)
         {
             return _MainForm.Instance.LocationCardsPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == number);
         }
 
-        public static LocationCardControl GetLCControlFromLocationNumber(int number)
+        public static LocationCardControl GetLCControl(int number)
         {
             return LocationsLib.Locations.First(_ => _.LocationNumber == number);
         }
         #endregion
 
         #region neighbouring locations
-        //public static IEnumerable<int> GetNeighbourLocationNumbers(LocationCardControl lcc)
-        //{
-        //    var retVal = new List<int>() { lcc.NorthDirectionKey, lcc.EastDirectionKey, lcc.SouthDirectionKey, lcc.WestDirectionKey };
-        //    retVal.RemoveAll(_ => _ == 0);
-        //    return retVal;
-        //}
+        public static IEnumerable<int> GetNeighbourLocationNumbers(LocationCardControl lcc)
+        {
+            var retVal = new List<int>() { lcc.NorthDirectionKey, lcc.EastDirectionKey, lcc.SouthDirectionKey, lcc.WestDirectionKey };
+            retVal.RemoveAll(_ => _ == 0);
+            return retVal;
+        }
+
+        public static IEnumerable<int> GetNeighbourLocationNumbers(int locationNumber)
+        {
+            var lcc = GetLCControl(locationNumber);
+            var retVal = new List<int>() { lcc.NorthDirectionKey, lcc.EastDirectionKey, lcc.SouthDirectionKey, lcc.WestDirectionKey };
+            retVal.RemoveAll(_ => _ == 0);
+            return retVal;
+        }
+
+        public static IEnumerable<LocationCardControl> GetNeighbourLCCs(int locationNumber)
+        {
+            var lcc = GetLCControl(locationNumber);
+            var retVal = new List<LocationCardControl>()
+            {
+               GetLCControl(lcc.NorthDirectionKey),
+               GetLCControl(lcc.EastDirectionKey),
+               GetLCControl(lcc.SouthDirectionKey),
+               GetLCControl(lcc.WestDirectionKey)
+            };
+            retVal.RemoveAll(_ => _ == null);
+            return retVal;
+        }
+
+        public static IEnumerable<LocationCardControl> GetNeighbourLCCs(LocationCardControl lcc, bool returnOnlyInPlayLocations = false)
+        {
+            var retVal = new List<LocationCardControl>()
+            {
+               returnOnlyInPlayLocations ? GetLCControlInPlay(lcc.NorthDirectionKey) : GetLCControl(lcc.NorthDirectionKey),
+               returnOnlyInPlayLocations ? GetLCControlInPlay(lcc.EastDirectionKey)  : GetLCControl(lcc.EastDirectionKey),
+               returnOnlyInPlayLocations ? GetLCControlInPlay(lcc.SouthDirectionKey) : GetLCControl(lcc.SouthDirectionKey),
+               returnOnlyInPlayLocations ? GetLCControlInPlay(lcc.WestDirectionKey)  : GetLCControl(lcc.WestDirectionKey)
+            };
+            retVal.RemoveAll(_ => _ == null);
+            return retVal;
+        }
 
         #endregion
 
 
+        public static bool IsLocationNearActiveMenhir(int locationNumber)
+        {
+            return GetSurroundingLCCInPlay(locationNumber).Any(_ => _.MenhirValue >= 0) || GetLCControl(locationNumber).MenhirValue >= 0;
+        }
 
-
-
-
-        //public static IEnumerable<int> GetNeighbourLocationNumbers(int locationNumber)
-        //{
-        //    return GetNeighbourLocationNumbers(GetLCControlFromLocationNumber(locationNumber));
-        //}
-
-
-
-        //public static LocationCardControl GetLCControlInPFromLocationNumber(int number)
-        //{
-        //    return _MainForm.Instance.LocationCardsPanel.LocationCards.FirstOrDefault(_ => _.LocationNumber == number);
-        //}
-
-        //public static bool IsLocationNearActiveMenhir(int locationNumber)
-        //{
-        //    foreach (var item in GetSurroundingLocationsInPlay())
-        //    {
-        //        if (GetSurroundingLocationsNumbers(item.LocationNumber).Contains(locationNumber))
-        //            return true;
-        //    }
-
-        //    return false;
-        //}
-
-        //public static IEnumerable<LocationCardControl> GetSurroundingLocationsInPlay()
-        //{
-        //    return _MainForm.Instance.LocationCardsPanel.LocationCards.Where(location => location.MenhirValue >= 0);
-        //}
 
         public static IEnumerable<int> GetSurroundingLocationsNumbers(int locationNumber)
         {
-            var retVal = new HashSet<int>();
-            var d = new Dictionary<string, LocationCardControl>
+            var locs = new Dictionary<string, LocationCardControl>
             {
                 {"TopLeft",null },
                 {"Top",null },
@@ -79,41 +88,52 @@ namespace TG.HelpersUtils
                 {"BottomRight",null },
             };
 
-            var middleLoc = GetLCControlFromLocationNumber(locationNumber);
+            var middleLoc = GetLCControl(locationNumber);
 
             //get locations in cardinal
-            d["Top"] =          middleLoc.NorthDirectionKey != 0 ? GetLCControlFromLocationNumber(middleLoc.NorthDirectionKey) : null;
-            d["CenterLeft"] =   middleLoc.WestDirectionKey != 0 ?  GetLCControlFromLocationNumber(middleLoc.WestDirectionKey) :  null;
-            d["CenterRight"] =  middleLoc.EastDirectionKey != 0 ?  GetLCControlFromLocationNumber(middleLoc.EastDirectionKey) :  null;
-            d["Bottom"] =       middleLoc.SouthDirectionKey != 0 ? GetLCControlFromLocationNumber(middleLoc.SouthDirectionKey) : null;
+            locs["Top"] =          middleLoc.NorthDirectionKey != 0 ? GetLCControl(middleLoc.NorthDirectionKey) : null;
+            locs["CenterLeft"] =   middleLoc.WestDirectionKey != 0 ?  GetLCControl(middleLoc.WestDirectionKey) :  null;
+            locs["CenterRight"] =  middleLoc.EastDirectionKey != 0 ?  GetLCControl(middleLoc.EastDirectionKey) :  null;
+            locs["Bottom"] =       middleLoc.SouthDirectionKey != 0 ? GetLCControl(middleLoc.SouthDirectionKey) : null;
 
             // get corner locations from cardinals
-            if(d["Top"] != null)
+            if(locs["Top"] != null)
             {
-                d["TopLeft"] = d["TopLeft"] ?? (d["Top"].WestDirectionKey != 0 ? GetLCControlFromLocationNumber(d["Top"].WestDirectionKey) : null);
-                d["TopRight"] = d["TopRight"] ?? (d["Top"].EastDirectionKey != 0 ? GetLCControlFromLocationNumber(d["Top"].EastDirectionKey) : null);
+                locs["TopLeft"] = locs["TopLeft"] ?? (locs["Top"].WestDirectionKey != 0 ? GetLCControl(locs["Top"].WestDirectionKey) : null);
+                locs["TopRight"] = locs["TopRight"] ?? (locs["Top"].EastDirectionKey != 0 ? GetLCControl(locs["Top"].EastDirectionKey) : null);
             }
 
-            if (d["CenterLeft"] != null)
+            if (locs["CenterLeft"] != null)
             {
-                d["TopLeft"] = d["TopLeft"] ?? (d["CenterLeft"].NorthDirectionKey != 0 ? GetLCControlFromLocationNumber(d["CenterLeft"].NorthDirectionKey) : null);
-                d["BottomLeft"] = d["BottomLeft"] ?? (d["CenterLeft"].SouthDirectionKey != 0 ? GetLCControlFromLocationNumber(d["CenterLeft"].SouthDirectionKey) : null);
+                locs["TopLeft"] = locs["TopLeft"] ?? (locs["CenterLeft"].NorthDirectionKey != 0 ? GetLCControl(locs["CenterLeft"].NorthDirectionKey) : null);
+                locs["BottomLeft"] = locs["BottomLeft"] ?? (locs["CenterLeft"].SouthDirectionKey != 0 ? GetLCControl(locs["CenterLeft"].SouthDirectionKey) : null);
             }
 
-            if (d["CenterRight"] != null)
+            if (locs["CenterRight"] != null)
             {
-                d["TopRight"] = d["TopRight"] ?? (d["CenterRight"].NorthDirectionKey != 0 ? GetLCControlFromLocationNumber(d["CenterRight"].NorthDirectionKey) : null);
-                d["BottomRight"] = d["BottomRight"] ?? (d["CenterRight"].SouthDirectionKey != 0 ? GetLCControlFromLocationNumber(d["CenterRight"].SouthDirectionKey) : null);
+                locs["TopRight"] = locs["TopRight"] ?? (locs["CenterRight"].NorthDirectionKey != 0 ? GetLCControl(locs["CenterRight"].NorthDirectionKey) : null);
+                locs["BottomRight"] = locs["BottomRight"] ?? (locs["CenterRight"].SouthDirectionKey != 0 ? GetLCControl(locs["CenterRight"].SouthDirectionKey) : null);
             }
 
-            if (d["Bottom"] != null)
+            if (locs["Bottom"] != null)
             {
-                d["BottomLeft"] = d["BottomLeft"] ?? (d["Bottom"].EastDirectionKey != 0 ? GetLCControlFromLocationNumber(d["Bottom"].EastDirectionKey) : null);
-                d["BottomRight"] = d["BottomRight"] ?? (d["Bottom"].WestDirectionKey != 0 ? GetLCControlFromLocationNumber(d["Bottom"].WestDirectionKey) : null);
+                locs["BottomLeft"] = locs["BottomLeft"] ?? (locs["Bottom"].EastDirectionKey != 0 ? GetLCControl(locs["Bottom"].EastDirectionKey) : null);
+                locs["BottomRight"] = locs["BottomRight"] ?? (locs["Bottom"].WestDirectionKey != 0 ? GetLCControl(locs["Bottom"].WestDirectionKey) : null);
             }
 
+            return locs.Values.Where(_ => _ != null).Select(_ => _.LocationNumber);
+        }
 
-            return retVal;
+
+
+        public static IEnumerable<LocationCardControl> GetSurroundingLCCInPlay(LocationCardControl lcc)
+        {
+            return GetSurroundingLocationsNumbers(lcc.LocationNumber).Select(_ => GetLCControlInPlay(_)).Where(_ => _ != null);
+        }
+
+        public static IEnumerable<LocationCardControl> GetSurroundingLCCInPlay(int locationNumber)
+        {
+            return GetSurroundingLocationsNumbers(locationNumber).Select(_ => GetLCControlInPlay(_)).Where(_ => _ != null);
         }
 
         //public static IEnumerable<LocationCardControl> GetSurroundingLocationsInPlay(int locationNumber)

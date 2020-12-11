@@ -187,7 +187,8 @@ namespace TG.PlayerCharacterItems
                 NotifyPropertyChanged();
             }
         }
-
+
+
         public int CurrentEnergy
         {
             get => _currentEnergy;
@@ -235,7 +236,8 @@ namespace TG.PlayerCharacterItems
                 NotifyPropertyChanged();
             }
         }
-        public int Food
+
+        public int Food
         {
             get => _food;
             private set
@@ -245,7 +247,8 @@ namespace TG.PlayerCharacterItems
                 NotifyPropertyChanged();
             }
         }
-
+
+
         public int Reputation
         {
             get => _reputation;
@@ -256,7 +259,8 @@ namespace TG.PlayerCharacterItems
                 NotifyPropertyChanged();
             }
         }
-
+
+
         public int Wealth
         {
             get => _wealth;
@@ -267,7 +271,8 @@ namespace TG.PlayerCharacterItems
                 NotifyPropertyChanged();
             }
         }
-
+
+
         public int Experience
         {
             get => _experience;

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TG.CoreStuff;
+using TG.Forms;
 using TG.HelpersUtils;
 using TG.Libs;
 
@@ -72,14 +73,13 @@ namespace TG.CustomControls
 
         public void AddMissingMapTiles()
         {
-            foreach (var locationWithActiveMenhir in LocationsHelper.GetSurroundingLocationsInPlay())
+            foreach (var player in Game.Instance.Players)
             {
-                //lokacie priamo up/down/left/right of lokacie s aktivnym menhirom
-                foreach (var s in LocationsHelper.GetNeighbourLocationNumbers(locationWithActiveMenhir).ToList())
+                foreach(var loc in LocationsHelper.GetNeighbourLocationNumbers(player.CurrentLocationCard))
                 {
-                    if (LocationCards.FirstOrDefault(_ => _.LocationNumber == s) == null)
+                    if(LocationsHelper.IsLocationNearActiveMenhir(loc) || DebugCheats.IgnoreMenhirVicinityWhenShowNewLocationAfterTravel)
                     {
-                        AddLocationCardToMap(s);
+                        AddLocationCardToMap(loc);
                     }
                 }
             }
@@ -90,9 +90,7 @@ namespace TG.CustomControls
             var LocsToRemove = new List<LocationCardControl>();
             foreach (LocationCardControl l in LocationCards)
             {
-                var surrLocs = LocationsHelper.GetSurroundingLocationsInPlay(l.LocationNumber);
-                
-                if (l.MenhirValue == -1 && surrLocs.All(loc => loc.MenhirValue == -1))
+                if(!LocationsHelper.IsLocationNearActiveMenhir(l.LocationNumber))
                     LocsToRemove.Add(l);
             }
 
@@ -105,39 +103,31 @@ namespace TG.CustomControls
         public void ActivateMenhir(LocationCardControl lcc, int value)
         {
             lcc.MenhirValue = value;
-            AddMissingMapTiles();
+
+            foreach (var s in LocationsHelper.GetNeighbourLCCs(lcc))
+            {
+                AddLocationCardToMap(s);
+            }
         }
 
         public void AddLocationCardToMap(int locationNumber, int alsoActivateMenhirWithValue = -1)
         {
+            AddLocationCardToMap(LocationsHelper.GetLCControl(locationNumber), alsoActivateMenhirWithValue);
+        }
+
+        public void AddLocationCardToMap(LocationCardControl loc, int alsoActivateMenhirWithValue = -1)
+        {
             //location is already on map
-            if (LocationCards.Any(_ => _.LocationNumber == locationNumber))
+            if (LocationCards.Any(_ => _.LocationNumber == loc.LocationNumber))
                 return;
 
-            var l = LocationsLib.Locations.FirstOrDefault(_ => _.LocationNumber == locationNumber);
-            if (l == null)
-                throw new Exception("wanted to add location that doesnt exist or isnt settuped.");
-
-
-            Controls.Add(l);
+            Controls.Add(loc);
             if (alsoActivateMenhirWithValue >= 0)
             {
-                ActivateMenhir(l, alsoActivateMenhirWithValue);
-                AddMissingMapTiles();
+                ActivateMenhir(loc, alsoActivateMenhirWithValue);
             }
 
             RefreshMapLayout();
-        }
-
-        public void AddMissingLocationsAfterTravel(int destinationLocationNum)
-        {
-            foreach (var s in LocationsHelper.GetNeighbourLocationNumbers(destinationLocationNum))
-            {
-                if(LocationsHelper.IsLocationNearActiveMenhir(s) || DebugCheats.IgnoreMenhirVicinityWhenShowNewLocationAfterTravel)
-                {
-                    AddLocationCardToMap(s);
-                }
-            }
         }
 
         public void RemoveInactiveMenhirs()
