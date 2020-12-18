@@ -47,7 +47,7 @@ namespace TG.CustomControls
         /// <summary>
         /// if null, this location cannot have a menhir
         /// </summary>
-        public Action<string> ActivateMenhir;
+        public Func<object,int> GetMenhirStartingValue;
 
         public LocationSetlementTypeEnum LocationSetlementType;
         public bool Dreams;
@@ -154,7 +154,7 @@ namespace TG.CustomControls
             e.Graphics.FillRectangle(new SolidBrush(Color.Red), e.CellBounds);
         }
 
-        public bool LocationCanHaveMenhir() { return ActivateMenhir == null; }
+        public bool LocationCanHaveMenhir() { return GetMenhirStartingValue == null; }
 
         private void RefreshLocationDescriptionArea()
         {

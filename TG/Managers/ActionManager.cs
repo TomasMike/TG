@@ -9,6 +9,7 @@ using TG.Enums;
 using TG.Forms;
 using TG.HelpersUtils;
 using TG.PlayerCharacterItems;
+using TG.PlayerDecisionIO;
 using TG.SavingLoading;
 
 namespace TG.Managers
@@ -134,7 +135,11 @@ namespace TG.Managers
         private static void InspectMenhirActionClick(object sender, EventArgs e)
         {
             var l = LocationsHelper.GetLCControl(((LocationSelectionButton)sender).LocationNumber);
-            MenhirHelper.GetMenhirActivationDescription(l);
+            if(MessageBox.Show(MenhirHelper.GetMenhirActivationDescription(l),"",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                //_MainForm.Instance.LocationCardsPanel.ActivateMenhir(l,l.men
+            }
+
         }
         #endregion
 

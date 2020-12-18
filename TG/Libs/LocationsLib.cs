@@ -55,7 +55,7 @@ namespace TG.Libs
                             },
                             RequiredSecretsByName = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
                         },
-                        ActivateMenhir = a => { var menhirValue = 8 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = _ => 8 - Game.CurrentSaveSheet.Players.Count,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -134,7 +134,7 @@ namespace TG.Libs
                             },
                             RequiredSecretsByName = new List<string>{"Menhir Rites","Stoneshaper's Tools" }
                         },
-                        ActivateMenhir = a => { var menhirValue = 9 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = _ => 9 - Game.CurrentSaveSheet.Players.Count,
 
                     }.Init(),
                     new LocationCardControl
@@ -163,7 +163,7 @@ namespace TG.Libs
                             },
                             RequiredSecretsByName = new List<string>{ "Menhir Rites" }
                         },
-                        ActivateMenhir = a => { var menhirValue = 9 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = _ => 9 - Game.CurrentSaveSheet.Players.Count,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -224,7 +224,7 @@ namespace TG.Libs
                             },
                             RequiredSecretsByName = new List<string>{ "Menhir Rites" },
                         },
-                        ActivateMenhir = a => { var menhirValue = 7 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = _ => 7 - Game.CurrentSaveSheet.Players.Count,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -282,7 +282,7 @@ namespace TG.Libs
                             },
                             RequiredSecretsByName = new List<string>{ "Menhir Rites" },
                         },
-                        ActivateMenhir = a => { var menhirValue = 8 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = _ =>  8 - Game.CurrentSaveSheet.Players.Count,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -330,24 +330,10 @@ namespace TG.Libs
                                 { MenhirActivationRequirementsResourceEnum.Food, 2 },
                                 { MenhirActivationRequirementsResourceEnum.Wealth, 1 },
                             },
-                            RequiredSecretsByName = new List<string>{ "Menhir Rites","7"},
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites"},
+                            RequiredSecretsByNumber = new List<int>{7},
                         },
-                        ActivateMenhir = a =>
-                        {
-                            int menhirValue;
-                            switch (Game.CurrentSaveSheet.Players.Count)
-                            {
-                                case 1:
-                                case 2:
-                                    menhirValue = 5;break;
-                                case 3:
-                                    menhirValue = 4;break;
-                                case 4:
-                                    menhirValue = 3;break;
-                                default:
-                                    throw new Exception();
-                            }
-                        },
+                        GetMenhirStartingValue = _ => Math.Min(7 - Game.CurrentSaveSheet.Players.Count,5),
                     }.Init(),
                     new LocationCardControl
                     {
@@ -382,6 +368,18 @@ namespace TG.Libs
                         SouthDirectionKey = 105,
                         EastDirectionKey = 104,
                         Dreams = true,
+                        MenhirActivationRequirement = new MenhirActivationRequirement
+                        {
+                            PerCharacterCosts = new Dictionary<MenhirActivationRequirementsResourceEnum, int>
+                            {
+                                { MenhirActivationRequirementsResourceEnum.Energy, 1 },
+                                { MenhirActivationRequirementsResourceEnum.Health, 2 },
+                                { MenhirActivationRequirementsResourceEnum.Wealth, 2 },
+                                { MenhirActivationRequirementsResourceEnum.Magic, 2 },
+                            },
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites","Stoneshaper's Tools"},
+                        },
+                        GetMenhirStartingValue = _ => 8 - Game.CurrentSaveSheet.Players.Count,
                         LocationSetlementType = LocationSetlementTypeEnum.FriendlySettlement,
                     }.Init(),
                      new LocationCardControl
@@ -410,6 +408,16 @@ namespace TG.Libs
                         WestDirectionKey = 114,
                         SouthDirectionKey = 117,
                         EastDirectionKey = 138,
+                        MenhirActivationRequirement = new MenhirActivationRequirement
+                        {
+                            PerCharacterCosts = new Dictionary<MenhirActivationRequirementsResourceEnum, int>
+                            {
+                                { MenhirActivationRequirementsResourceEnum.Energy, 3 },
+                                { MenhirActivationRequirementsResourceEnum.Magic, 2 },
+                            },
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites"},
+                        },
+                        GetMenhirStartingValue = _ => 8 - Game.CurrentSaveSheet.Players.Count,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -439,6 +447,16 @@ namespace TG.Libs
                         SouthDirectionKey = 112,
                         EastDirectionKey = 133,
                         Dreams = true,
+                        MenhirActivationRequirement = new MenhirActivationRequirement
+                        {
+                            PerCharacterCosts = new Dictionary<MenhirActivationRequirementsResourceEnum, int>(),
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites"},
+                            RequiredStatuses = new Dictionary<SaveSheetStatusEnum, bool>
+                            {
+                                {SaveSheetStatusEnum.MysterySolved, true}
+                            }
+                        },
+                        GetMenhirStartingValue = _ => -1,
                     }.Init(),
                     new LocationCardControl
                     {
@@ -456,7 +474,18 @@ namespace TG.Libs
                         WestDirectionKey = 133,
                         EastDirectionKey = 135,
                         LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        ActivateMenhir = a => { var menhirValue = 7 - Game.CurrentSaveSheet.Players.Count; },
+                        MenhirActivationRequirement = new MenhirActivationRequirement
+                        {
+                            PerCharacterCosts = new Dictionary<MenhirActivationRequirementsResourceEnum, int>()
+                            {
+                                {MenhirActivationRequirementsResourceEnum.Energy, 1 },
+                                {MenhirActivationRequirementsResourceEnum.Magic, 2 },
+                                {MenhirActivationRequirementsResourceEnum.Wealth, 1 },
+                            },
+                            RequiredSecretsByName = new List<string>{ "Menhir Rites"},
+                            RequiredActiveMenhirInLocation = true,
+                        },
+                        GetMenhirStartingValue = _ => 7 - Game.CurrentSaveSheet.Players.Count,
 
                     }.Init(),
                     new LocationCardControl
@@ -467,7 +496,7 @@ namespace TG.Libs
                         WestDirectionKey = 134,
                         EastDirectionKey = 136,
                         LocationSetlementType = LocationSetlementTypeEnum.HostileSettlement,
-                        ActivateMenhir = a => { var menhirValue = 7 - Game.CurrentSaveSheet.Players.Count; },
+                        GetMenhirStartingValue = a => { return 7 - Game.CurrentSaveSheet.Players.Count; },
                     }.Init(),
                     new LocationCardControl
                     {
