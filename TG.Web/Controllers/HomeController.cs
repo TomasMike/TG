@@ -10,7 +10,7 @@ namespace TG.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View("Index", GameState.PlayerNames);
+            return View("Index", GameState.Instance);
         }
 
         public ActionResult About()
@@ -48,12 +48,12 @@ namespace TG.Web.Controllers
 
         public ActionResult Refresh()
         {
-            return View("Index", GameState.PlayerNames);
+            return View("Index", GameState.Instance);
         }
 
         public void AddPlayer(string playerName)
         {
-            GameState.PlayerNames.Add(playerName);
+            GameState.Instance.PlayerNames.Add(playerName);
         }
     }
 }
