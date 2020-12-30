@@ -35,9 +35,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WCFServiceTest", "WCFServic
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Web", "TG.Web\TG.Web.csproj", "{7051CFFA-769A-4673-9EF0-CD600254C862}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Core", "TG.Core\TG.Core.csproj", "{A9FED2C9-3871-4108-8F12-71213011DF26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TG.Web", "BlazorApp\TG.Web.csproj", "{5E17D1D9-98B2-499B-AD2C-A746908271A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,14 +69,14 @@ Global
 		{EBA30C3D-85A2-4487-A10C-7BAC8276045A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBA30C3D-85A2-4487-A10C-7BAC8276045A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBA30C3D-85A2-4487-A10C-7BAC8276045A}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{7051CFFA-769A-4673-9EF0-CD600254C862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7051CFFA-769A-4673-9EF0-CD600254C862}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7051CFFA-769A-4673-9EF0-CD600254C862}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7051CFFA-769A-4673-9EF0-CD600254C862}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9FED2C9-3871-4108-8F12-71213011DF26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9FED2C9-3871-4108-8F12-71213011DF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9FED2C9-3871-4108-8F12-71213011DF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9FED2C9-3871-4108-8F12-71213011DF26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E17D1D9-98B2-499B-AD2C-A746908271A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E17D1D9-98B2-499B-AD2C-A746908271A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E17D1D9-98B2-499B-AD2C-A746908271A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E17D1D9-98B2-499B-AD2C-A746908271A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,97 @@
+@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
+
+<div class="form-group">
+    <label>
+        User:
+        <input @bind="userInput" />
+    </label>
+</div>
+<div class="form-group">
+    <label>
+        Message:
+        <input @bind="messageInput" size="50" />
+    </label>
+</div>
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+<hr />
+<button @onclick="q" disabled="@(!IsConnected)">Join Lobby</button><input @bind="name" size="50" readonly/>
+<hr>
+
+<table id="messagesList" style="border:1px solid black">
+    @foreach (var player in PlayersInLobby)
+    {
+        <tr>
+            <td>@player.Item1</td>
+            <td>@player.Item2</td>
+            <td>@player.Item3</td>
+        </tr>
+    }
+</table>
+
+@code {
+    private HubConnection hubConnection;
+    private List<string> messages = new List<string>();
+    private string userInput;
+    private string messageInput;
+    private string name;
+    private List<Tuple<string, CharacterName?, CharacterArchetype?>> PlayersInLobby = TG.Web.Data.LobbyState.LobbyPlayers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/lobbyhub"))
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(encodedMsg);
+            StateHasChanged();
+        });
+
+        hubConnection.On<object>("UpdatePlayerList", _ =>
+        {
+            PlayersInLobby = TG.Web.Data.LobbyState.LobbyPlayers;
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+
+
+    }
+
+    private async void q()
+    {
+        var name = await JsRuntime.InvokeAsync<string>("prompt", "Name?");
+        hubConnection.SendAsync("PlayerJoined", name);
+
+        StateHasChanged();
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        //var b = JsRuntime.InvokeAsync<string>("prompt", "Name?");
+        //b.AsTask().Wait();
+        //name = b.Result;
+        //JsRuntime.InvokeVoidAsync("log", b.Result);
+        //StateHasChanged();
+        ////var q = JsRuntime.InvokeVoidAsync("log", "test");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+
+
+    Task Send() =>
+hubConnection.SendAsync("SendMessage", userInput, messageInput);
+
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        await hubConnection.DisposeAsync();
+    }
+}
